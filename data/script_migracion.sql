@@ -78,3 +78,16 @@ SELECT  DISTINCT m.Bono_Consulta_Numero,m.Plan_Med_Codigo,NULL,a.id_afiliado,0,m
 FROM gd_esquema.Maestra m JOIN ELIMINAR_CAR.Persona p on(p.numero_doc=m.Paciente_dni) JOIN ELIMINAR_CAR.Afiliado a on (p.id_persona=a.id_persona)
 WHERE m.Bono_Consulta_Numero is not null AND m.Medico_Dni IS NOT NULL
 )
+--Turnos atendidos
+INSERT INTO ELIMINAR_CAR.Turno
+(id_turno,fecha_estipulada,matricula,id_afiliado,id_bono,momento_llegada,id_especialidad,activo)
+SELECT DISTINCT m.Turno_Numero, m.Turno_Fecha,pr.matricula,a.id_afiliado,m.Bono_Consulta_Numero,m.Turno_Fecha,m.Especialidad_Codigo,1
+FROM gd_esquema.Maestra m  JOIN ELIMINAR_CAR.Persona p on (m.Medico_Dni=p.numero_doc) JOIN ELIMINAR_CAR.Persona p2 on (m.Paciente_Dni=p2.numero_doc) JOIN ELIMINAR_CAR.Afiliado a ON (a.id_persona=p2.id_persona) JOIN ELIMINAR_CAR.Profesional pr on (p.id_persona=pr.id_persona)
+WHERE m.Turno_Numero is not null and Bono_consulta_numero is not null
+
+--Consultas
+INSERT INTO ELIMINAR_CAR.Consulta
+(id_turno,fecha_consulta,sintomas,diagnostico)
+SELECT DISTINCT m.Turno_Numero, m.Turno_Fecha,Consulta_Sintomas,Consulta_Enfermedades
+FROM gd_esquema.Maestra m
+WHERE m.Turno_Numero is not null and Consulta_Sintomas is not null
