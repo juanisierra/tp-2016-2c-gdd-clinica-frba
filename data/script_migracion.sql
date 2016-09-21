@@ -55,3 +55,26 @@ select	matricula,Especialidad_Codigo
 FROM gd_esquema.maestra m  join ELIMINAR_CAR.Persona p on (m.Medico_Dni = p.numero_doc) JOIN ELIMINAR_CAR.Profesional a on (p.id_persona = a.id_persona)
 WHERE matricula is not null
 group by matricula,Especialidad_Codigo 
+
+
+
+--Todos los bonos comprados y usados
+INSERT INTO ELIMINAR_CAR.Bono
+(id_bono,id_plan,id_afiliado_consumidor,id_afiliado_comprador,utilizado,precio)
+SELECT distinct m.Bono_Consulta_Numero id_bono,m.plan_med_codigo plan_comprado,a.id_afiliado consumidor,bonos_comprados_sin_usar.comprador,1,bonos_comprados_sin_usar.Plan_Med_Precio_Bono_Consulta
+FROM gd_esquema.Maestra m  JOIN ELIMINAR_CAR.Persona p on (p.numero_doc=m.Paciente_Dni) JOIN ELIMINAR_CAR.Afiliado a on (p.id_persona= a.id_persona) JOIN (
+select m2.bono_consulta_numero, a2.id_afiliado comprador,m2.Plan_Med_Precio_Bono_Consulta					--bonos comprados sin usar
+FROM gd_esquema.Maestra m2 JOIN ELIMINAR_CAR.Persona p2 on (p2.numero_doc=m2.Paciente_Dni) JOIN ELIMINAR_CAR.Afiliado a2 on(p2.id_persona= a2.id_persona)
+WHERE m2.Medico_DNI is NULL
+) bonos_comprados_sin_usar ON (bonos_comprados_sin_usar.Bono_consulta_numero=m.Bono_Consulta_Numero)
+WHERE m.Bono_Consulta_Numero is not null AND Medico_Dni is NOT NULL
+UNION  --Bonos no usados
+(
+SELECT DISTINCT m.Bono_Consulta_Numero,m.Plan_Med_Codigo,NULL,a.id_afiliado,0,m.Plan_Med_Precio_Bono_Consulta --TODOS LOS BONOS
+FROM gd_esquema.Maestra m JOIN ELIMINAR_CAR.Persona p on(p.numero_doc=m.Paciente_dni) JOIN ELIMINAR_CAR.Afiliado a on (p.id_persona=a.id_persona)
+WHERE m.Bono_Consulta_Numero is not null
+EXCEPT
+SELECT  DISTINCT m.Bono_Consulta_Numero,m.Plan_Med_Codigo,NULL,a.id_afiliado,0,m.Plan_Med_Precio_Bono_Consulta --BONOS USADOS
+FROM gd_esquema.Maestra m JOIN ELIMINAR_CAR.Persona p on(p.numero_doc=m.Paciente_dni) JOIN ELIMINAR_CAR.Afiliado a on (p.id_persona=a.id_persona)
+WHERE m.Bono_Consulta_Numero is not null AND m.Medico_Dni IS NOT NULL
+)
