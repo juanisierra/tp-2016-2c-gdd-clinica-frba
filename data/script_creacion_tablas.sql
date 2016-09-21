@@ -7,8 +7,8 @@ id_tipo SMALLINT PRIMARY KEY IDENTITY(1,1),
 descripcion VARCHAR(30));
 
 CREATE TABLE ELIMINAR_CAR.Tipo_Especialidad (
-id_tipo_especialidad SMALLINT PRIMARY KEY IDENTITY(1,1),
-descripcion VARCHAR(40));
+id_tipo_especialidad INT PRIMARY KEY,
+descripcion VARCHAR(50));
 
 
 
@@ -18,15 +18,15 @@ n_familiares_a_cargo INT);
 
 CREATE TABLE ELIMINAR_CAR.Persona (
 id_persona BIGINT PRIMARY KEY IDENTITY(1,1),
-tipo_doc INT DEFAULT 1,
+tipo_doc INT DEFAULT 1,  --Cambiar
 numero_doc DECIMAL(8,0),
-nombre VARCHAR(20),
-apellido VARCHAR(20),
-direccion VARCHAR(60),
+nombre VARCHAR(40),
+apellido VARCHAR(40),
+direccion VARCHAR(100),
 telefono BIGINT,
-mail VARCHAR(50),
+mail VARCHAR(60),
 fecha_nac DATE,
-estado_civil VARCHAR(11) CHECK(estado_civil IN ('soltero','casado','viudo','concubinato','divorciado')),
+estado_civil VARCHAR(12) CHECK(estado_civil IN ('soltero','casado','viudo','concubinato','divorciado')),
 sexo CHAR CHECK(sexo IN ('m','f')));
 
 CREATE TABLE ELIMINAR_CAR.Rol (
@@ -43,7 +43,7 @@ id_persona BIGINT,
 FOREIGN KEY (id_persona) REFERENCES ELIMINAR_CAR.Persona(id_persona));
 
 CREATE TABLE ELIMINAR_CAR.Planes (
-id_plan INT PRIMARY KEY IDENTITY(1,1),
+id_plan INT PRIMARY KEY,
 desc_plan VARCHAR(50),
 precio_bono_consulta INT);
 
@@ -66,17 +66,15 @@ FOREIGN KEY(id_funcionalidad) REFERENCES ELIMINAR_CAR.Funcionalidad(id_funcional
 PRIMARY KEY(id_rol,id_funcionalidad));
 
 CREATE TABLE ELIMINAR_CAR.Especialidad (
-id_especialidad INT PRIMARY KEY IDENTITY(1,1),
-desc_especialidad VARCHAR(40),
-id_tipo_especialidad SMALLINT,
+id_especialidad INT PRIMARY KEY,
+desc_especialidad VARCHAR(100),
+id_tipo_especialidad INT,
 FOREIGN KEY (id_tipo_especialidad) REFERENCES ELIMINAR_CAR.Tipo_Especialidad(id_tipo_especialidad));
 
 CREATE TABLE ELIMINAR_CAR.Profesional (
 matricula BIGINT PRIMARY KEY,
 id_persona BIGINT,
-id_especialidad INT,
-FOREIGN KEY (id_persona) REFERENCES ELIMINAR_CAR.Persona(id_persona),
-FOREIGN KEY (id_especialidad) REFERENCES ELIMINAR_CAR.Especialidad(id_especialidad));
+FOREIGN KEY (id_persona) REFERENCES ELIMINAR_CAR.Persona(id_persona));
 
 CREATE TABLE ELIMINAR_CAR.Especialidad_por_profesional (
 id_especialidad INT,
