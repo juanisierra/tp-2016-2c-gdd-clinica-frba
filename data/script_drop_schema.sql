@@ -1,5 +1,6 @@
 USE [GD2C2016]
 GO
+DROP PROCEDURE ELIMINAR_CAR.Migrar_Bonos;
 DROP TABLE ELIMINAR_CAR.Funcionalidades_por_rol;
 DROP TABLE ELIMINAR_CAR.Roles_por_usuarios;
 DROP TABLE ELIMINAR_CAR.Especialidad_por_profesional;

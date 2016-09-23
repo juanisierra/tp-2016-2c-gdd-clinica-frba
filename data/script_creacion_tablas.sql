@@ -100,7 +100,8 @@ id_plan INT,
 id_familia BIGINT,
 familiares_a_cargo INT,
 activo BIT,
-fecha_baja DATE
+fecha_baja DATE,
+num_consulta_actual BIGINT
 FOREIGN KEY (id_persona) REFERENCES ELIMINAR_CAR.Persona(id_persona),
 FOREIGN KEY (id_plan) REFERENCES ELIMINAR_CAR.Planes(id_plan),
 FOREIGN KEY (id_familia) REFERENCES ELIMINAR_CAR.Familia(id_familia));
@@ -109,6 +110,7 @@ CREATE TABLE ELIMINAR_CAR.Bono (
 id_bono BIGINT PRIMARY KEY,
 id_afiliado_comprador BIGINT,
 id_afiliado_consumidor BIGINT,
+num_consulta BIGINT,
 id_plan INT,
 utilizado BIT,
 precio INT,

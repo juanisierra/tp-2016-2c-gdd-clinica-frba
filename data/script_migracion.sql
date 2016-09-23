@@ -1,5 +1,35 @@
 USE [GD2C2016]
 GO
+CREATE PROCEDURE ELIMINAR_CAR.Migrar_Bonos
+AS
+DECLARE @Afiliado_id BIGINT
+
+DECLARE afiliadoActual CURSOR FOR
+SELECT id_afiliado
+FROM ELIMINAR_CAR.Afiliado
+
+OPEN afiliadoActual
+FETCH Next FROM afiliadoActual INTO @Afiliado_id
+WHILE @@FETCH_STATUS = 0 BEGIN
+INSERT INTO ELIMINAR_CAR.Bono
+(id_bono,id_plan,id_afiliado_consumidor,id_afiliado_comprador,utilizado,precio,num_consulta)
+SELECT id_bono,id_plan,id_afiliado_consumidor,id_afiliado_comprador,utilizado,precio,row_number() OVER (ORDER BY id_bono)
+FROM ELIMINAR_CAR.#Bonos
+WHERE id_afiliado_comprador=@Afiliado_id
+
+UPDATE ELIMINAR_CAR.Afiliado
+SET num_consulta_actual=(
+	select Max(num_consulta)
+	FROM ELIMINAR_CAR.Bono
+	WHERE id_afiliado_comprador=@Afiliado_id)
+WHERE id_afiliado=@Afiliado_id
+
+FETCH NEXT FROM afiliadoActual INTO @Afiliado_id
+END
+CLOSE afiliadoActual
+DEALLOCATE afiliadoActual
+GO
+
 --Inserta personas en la tabla
 INSERT INTO ELIMINAR_CAR.Persona
 (numero_doc,nombre,apellido,direccion,telefono,mail,fecha_nac,estado_civil)
@@ -56,10 +86,21 @@ FROM gd_esquema.maestra m  join ELIMINAR_CAR.Persona p on (m.Medico_Dni = p.nume
 WHERE matricula is not null
 group by matricula,Especialidad_Codigo 
 
+CREATE TABLE ELIMINAR_CAR.#Bonos (
+id_bono BIGINT PRIMARY KEY,
+id_afiliado_comprador BIGINT,
+id_afiliado_consumidor BIGINT,
+id_plan INT,
+utilizado BIT,
+precio INT,
+FOREIGN KEY (id_afiliado_comprador) REFERENCES ELIMINAR_CAR.Afiliado(id_afiliado),
+FOREIGN KEY (id_afiliado_consumidor) REFERENCES ELIMINAR_CAR.Afiliado(id_afiliado),
+FOREIGN KEY (id_plan) REFERENCES ELIMINAR_CAR.Planes(id_plan));
+
 
 
 --Todos los bonos comprados y usados
-INSERT INTO ELIMINAR_CAR.Bono
+INSERT INTO ELIMINAR_CAR.#Bonos
 (id_bono,id_plan,id_afiliado_consumidor,id_afiliado_comprador,utilizado,precio)
 SELECT distinct m.Bono_Consulta_Numero id_bono,m.plan_med_codigo plan_comprado,a.id_afiliado consumidor,bonos_comprados_sin_usar.comprador,1,bonos_comprados_sin_usar.Plan_Med_Precio_Bono_Consulta
 FROM gd_esquema.Maestra m  JOIN ELIMINAR_CAR.Persona p on (p.numero_doc=m.Paciente_Dni) JOIN ELIMINAR_CAR.Afiliado a on (p.id_persona= a.id_persona) JOIN (
@@ -78,6 +119,7 @@ SELECT  DISTINCT m.Bono_Consulta_Numero,m.Plan_Med_Codigo,NULL,a.id_afiliado,0,m
 FROM gd_esquema.Maestra m JOIN ELIMINAR_CAR.Persona p on(p.numero_doc=m.Paciente_dni) JOIN ELIMINAR_CAR.Afiliado a on (p.id_persona=a.id_persona)
 WHERE m.Bono_Consulta_Numero is not null AND m.Medico_Dni IS NOT NULL
 )
+EXEC ELIMINAR_CAR.Migrar_Bonos
 --Turnos atendidos
 INSERT INTO ELIMINAR_CAR.Turno
 (id_turno,fecha_estipulada,matricula,id_afiliado,id_bono,momento_llegada,id_especialidad,activo)
