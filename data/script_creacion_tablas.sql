@@ -114,6 +114,8 @@ num_consulta BIGINT,
 id_plan INT,
 utilizado BIT,
 precio INT,
+fecha_compra DATETIME,
+fecha_uso DATETIME,
 FOREIGN KEY (id_afiliado_comprador) REFERENCES ELIMINAR_CAR.Afiliado(id_afiliado),
 FOREIGN KEY (id_afiliado_consumidor) REFERENCES ELIMINAR_CAR.Afiliado(id_afiliado),
 FOREIGN KEY (id_plan) REFERENCES ELIMINAR_CAR.Planes(id_plan));

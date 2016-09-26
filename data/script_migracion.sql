@@ -12,8 +12,8 @@ OPEN afiliadoActual
 FETCH Next FROM afiliadoActual INTO @Afiliado_id
 WHILE @@FETCH_STATUS = 0 BEGIN
 INSERT INTO ELIMINAR_CAR.Bono
-(id_bono,id_plan,id_afiliado_consumidor,id_afiliado_comprador,utilizado,precio,num_consulta)
-SELECT id_bono,id_plan,id_afiliado_consumidor,id_afiliado_comprador,utilizado,precio,row_number() OVER (ORDER BY id_bono)
+(id_bono,id_plan,id_afiliado_consumidor,id_afiliado_comprador,utilizado,precio,num_consulta,fecha_compra,fecha_uso)
+SELECT id_bono,id_plan,id_afiliado_consumidor,id_afiliado_comprador,utilizado,precio,row_number() OVER (ORDER BY id_bono),fecha_compra,fecha_uso
 FROM ELIMINAR_CAR.#Bonos
 WHERE id_afiliado_comprador=@Afiliado_id
 
@@ -93,6 +93,8 @@ id_afiliado_consumidor BIGINT,
 id_plan INT,
 utilizado BIT,
 precio INT,
+fecha_compra DATETIME,
+fecha_uso DATETIME,
 FOREIGN KEY (id_afiliado_comprador) REFERENCES ELIMINAR_CAR.Afiliado(id_afiliado),
 FOREIGN KEY (id_afiliado_consumidor) REFERENCES ELIMINAR_CAR.Afiliado(id_afiliado),
 FOREIGN KEY (id_plan) REFERENCES ELIMINAR_CAR.Planes(id_plan));
@@ -101,23 +103,31 @@ FOREIGN KEY (id_plan) REFERENCES ELIMINAR_CAR.Planes(id_plan));
 
 --Todos los bonos comprados y usados
 INSERT INTO ELIMINAR_CAR.#Bonos
-(id_bono,id_plan,id_afiliado_consumidor,id_afiliado_comprador,utilizado,precio)
-SELECT distinct m.Bono_Consulta_Numero id_bono,m.plan_med_codigo plan_comprado,a.id_afiliado consumidor,bonos_comprados_sin_usar.comprador,1,bonos_comprados_sin_usar.Plan_Med_Precio_Bono_Consulta
+(id_bono,id_plan,id_afiliado_consumidor,id_afiliado_comprador,utilizado,precio,fecha_compra,fecha_uso)
+SELECT distinct m.Bono_Consulta_Numero id_bono,m.plan_med_codigo plan_comprado,a.id_afiliado consumidor,bonos_comprados_sin_usar.comprador,1,bonos_comprados_sin_usar.Plan_Med_Precio_Bono_Consulta,bonos_comprados_sin_usar.Compra_Bono_Fecha,m.Bono_Consulta_Fecha_Impresion
 FROM gd_esquema.Maestra m  JOIN ELIMINAR_CAR.Persona p on (p.numero_doc=m.Paciente_Dni) JOIN ELIMINAR_CAR.Afiliado a on (p.id_persona= a.id_persona) JOIN (
-select m2.bono_consulta_numero, a2.id_afiliado comprador,m2.Plan_Med_Precio_Bono_Consulta					--bonos comprados sin usar
+select m2.bono_consulta_numero, a2.id_afiliado comprador,m2.Plan_Med_Precio_Bono_Consulta,m2.Compra_Bono_Fecha					--bonos comprados sin usar
 FROM gd_esquema.Maestra m2 JOIN ELIMINAR_CAR.Persona p2 on (p2.numero_doc=m2.Paciente_Dni) JOIN ELIMINAR_CAR.Afiliado a2 on(p2.id_persona= a2.id_persona)
 WHERE m2.Medico_DNI is NULL
 ) bonos_comprados_sin_usar ON (bonos_comprados_sin_usar.Bono_consulta_numero=m.Bono_Consulta_Numero)
 WHERE m.Bono_Consulta_Numero is not null AND Medico_Dni is NOT NULL
 UNION  --Bonos no usados
 (
-SELECT DISTINCT m.Bono_Consulta_Numero,m.Plan_Med_Codigo,NULL,a.id_afiliado,0,m.Plan_Med_Precio_Bono_Consulta --TODOS LOS BONOS
-FROM gd_esquema.Maestra m JOIN ELIMINAR_CAR.Persona p on(p.numero_doc=m.Paciente_dni) JOIN ELIMINAR_CAR.Afiliado a on (p.id_persona=a.id_persona)
+SELECT DISTINCT m.Bono_Consulta_Numero,m.Plan_Med_Codigo,NULL,a.id_afiliado,0,m.Plan_Med_Precio_Bono_Consulta,bonos_comprados_sin_usar.Compra_Bono_Fecha,m.Bono_Consulta_Fecha_Impresion--TODOS LOS BONOS
+FROM gd_esquema.Maestra m JOIN ELIMINAR_CAR.Persona p on(p.numero_doc=m.Paciente_dni) JOIN ELIMINAR_CAR.Afiliado a on (p.id_persona=a.id_persona) JOIN (
+select m2.bono_consulta_numero, a2.id_afiliado comprador,m2.Plan_Med_Precio_Bono_Consulta,m2.Compra_Bono_Fecha					
+FROM gd_esquema.Maestra m2 JOIN ELIMINAR_CAR.Persona p2 on (p2.numero_doc=m2.Paciente_Dni) JOIN ELIMINAR_CAR.Afiliado a2 on(p2.id_persona= a2.id_persona)
+WHERE m2.Medico_DNI is NULL
+) bonos_comprados_sin_usar ON (bonos_comprados_sin_usar.Bono_consulta_numero=m.Bono_Consulta_Numero)
 WHERE m.Bono_Consulta_Numero is not null
 EXCEPT
-SELECT  DISTINCT m.Bono_Consulta_Numero,m.Plan_Med_Codigo,NULL,a.id_afiliado,0,m.Plan_Med_Precio_Bono_Consulta --BONOS USADOS
-FROM gd_esquema.Maestra m JOIN ELIMINAR_CAR.Persona p on(p.numero_doc=m.Paciente_dni) JOIN ELIMINAR_CAR.Afiliado a on (p.id_persona=a.id_persona)
-WHERE m.Bono_Consulta_Numero is not null AND m.Medico_Dni IS NOT NULL
+SELECT  DISTINCT m.Bono_Consulta_Numero,m.Plan_Med_Codigo,NULL,a.id_afiliado,0,m.Plan_Med_Precio_Bono_Consulta,bonos_comprados_sin_usar.Compra_Bono_Fecha,m.Bono_Consulta_Fecha_Impresion --BONOS USADOS
+FROM gd_esquema.Maestra m JOIN ELIMINAR_CAR.Persona p on(p.numero_doc=m.Paciente_dni) JOIN ELIMINAR_CAR.Afiliado a on (p.id_persona=a.id_persona) JOIN (
+select m2.bono_consulta_numero, a2.id_afiliado comprador,m2.Plan_Med_Precio_Bono_Consulta,m2.Compra_Bono_Fecha					
+FROM gd_esquema.Maestra m2 JOIN ELIMINAR_CAR.Persona p2 on (p2.numero_doc=m2.Paciente_Dni) JOIN ELIMINAR_CAR.Afiliado a2 on(p2.id_persona= a2.id_persona)
+WHERE m2.Medico_DNI is NULL
+) bonos_comprados_sin_usar ON (bonos_comprados_sin_usar.Bono_consulta_numero=m.Bono_Consulta_Numero)
+WHERE m.Bono_Consulta_Numero is not null AND m.Medico_Dni IS NOT NULL and m.Compra_Bono_Fecha is   null
 )
 EXEC ELIMINAR_CAR.Migrar_Bonos
 --Turnos atendidos
