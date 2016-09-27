@@ -99,8 +99,6 @@ FOREIGN KEY (id_afiliado_comprador) REFERENCES ELIMINAR_CAR.Afiliado(id_afiliado
 FOREIGN KEY (id_afiliado_consumidor) REFERENCES ELIMINAR_CAR.Afiliado(id_afiliado),
 FOREIGN KEY (id_plan) REFERENCES ELIMINAR_CAR.Planes(id_plan));
 
-
-
 --Todos los bonos comprados y usados
 INSERT INTO ELIMINAR_CAR.#Bonos
 (id_bono,id_plan,id_afiliado_consumidor,id_afiliado_comprador,utilizado,precio,fecha_compra,fecha_uso)
@@ -130,6 +128,13 @@ WHERE m2.Medico_DNI is NULL
 WHERE m.Bono_Consulta_Numero is not null AND m.Medico_Dni IS NOT NULL and m.Compra_Bono_Fecha is   null
 )
 EXEC ELIMINAR_CAR.Migrar_Bonos
+
+--Compras bonos
+INSERT INTO ELIMINAR_CAR.Compra_Bonos --Suponemos que las compras en un mismo dia son la misma
+(id_afiliado_comprador,precio_total,fecha_compra,cantidad_bonos)
+SELECT id_afiliado_comprador,sum(precio),fecha_compra,count(id_bono)
+FROM ELIMINAR_CAR.Bono
+GROUP BY id_afiliado_comprador,fecha_compra
 --Turnos atendidos
 INSERT INTO ELIMINAR_CAR.Turno
 (id_turno,fecha_estipulada,matricula,id_afiliado,id_bono,momento_llegada,id_especialidad,activo)
