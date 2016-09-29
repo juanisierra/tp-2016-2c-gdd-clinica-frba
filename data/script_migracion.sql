@@ -28,6 +28,7 @@ FETCH NEXT FROM afiliadoActual INTO @Afiliado_id
 END
 CLOSE afiliadoActual
 DEALLOCATE afiliadoActual
+DROP TABLE ELIMINAR_CAR.#Bonos
 GO
 
 --Inserta personas en la tabla
