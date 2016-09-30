@@ -143,3 +143,48 @@ INSERT INTO ELIMINAR_CAR.Consulta
 SELECT DISTINCT m.Turno_Numero, m.Turno_Fecha,Consulta_Sintomas,Consulta_Enfermedades
 FROM gd_esquema.Maestra m
 WHERE m.Turno_Numero is not null and Consulta_Sintomas is not null
+
+--Usuarios   --El usuario es apellido, primera letra del nombre y ultimos 5 digitos del dni, la contraseña es el numero de documento
+INSERT INTO ELIMINAR_CAR.Usuario
+(id_usuario,contrasenia,intentos_fallidos,habilitado)
+SELECT  distinct REPLACE(apellido+Left(nombre,1)+Right(numero_doc,5), ' ', ''),HASHBYTES('SHA2_256',CONVERT(varchar(10), numero_doc)),0,1
+FROM ELIMINAR_CAR.Afiliado
+UNION
+SELECT distinct REPLACE(apellido+Left(nombre,1)+Right(numero_doc,5), ' ', ''),HASHBYTES('SHA2_256',CONVERT(varchar(10), numero_doc)),0,1
+FROM ELIMINAR_CAR.Profesional;
+
+--Inserta user default
+INSERT INTO ELIMINAR_CAR.Usuario (id_usuario,contrasenia,intentos_fallidos,habilitado) VALUES
+('admin',HASHBYTES('SHA2_256','w23e'),0,1);
+
+
+
+--Pone los id de usuario en afiliados
+MERGE INTO ELIMINAR_CAR.Afiliado a
+   USING ELIMINAR_CAR.Usuario u 
+      ON u.id_usuario = REPLACE(a.apellido+Left(a.nombre,1)+Right(a.numero_doc,5), ' ', '')
+WHEN MATCHED THEN
+   UPDATE 
+      SET a.usuario = REPLACE(a.apellido+Left(a.nombre,1)+Right(a.numero_doc,5), ' ', '');
+--pone los id de usuario en profesionales
+MERGE INTO ELIMINAR_CAR.Profesional a
+   USING ELIMINAR_CAR.Usuario u 
+      ON u.id_usuario = REPLACE(a.apellido+Left(a.nombre,1)+Right(a.numero_doc,5), ' ', '')
+WHEN MATCHED THEN
+   UPDATE 
+      SET a.usuario = REPLACE(a.apellido+Left(a.nombre,1)+Right(a.numero_doc,5), ' ', '');
+
+--Insertar roles estandar
+INSERT INTO ELIMINAR_CAR.Rol (nombre_rol,habilitado) VALUES ('Afiliado',1)
+INSERT INTO ELIMINAR_CAR.Rol (nombre_rol,habilitado) VALUES ('Administrativo',1)
+INSERT INTO ELIMINAR_CAR.Rol (nombre_rol,habilitado) VALUES ('Profesional',1)
+
+
+--Dar a los usuarios de afiliados el rol de afiliado y a los profesionales de profesional
+INSERT INTO ELIMINAR_CAR.Roles_por_Usuarios
+(id_usuario,id_rol)
+SELECT id_usuario,1
+FROM ELIMINAR_CAR.Afiliado a JOIN ELIMINAR_CAR.Usuario u on (u.id_usuario=a.usuario)
+UNION
+SELECT id_usuario,3
+FROM ELIMINAR_CAR.Profesional p JOIN ELIMINAR_CAR.Usuario u on (u.id_usuario=p.usuario)
