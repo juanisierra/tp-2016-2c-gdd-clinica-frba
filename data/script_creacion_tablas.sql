@@ -16,18 +16,6 @@ CREATE TABLE ELIMINAR_CAR.Familia (
 id_familia BIGINT PRIMARY KEY IDENTITY(1,1),
 n_familiares_a_cargo INT);
 
-CREATE TABLE ELIMINAR_CAR.Persona (
-id_persona BIGINT PRIMARY KEY IDENTITY(1,1),
-tipo_doc INT DEFAULT 1,  --Cambiar
-numero_doc DECIMAL(8,0),
-nombre VARCHAR(40),
-apellido VARCHAR(40),
-direccion VARCHAR(100),
-telefono BIGINT,
-mail VARCHAR(60),
-fecha_nac DATE,
-estado_civil VARCHAR(12) CHECK(estado_civil IN ('soltero','casado','viudo','concubinato','divorciado')),
-sexo CHAR CHECK(sexo IN ('m','f')));
 
 CREATE TABLE ELIMINAR_CAR.Rol (
 id_rol SMALLINT PRIMARY KEY IDENTITY(1,1),
@@ -38,9 +26,7 @@ CREATE TABLE ELIMINAR_CAR.Usuario (
 id_usuario VARCHAR(20) PRIMARY KEY,
 contrasenia BINARY(32),
 intentos_fallidos SMALLINT,
-habilitado BIT,
-id_persona BIGINT,
-FOREIGN KEY (id_persona) REFERENCES ELIMINAR_CAR.Persona(id_persona));
+habilitado BIT);
 
 CREATE TABLE ELIMINAR_CAR.Planes (
 id_plan INT PRIMARY KEY,
@@ -73,8 +59,16 @@ FOREIGN KEY (id_tipo_especialidad) REFERENCES ELIMINAR_CAR.Tipo_Especialidad(id_
 
 CREATE TABLE ELIMINAR_CAR.Profesional (
 matricula BIGINT PRIMARY KEY,
-id_persona BIGINT,
-FOREIGN KEY (id_persona) REFERENCES ELIMINAR_CAR.Persona(id_persona));
+tipo_doc INT DEFAULT 1,  --Cambiar
+numero_doc DECIMAL(8,0),
+nombre VARCHAR(40),
+apellido VARCHAR(40),
+direccion VARCHAR(100),
+telefono BIGINT,
+mail VARCHAR(60),
+fecha_nac DATE,
+usuario VARCHAR(20),
+FOREIGN KEY (usuario) REFERENCES ELIMINAR_CAR.Usuario(id_usuario));
 
 CREATE TABLE ELIMINAR_CAR.Especialidad_por_profesional (
 id_especialidad INT,
@@ -95,14 +89,24 @@ FOREIGN KEY (id_especialidad) REFERENCES ELIMINAR_CAR.Especialidad(id_especialid
 
 CREATE TABLE ELIMINAR_CAR.Afiliado (
 id_afiliado BIGINT PRIMARY KEY,
-id_persona BIGINT,
+tipo_doc INT DEFAULT 1,  --Cambiar
+numero_doc DECIMAL(8,0),
+nombre VARCHAR(40),
+apellido VARCHAR(40),
+direccion VARCHAR(100),
+telefono BIGINT,
+mail VARCHAR(60),
+fecha_nac DATE,
+estado_civil VARCHAR(12) CHECK(estado_civil IN ('soltero','casado','viudo','concubinato','divorciado')),
+sexo CHAR CHECK(sexo IN ('m','f')),
 id_plan INT,
 id_familia BIGINT,
 familiares_a_cargo INT,
 activo BIT,
 fecha_baja DATE,
-num_consulta_actual BIGINT
-FOREIGN KEY (id_persona) REFERENCES ELIMINAR_CAR.Persona(id_persona),
+num_consulta_actual BIGINT,
+usuario VARCHAR(20),
+FOREIGN KEY (usuario) REFERENCES ELIMINAR_CAR.Usuario(id_usuario),
 FOREIGN KEY (id_plan) REFERENCES ELIMINAR_CAR.Planes(id_plan),
 FOREIGN KEY (id_familia) REFERENCES ELIMINAR_CAR.Familia(id_familia));
 
