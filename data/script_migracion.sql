@@ -178,13 +178,39 @@ WHEN MATCHED THEN
 INSERT INTO ELIMINAR_CAR.Rol (nombre_rol,habilitado) VALUES ('Afiliado',1)
 INSERT INTO ELIMINAR_CAR.Rol (nombre_rol,habilitado) VALUES ('Administrativo',1)
 INSERT INTO ELIMINAR_CAR.Rol (nombre_rol,habilitado) VALUES ('Profesional',1)
-
+INSERT INTO ELIMINAR_CAR.Rol (nombre_rol,habilitado) VALUES ('Administrador',1)
+--Le damos a admin rol de administrador
+INSERT INTO ELIMINAR_CAR.Roles_por_usuarios(id_rol,id_usuario) VALUES (4,'admin')
 
 --Dar a los usuarios de afiliados el rol de afiliado y a los profesionales de profesional
 INSERT INTO ELIMINAR_CAR.Roles_por_Usuarios
 (id_usuario,id_rol)
-SELECT id_usuario,1
+SELECT id_usuario,1 --Afiliado
 FROM ELIMINAR_CAR.Afiliado a JOIN ELIMINAR_CAR.Usuario u on (u.id_usuario=a.usuario)
 UNION
-SELECT id_usuario,3
+SELECT id_usuario,3 --Profesional
 FROM ELIMINAR_CAR.Profesional p JOIN ELIMINAR_CAR.Usuario u on (u.id_usuario=p.usuario)
+
+--Insercion de Funcionalidades
+INSERT INTO ELIMINAR_CAR.Funcionalidad (descripcion) VALUES ('ABM Rol')
+INSERT INTO ELIMINAR_CAR.Funcionalidad (descripcion) VALUES ('Registro Usuario')
+INSERT INTO ELIMINAR_CAR.Funcionalidad (descripcion) VALUES ('ABM Afiliado')
+INSERT INTO ELIMINAR_CAR.Funcionalidad (descripcion) VALUES ('ABM Profesional')
+INSERT INTO ELIMINAR_CAR.Funcionalidad (descripcion) VALUES ('ABM Especialidades Medicas')
+INSERT INTO ELIMINAR_CAR.Funcionalidad (descripcion) VALUES ('ABM Planes')
+INSERT INTO ELIMINAR_CAR.Funcionalidad (descripcion) VALUES ('Registar Agendas')
+INSERT INTO ELIMINAR_CAR.Funcionalidad (descripcion) VALUES ('Compra Bono')
+INSERT INTO ELIMINAR_CAR.Funcionalidad (descripcion) VALUES ('Pedir Turno')
+INSERT INTO ELIMINAR_CAR.Funcionalidad (descripcion) VALUES ('Registrar Llegada Atencion')
+INSERT INTO ELIMINAR_CAR.Funcionalidad (descripcion) VALUES ('Registrar Resultado Atencion')
+INSERT INTO ELIMINAR_CAR.Funcionalidad (descripcion) VALUES ('Cancelar Atencion')
+INSERT INTO ELIMINAR_CAR.Funcionalidad (descripcion) VALUES ('Ver Listados Estadisticos')
+
+
+--Darle todas las funcionalidades al administrador
+INSERT INTO ELIMINAR_CAR.Funcionalidades_por_rol
+(id_rol,id_funcionalidad)
+SELECT 4,id_funcionalidad
+FROM ELIMINAR_CAR.Funcionalidad
+
+--TODO darle funcionalidades a los otros roles
