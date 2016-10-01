@@ -8,21 +8,22 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
-using System.Data;
 using System.Security.Cryptography;
+using ClinicaFrba.Clases;
+using ClinicaFrba.Utils;
 namespace ClinicaFrba
-{  
+{
     public partial class Login : Form
-    {   SqlConnection conexion;
+    {
         public Login()
         {
             InitializeComponent();
-            SqlConnection conexion = DBConnector.ObtenerConexion();
+           
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            
+
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -34,32 +35,40 @@ namespace ClinicaFrba
         {
 
         }
-        private byte[] ComputePasswordHash(string password)
+        private Usuario login()
+        {
+            SqlConnection conexion = DBConnector.ObtenerConexion();
+            Usuario usuario = Usuario.buscarUsuario(txtbox_usuario.Text,conexion);
+            if (usuario == null)
             {
-    byte[] passwordBytes = UTF8Encoding.UTF8.GetBytes(password);
-
-    byte[] preHashed = new byte[passwordBytes.Length];
-    System.Buffer.BlockCopy(passwordBytes, 0, preHashed, 0, passwordBytes.Length);
-       SHA256
-    SHA1 sha1 = SHA1.Create();
-    return sha1.ComputeHash(preHashed);
+                MessageBox.Show("El nombre de usuario no existe", "Clinica-FRBA: ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            { //Si existe el usuario
+                if (!usuario.contrasenia.SequenceEqual(Hash.ComputePasswordHash(txtbox_contrasenia.Text)))
+                { //Contraseña incorrecta
+                    SqlCommand sumarIntentoFallido = new SqlCommand(string.Format("UPDATE ELIMINAR_CAR.Usuario SET intentos_fallidos=intentos_fallidos+1 WHERE id_usuario='{0}'", usuario.id_usuario),conexion);
+                    sumarIntentoFallido.ExecuteNonQuery();
+                    usuario = Usuario.buscarUsuario(txtbox_usuario.Text, conexion); //Actualizamos usuario
+                    if (usuario.intentosFallidos >= 3)
+                    {
+                        SqlCommand inhabilitarUsuario = new SqlCommand(string.Format("UPDATE ELIMINAR_CAR.Usuario SET habilitado=0 WHERE id_usuario='{0}'", usuario.id_usuario), conexion);
+                        inhabilitarUsuario.ExecuteNonQuery();
+                        usuario = Usuario.buscarUsuario(txtbox_usuario.Text, conexion); //Actualizamos usuario
+                        MessageBox.Show("El usuario se encuentra bloqueado", "Clinica-FRBA: ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
+                else
+                {
+
+                };
+            
+            }
+            return usuario;
+        }
         private void btn_iniciar_Click(object sender, EventArgs e)
         {
-     using (SqlConnection con = DBConnector.ObtenerConexion())
-{
-    using (SqlCommand cmd = new SqlCommand("ELIMINAR_CAR.verificar_login", con))
-    {
-        cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue("@usuario", txtbox_usuario.Text);
-        cmd.Parameters.AddWithValue("@contrasenia", txtlastname);
-        con.Open();
-        cmd.ExecuteNonQuery();
-    }            
-}
-    }
-  }
-
+            login();
         }
     }
 }
