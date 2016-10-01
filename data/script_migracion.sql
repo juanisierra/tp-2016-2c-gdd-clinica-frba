@@ -165,14 +165,14 @@ MERGE INTO ELIMINAR_CAR.Afiliado a
       ON u.id_usuario = REPLACE(a.apellido+Left(a.nombre,1)+Right(a.numero_doc,5), ' ', '')
 WHEN MATCHED THEN
    UPDATE 
-      SET a.usuario = REPLACE(a.apellido+Left(a.nombre,1)+Right(a.numero_doc,5), ' ', '');
+      SET a.usuario = u.id_usuario;
 --pone los id de usuario en profesionales
 MERGE INTO ELIMINAR_CAR.Profesional a
    USING ELIMINAR_CAR.Usuario u 
       ON u.id_usuario = REPLACE(a.apellido+Left(a.nombre,1)+Right(a.numero_doc,5), ' ', '')
 WHEN MATCHED THEN
    UPDATE 
-      SET a.usuario = REPLACE(a.apellido+Left(a.nombre,1)+Right(a.numero_doc,5), ' ', '');
+      SET a.usuario =  u.id_usuario;
 
 --Insertar roles estandar
 INSERT INTO ELIMINAR_CAR.Rol (nombre_rol,habilitado) VALUES ('Afiliado',1)

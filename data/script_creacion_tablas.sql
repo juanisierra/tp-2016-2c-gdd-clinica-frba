@@ -2,9 +2,6 @@ USE [GD2C2016]
 GO
 CREATE SCHEMA [ELIMINAR_CAR] AUTHORIZATION [gd]
 GO
-CREATE TABLE ELIMINAR_CAR.Tipo_Cancelacion (
-id_tipo SMALLINT PRIMARY KEY IDENTITY(1,1),
-descripcion VARCHAR(30));
 
 CREATE TABLE ELIMINAR_CAR.Tipo_Especialidad (
 id_tipo_especialidad INT PRIMARY KEY,
@@ -146,15 +143,23 @@ FOREIGN KEY (id_bono) REFERENCES ELIMINAR_CAR.Bono(id_bono),
 FOREIGN KEY (matricula) REFERENCES ELIMINAR_CAR.Profesional(matricula),
 FOREIGN KEY (id_especialidad) REFERENCES ELIMINAR_CAR.Especialidad(id_especialidad));
 
-CREATE TABLE ELIMINAR_CAR.Cancelacion (
+CREATE TABLE ELIMINAR_CAR.Cancelacion_Afiliado (
 id_cancelacion BIGINT PRIMARY KEY IDENTITY(1,1),
 id_turno BIGINT,
-id_usuario VARCHAR(20),
-id_tipo SMALLINT,
+id_afiliado BIGINT,
 motivo VARCHAR(100),
 FOREIGN KEY (id_turno) REFERENCES ELIMINAR_CAR.Turno(id_turno),
-FOREIGN KEY (id_usuario) REFERENCES ELIMINAR_CAR.Usuario(id_usuario),
-FOREIGN KEY (id_tipo) REFERENCES ELIMINAR_CAR.Tipo_Cancelacion(id_tipo));
+FOREIGN KEY (id_afiliado) REFERENCES ELIMINAR_CAR.Afiliado(id_afiliado));
+
+CREATE TABLE ELIMINAR_CAR.Cancelacion_Profesional (
+id_cancelacion BIGINT PRIMARY KEY IDENTITY(1,1),
+matricula BIGINT,
+motivo VARCHAR(100),
+id_especialidad INT,
+fecha_desde DATE,
+fecha_hasta DATE,
+FOREIGN KEY (matricula) REFERENCES ELIMINAR_CAR.Profesional(matricula),
+FOREIGN KEY (id_especialidad) REFERENCES ELIMINAR_CAR.Especialidad(id_especialidad));
 
 CREATE TABLE ELIMINAR_CAR.Consulta (
 id_consulta BIGINT PRIMARY KEY IDENTITY(1,1),
