@@ -80,11 +80,13 @@ namespace ClinicaFrba
             return usuario;
         }
         private void btn_iniciar_Click(object sender, EventArgs e)
-        {
-            if (login() != null)
+        {   Usuario u = login();
+            if (u != null)
             {
-                Elegir_Rol elegir = new Elegir_Rol();
+                Elegir_Rol elegir = new Elegir_Rol(u.id_usuario);
                 elegir.Show();
+                ComboBox cb_rol = (ComboBox) elegir.Controls["cb_rol"];
+                resultado.Text=cb_rol.SelectedItem.ToString();
             }
         }
     }

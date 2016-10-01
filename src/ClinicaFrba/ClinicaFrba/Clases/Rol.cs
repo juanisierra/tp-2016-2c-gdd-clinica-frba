@@ -9,13 +9,9 @@ namespace ClinicaFrba.Clases
 {
     class Rol
     {
-        int id_rol { get; set; }
-        String Nombre { get; set; }
-        Boolean habilitado { get; set; }
-        public String ToString()
-        {
-            return Nombre;
-        }
+       public int id_rol { get; set; }
+       public String Nombre { get; set; }
+       public Boolean habilitado { get; set; }
         public static List<Rol> rolesDeUsuario(String id_usuario)
         {
             SqlConnection conexion = DBConnector.ObtenerConexion();
@@ -30,6 +26,7 @@ namespace ClinicaFrba.Clases
                 r.Nombre = reader.GetString(2);
                 lista.Add(r);
             }
+            reader.Close();
             return lista;
         }
     }

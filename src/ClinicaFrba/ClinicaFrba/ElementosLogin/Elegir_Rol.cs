@@ -12,20 +12,21 @@ namespace ClinicaFrba.ElementosLogin
 {
     public partial class Elegir_Rol : Form
     {
-        public Elegir_Rol()
+        public String id_usuario { get; set; }
+        public Elegir_Rol(String id_usuario)
         {
             InitializeComponent();
+            this.id_usuario = id_usuario;
         }
         
         private void btn_aceptar_Click(object sender, EventArgs e)
         {
-
+            this.Close();
         }
 
         private void Elegir_Rol_Load(object sender, EventArgs e)
-        {   List<Rol> roles = Rol.rolesDeUsuario("admin");
-            cb_rol.DisplayMember = "Nombre";
-            cb_rol.Items.AddRange(roles.ToArray());
+        {   List<Rol> roles = Rol.rolesDeUsuario(id_usuario);
+            cb_rol.DataSource = roles;          
         }
     }
 }
