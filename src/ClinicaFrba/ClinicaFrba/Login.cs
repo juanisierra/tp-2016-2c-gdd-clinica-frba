@@ -11,6 +11,8 @@ using System.Data.SqlClient;
 using System.Security.Cryptography;
 using ClinicaFrba.Clases;
 using ClinicaFrba.Utils;
+using ClinicaFrba.ElementosLogin;
+
 namespace ClinicaFrba
 {
     public partial class Login : Form
@@ -79,7 +81,11 @@ namespace ClinicaFrba
         }
         private void btn_iniciar_Click(object sender, EventArgs e)
         {
-            if (login() != null) resultado.Text = "OK";
+            if (login() != null)
+            {
+                Elegir_Rol elegir = new Elegir_Rol();
+                elegir.Show();
+            }
         }
     }
 }
