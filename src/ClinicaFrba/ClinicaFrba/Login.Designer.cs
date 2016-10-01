@@ -68,6 +68,7 @@
             // 
             this.txtbox_contrasenia.Location = new System.Drawing.Point(278, 222);
             this.txtbox_contrasenia.Name = "txtbox_contrasenia";
+            this.txtbox_contrasenia.PasswordChar = '☺';
             this.txtbox_contrasenia.Size = new System.Drawing.Size(205, 22);
             this.txtbox_contrasenia.TabIndex = 3;
             // 
@@ -93,6 +94,7 @@
             // 
             // Login
             // 
+            this.AcceptButton = this.btn_iniciar;
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1043, 456);
