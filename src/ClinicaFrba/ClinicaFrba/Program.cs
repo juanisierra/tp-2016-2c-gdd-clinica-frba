@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Data.SqlClient;
+using System.Data;
 
 namespace ClinicaFrba
 {
@@ -17,6 +19,11 @@ namespace ClinicaFrba
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Form1());
+            using ( SqlConnection conexion =  DBConnector.ObtenerConexion()){
+
+            SqlCommand comando = new SqlCommand("SELECT * FROM ELIMINAR_CAR.Afiliado",conexion);
+            comando.ExecuteNonQuery();
+            }
         }
     }
 }

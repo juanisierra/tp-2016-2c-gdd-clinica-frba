@@ -80,6 +80,7 @@
     <Compile Include="Cancelar Atencion\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Utils\DBConnector.cs" />
     <Compile Include="Compra Bono\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
