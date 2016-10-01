@@ -8,7 +8,8 @@ namespace ClinicaFrba
 {
     class Funcionalidad
     {
-        public int id_funcionalidad;
-        public string descripcion;
+        public int id_funcionalidad { get; set; }
+        public string descripcion { get; set; }
+
     }
 }

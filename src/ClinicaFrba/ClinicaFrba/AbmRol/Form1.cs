@@ -28,15 +28,16 @@ namespace ClinicaFrba.AbmRol
         private void NuevoRol_Load(object sender, EventArgs e)
         {
             SqlConnection conexion = DBConnector.ObtenerConexion();
-            SqlCommand funcionalidades = new SqlCommand("SELECT descripcion FROM ELIMINAR_CAR.Funcionalidad", conexion);
+            SqlCommand funcionalidades = new SqlCommand(string.Format("SELECT descripcion FROM ELIMINAR_CAR.Funcionalidad"), conexion);
             SqlDataReader lector = funcionalidades.ExecuteReader();
 
+            ListaFun.ColumnCount = 1;
+            ListaFun.Columns[0].Name = "descripcion";
+            ListaFun.Columns[0].DataPropertyName = "descripcion";
             while (lector.Read())
             {
                 Funcionalidad func = new Funcionalidad();
                 func.descripcion = lector.GetString(0);
-                ListaFun.ColumnCount = 1;
-                ListaFun.Columns[0].Name = "Descripcion";
                 ListaFun.Rows.Add(func);
             }
             lector.Close();

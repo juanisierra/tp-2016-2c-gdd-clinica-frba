@@ -89,5 +89,11 @@ namespace ClinicaFrba
                 resultado.Text=cb_rol.SelectedItem.ToString();
             }
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            ClinicaFrba.AbmRol.NuevoRol ventana = new ClinicaFrba.AbmRol.NuevoRol();
+            ventana.ShowDialog();
+        }
     }
 }

@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.ListaFun = new System.Windows.Forms.DataGridView();
             this.label1 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
-            this.ListaFun = new System.Windows.Forms.DataGridView();
             this.button1 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ListaFun)).BeginInit();
@@ -46,6 +46,15 @@
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Funcionalidades";
+            // 
+            // ListaFun
+            // 
+            this.ListaFun.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.ListaFun.Location = new System.Drawing.Point(15, 33);
+            this.ListaFun.Name = "ListaFun";
+            this.ListaFun.Size = new System.Drawing.Size(240, 150);
+            this.ListaFun.TabIndex = 0;
+            this.ListaFun.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
             // label1
             // 
@@ -62,15 +71,6 @@
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(197, 20);
             this.textBox1.TabIndex = 2;
-            // 
-            // ListaFun
-            // 
-            this.ListaFun.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.ListaFun.Location = new System.Drawing.Point(15, 29);
-            this.ListaFun.Name = "ListaFun";
-            this.ListaFun.Size = new System.Drawing.Size(240, 150);
-            this.ListaFun.TabIndex = 0;
-            this.ListaFun.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
             // button1
             // 
