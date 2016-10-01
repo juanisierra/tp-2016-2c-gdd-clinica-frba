@@ -44,31 +44,42 @@ namespace ClinicaFrba
                 MessageBox.Show("El nombre de usuario no existe", "Clinica-FRBA: ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else
-            { //Si existe el usuario
-                if (!usuario.contrasenia.SequenceEqual(Hash.ComputePasswordHash(txtbox_contrasenia.Text)))
-                { //Contraseña incorrecta
-                    SqlCommand sumarIntentoFallido = new SqlCommand(string.Format("UPDATE ELIMINAR_CAR.Usuario SET intentos_fallidos=intentos_fallidos+1 WHERE id_usuario='{0}'", usuario.id_usuario),conexion);
-                    sumarIntentoFallido.ExecuteNonQuery();
-                    usuario = Usuario.buscarUsuario(txtbox_usuario.Text, conexion); //Actualizamos usuario
-                    if (usuario.intentosFallidos >= 3)
+            {
+                if (usuario.habilitado == true)
+                {
+                    //Si existe el usuario
+                    if (usuario.contrasenia.SequenceEqual(Hash.ComputePasswordHash(txtbox_contrasenia.Text)))
                     {
-                        SqlCommand inhabilitarUsuario = new SqlCommand(string.Format("UPDATE ELIMINAR_CAR.Usuario SET habilitado=0 WHERE id_usuario='{0}'", usuario.id_usuario), conexion);
-                        inhabilitarUsuario.ExecuteNonQuery();
+                    }
+                    else
+                    { //Contraseña incorrecta
+                        SqlCommand sumarIntentoFallido = new SqlCommand(string.Format("UPDATE ELIMINAR_CAR.Usuario SET intentos_fallidos=intentos_fallidos+1 WHERE id_usuario='{0}'", usuario.id_usuario), conexion);
+                        sumarIntentoFallido.ExecuteNonQuery();
                         usuario = Usuario.buscarUsuario(txtbox_usuario.Text, conexion); //Actualizamos usuario
-                        MessageBox.Show("El usuario se encuentra bloqueado", "Clinica-FRBA: ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        if (usuario.intentosFallidos >= 3)
+                        {
+                            SqlCommand inhabilitarUsuario = new SqlCommand(string.Format("UPDATE ELIMINAR_CAR.Usuario SET habilitado=0 WHERE id_usuario='{0}'", usuario.id_usuario), conexion);
+                            inhabilitarUsuario.ExecuteNonQuery();
+                            usuario = Usuario.buscarUsuario(txtbox_usuario.Text, conexion); //Actualizamos usuario
+                            MessageBox.Show("El usuario se encuentra bloqueado", "Clinica-FRBA: ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                        else
+                        {
+                            MessageBox.Show("Contraseña incorrecta", "Clinica-FRBA: ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                        return null;
                     }
                 }
-                else
-                {
-
-                };
-            
+                else {
+                    MessageBox.Show("El usuario se encuentra bloqueado", "Clinica-FRBA: ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return null;
+                    }            
             }
             return usuario;
         }
         private void btn_iniciar_Click(object sender, EventArgs e)
         {
-            login();
+            if (login() != null) resultado.Text = "OK";
         }
     }
 }
