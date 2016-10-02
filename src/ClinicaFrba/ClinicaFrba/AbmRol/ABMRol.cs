@@ -40,16 +40,20 @@ namespace ClinicaFrba.AbmRol
             SqlCommand funcionalidades = new SqlCommand(string.Format("SELECT descripcion FROM ELIMINAR_CAR.Funcionalidad"), conexion);
             SqlDataReader lector = funcionalidades.ExecuteReader();
 
-            ListaFun.ColumnCount = 1;
-            ListaFun.Columns[0].Name = "descripcion";
-            ListaFun.Columns[0].DataPropertyName = "descripcion";
+            ListaFun.Columns[1].DataPropertyName = "Descripcion";
+            
             while (lector.Read())
             {
                 Funcionalidad func = new Funcionalidad();
                 func.descripcion = lector.GetString(0);
-                ListaFun.Rows.Add(func);
+                ListaFun.Rows.Add(0,func);//0 los pone sin seleccionar, 1 seleccionados
             }
             lector.Close();
+        }
+
+        private void ListaFun_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }

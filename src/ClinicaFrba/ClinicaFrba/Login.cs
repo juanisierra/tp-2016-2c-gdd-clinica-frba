@@ -35,15 +35,19 @@ namespace ClinicaFrba
             Usuario usuario = Usuario.buscarUsuario(txtbox_usuario.Text,conexion);
             if (usuario == null)
             {
-                MessageBox.Show("El nombre de usuario no existe", "Clinica-FRBA: ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("El nombre de usuario y la contraseña no coinciden", "Clinica-FRBA: ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else
             {
-                if (usuario.habilitado == true)
+                if (usuario.habilitado == true) //Si existe el usuario
                 {
-                    //Si existe el usuario
-                    if (usuario.contrasenia.SequenceEqual(Hash.ComputePasswordHash(txtbox_contrasenia.Text)))
-                    {
+                    //Si puso bien la clave, que no tire error
+                    if (usuario.contrasenia.SequenceEqual(Hash.ComputePasswordHash(txtbox_contrasenia.Text))) {
+                        if (usuario.intentosFallidos > 0)
+                        {
+                            SqlCommand restablecerIntentosFallidos = new SqlCommand(string.Format("UPDATE ELIMINAR_CAR.Usuario SET intentos_fallidos=0 WHERE id_usuario='{0}'", usuario.id_usuario), conexion);
+                            restablecerIntentosFallidos.ExecuteNonQuery();
+                        }
                     }
                     else
                     { //Contraseña incorrecta
@@ -59,7 +63,7 @@ namespace ClinicaFrba
                         }
                         else
                         {
-                            MessageBox.Show("Contraseña incorrecta", "Clinica-FRBA: ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show("El nombre de usuario y la contraseña no coinciden", "Clinica-FRBA: ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                         return null;
                     }
@@ -71,8 +75,10 @@ namespace ClinicaFrba
             }
             return usuario;
         }
+
         private void btn_iniciar_Click(object sender, EventArgs e)
-        {   Usuario u = login();
+        {   
+            Usuario u = login();
             if (u != null)
             {
                 int id_rol = -1;
@@ -101,8 +107,7 @@ namespace ClinicaFrba
                 }
                 else
                 {
-                    MessageBox.Show("El usuario no cuenta con ningun rol", "Clinica-FRBA: ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    
+                    MessageBox.Show("El usuario no cuenta con ningún rol", "Clinica-FRBA: ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);                   
                 }
             }
         }

@@ -40,6 +40,8 @@
             this.cb_funcionalidad.Name = "cb_funcionalidad";
             this.cb_funcionalidad.Size = new System.Drawing.Size(314, 24);
             this.cb_funcionalidad.TabIndex = 0;
+            this.cb_funcionalidad.Text = " ";
+            this.cb_funcionalidad.SelectedIndexChanged += new System.EventHandler(this.cb_funcionalidad_SelectedIndexChanged);
             // 
             // btn_aceptar
             // 
@@ -60,7 +62,7 @@
             this.Controls.Add(this.btn_aceptar);
             this.Controls.Add(this.cb_funcionalidad);
             this.Name = "Elegir_funcionalidad";
-            this.Text = "Elegir_funcionalidad";
+            this.Text = "Elegir funcionalidad";
             this.Load += new System.EventHandler(this.Elegir_funcionalidad_Load);
             this.ResumeLayout(false);
 

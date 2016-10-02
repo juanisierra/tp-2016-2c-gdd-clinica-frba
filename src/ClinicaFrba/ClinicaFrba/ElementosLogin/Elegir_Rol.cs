@@ -25,7 +25,8 @@ namespace ClinicaFrba.ElementosLogin
         }
 
         private void Elegir_Rol_Load(object sender, EventArgs e)
-        {   List<Rol> roles = Rol.rolesDeUsuario(id_usuario);
+        {   
+            List<Rol> roles = Rol.rolesDeUsuario(id_usuario);
             cb_rol.DataSource = roles;          
         }
     }

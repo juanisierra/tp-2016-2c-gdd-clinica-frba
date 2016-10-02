@@ -69,7 +69,7 @@
             this.txtbox_contrasenia.Location = new System.Drawing.Point(277, 222);
             this.txtbox_contrasenia.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtbox_contrasenia.Name = "txtbox_contrasenia";
-            this.txtbox_contrasenia.PasswordChar = '☺';
+            this.txtbox_contrasenia.PasswordChar = '•';
             this.txtbox_contrasenia.Size = new System.Drawing.Size(205, 22);
             this.txtbox_contrasenia.TabIndex = 3;
             // 
@@ -80,7 +80,7 @@
             this.btn_iniciar.Name = "btn_iniciar";
             this.btn_iniciar.Size = new System.Drawing.Size(196, 31);
             this.btn_iniciar.TabIndex = 4;
-            this.btn_iniciar.Text = "Iniciar Sesion";
+            this.btn_iniciar.Text = "Iniciar Sesión";
             this.btn_iniciar.UseVisualStyleBackColor = true;
             this.btn_iniciar.Click += new System.EventHandler(this.btn_iniciar_Click);
             // 

@@ -22,14 +22,20 @@ namespace ClinicaFrba.ElementosLogin
         }
 
         private void Elegir_funcionalidad_Load(object sender, EventArgs e)
-        {   List<Funcionalidad> funcionalidadesDisponibles = Funcionalidad.funcionalidadesPorRol(id_rol);
-        cb_funcionalidad.DataSource = funcionalidadesDisponibles;
+        {   
+            List<Funcionalidad> funcionalidadesDisponibles = Funcionalidad.funcionalidadesPorRol(id_rol);
+            cb_funcionalidad.DataSource = funcionalidadesDisponibles;
         }
 
         private void btn_aceptar_Click(object sender, EventArgs e)
         {
             Form formularioAAbrir = Funcionalidad.formularioPorID(((Funcionalidad)cb_funcionalidad.SelectedItem).id_funcionalidad,id_usuario);
             formularioAAbrir.ShowDialog();
+        }
+
+        private void cb_funcionalidad_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
