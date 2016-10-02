@@ -28,15 +28,7 @@ namespace ClinicaFrba
 
         }
 
-        private void label1_Click(object sender, EventArgs e)
-        {
 
-        }
-
-        private void label3_Click(object sender, EventArgs e)
-        {
-
-        }
         private Usuario login()
         {
             SqlConnection conexion = DBConnector.ObtenerConexion();
@@ -113,12 +105,6 @@ namespace ClinicaFrba
                     
                 }
             }
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            ClinicaFrba.AbmRol.ABMRol ventana = new ClinicaFrba.AbmRol.ABMRol();
-            ventana.ShowDialog();
         }
     }
 }
