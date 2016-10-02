@@ -37,18 +37,24 @@ namespace ClinicaFrba.AbmRol
         private void NuevoRol_Load(object sender, EventArgs e)
         {
             SqlConnection conexion = DBConnector.ObtenerConexion();
-            SqlCommand funcionalidades = new SqlCommand(string.Format("SELECT descripcion FROM ELIMINAR_CAR.Funcionalidad"), conexion);
+            SqlCommand funcionalidades = new SqlCommand(string.Format("SELECT id_funcionalidad, descripcion FROM ELIMINAR_CAR.Funcionalidad"), conexion);
             SqlDataReader lector = funcionalidades.ExecuteReader();
 
-            ListaFun.Columns[1].DataPropertyName = "Descripcion";
+            List<Funcionalidad> lista = new List<Funcionalidad>();
             
             while (lector.Read())
             {
                 Funcionalidad func = new Funcionalidad();
-                func.descripcion = lector.GetString(0);
-                ListaFun.Rows.Add(0,func);//0 los pone sin seleccionar, 1 seleccionados
+                func.id_funcionalidad = lector.GetInt16(0);
+                func.descripcion = lector.GetString(1);
+                lista.Add(func);
             }
             lector.Close();
+
+            ListaFun.DataSource = lista;
+            ListaFun.Columns[1].Visible = false;
+            ListaFun.Columns[2].Width = 250;
+            ListaFun.Columns[2].HeaderText = "Descripcion";
         }
 
         private void ListaFun_CellContentClick(object sender, DataGridViewCellEventArgs e)

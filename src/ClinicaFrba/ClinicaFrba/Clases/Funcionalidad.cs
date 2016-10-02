@@ -40,14 +40,6 @@ namespace ClinicaFrba
             return null;
         }
 
-        public string Descripcion
-        {
-            get
-            {
-                return this.descripcion;
-            }
-        }
-
 }
 
 }
