@@ -1,6 +1,6 @@
 ﻿namespace ClinicaFrba.AbmRol
 {
-    partial class NuevoRol
+    partial class ABMRol
     {
         /// <summary>
         /// Required designer variable.

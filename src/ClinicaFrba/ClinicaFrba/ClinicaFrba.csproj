@@ -68,11 +68,11 @@
     <Compile Include="Abm Profesional\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="AbmRol\Form1.cs">
+    <Compile Include="AbmRol\ABMRol.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AbmRol\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="AbmRol\ABMRol.Designer.cs">
+      <DependentUpon>ABMRol.cs</DependentUpon>
     </Compile>
     <Compile Include="Cancelar Atencion\Form1.cs">
       <SubType>Form</SubType>
@@ -83,6 +83,12 @@
     <Compile Include="Clases\Rol.cs" />
     <Compile Include="Clases\Usuario.cs" />
     <Compile Include="Clases\Funcionalidad.cs" />
+    <Compile Include="ElementosLogin\Elegir_funcionalidad.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ElementosLogin\Elegir_funcionalidad.Designer.cs">
+      <DependentUpon>Elegir_funcionalidad.cs</DependentUpon>
+    </Compile>
     <Compile Include="ElementosLogin\Elegir_Rol.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -135,8 +141,11 @@
     <Compile Include="Registro Resultado\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="AbmRol\Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="AbmRol\ABMRol.resx">
+      <DependentUpon>ABMRol.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ElementosLogin\Elegir_funcionalidad.resx">
+      <DependentUpon>Elegir_funcionalidad.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ElementosLogin\Elegir_Rol.resx">
       <DependentUpon>Elegir_Rol.cs</DependentUpon>

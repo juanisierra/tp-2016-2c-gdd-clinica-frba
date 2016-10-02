@@ -12,12 +12,21 @@ using System.Data;
 
 namespace ClinicaFrba.AbmRol
 {
-    public partial class NuevoRol : Form
+    public partial class ABMRol : Form
     {
-        public NuevoRol()
+        private string id_usuario;
+
+        public ABMRol()
         {
             InitializeComponent();
             SqlConnection conexion = DBConnector.ObtenerConexion();
+        }
+
+        public ABMRol(string id_usuario)
+        {
+            InitializeComponent();
+            SqlConnection conexion = DBConnector.ObtenerConexion();
+            this.id_usuario = id_usuario;
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)

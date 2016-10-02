@@ -83,16 +83,41 @@ namespace ClinicaFrba
         {   Usuario u = login();
             if (u != null)
             {
-                Elegir_Rol elegir = new Elegir_Rol(u.id_usuario);
-                elegir.Show();
-                ComboBox cb_rol = (ComboBox) elegir.Controls["cb_rol"];
-                resultado.Text=cb_rol.SelectedItem.ToString();
+                int id_rol = -1;
+                List<Rol> roles = Rol.rolesDeUsuario(u.id_usuario);
+                if (roles.Count > 1)            //Hay que elegir rol
+                {
+                    Elegir_Rol elegirRol = new Elegir_Rol(u.id_usuario);
+                    elegirRol.ShowDialog();
+                    ComboBox cb_rol = (ComboBox)elegirRol.Controls["cb_rol"];
+                    resultado.Text = ((Rol)cb_rol.SelectedItem).Nombre;
+                    id_rol = ((Rol)cb_rol.SelectedItem).id_rol;
+                }
+                else if (roles.Count != 0) //Tiene uno solo
+                {
+                    id_rol = roles.First<Rol>().id_rol;
+                }
+                if (id_rol != -1)
+                {
+                    Elegir_funcionalidad elegirFuncionalidad = new Elegir_funcionalidad(id_rol, u.id_usuario);
+                    this.Visible = false; //Se oculta hasta que retorne el otro formulario
+                    elegirFuncionalidad.ShowDialog();
+                    this.Visible = true;
+
+                    txtbox_contrasenia.Clear();
+                    txtbox_usuario.Clear();
+                }
+                else
+                {
+                    MessageBox.Show("El usuario no cuenta con ningun rol", "Clinica-FRBA: ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    
+                }
             }
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            ClinicaFrba.AbmRol.NuevoRol ventana = new ClinicaFrba.AbmRol.NuevoRol();
+            ClinicaFrba.AbmRol.ABMRol ventana = new ClinicaFrba.AbmRol.ABMRol();
             ventana.ShowDialog();
         }
     }
