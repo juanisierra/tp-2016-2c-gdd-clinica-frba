@@ -45,20 +45,15 @@ namespace ClinicaFrba
                     if (usuario.contrasenia.SequenceEqual(Hash.ComputePasswordHash(txtbox_contrasenia.Text))) {
                         if (usuario.intentosFallidos > 0)
                         {
-                            SqlCommand restablecerIntentosFallidos = new SqlCommand(string.Format("UPDATE ELIMINAR_CAR.Usuario SET intentos_fallidos=0 WHERE id_usuario='{0}'", usuario.id_usuario), conexion);
-                            restablecerIntentosFallidos.ExecuteNonQuery();
+                            usuario = restablecerIntentosFallidos(usuario, conexion);
                         }
                     }
                     else
                     { //Contraseña incorrecta
-                        SqlCommand sumarIntentoFallido = new SqlCommand(string.Format("UPDATE ELIMINAR_CAR.Usuario SET intentos_fallidos=intentos_fallidos+1 WHERE id_usuario='{0}'", usuario.id_usuario), conexion);
-                        sumarIntentoFallido.ExecuteNonQuery();
-                        usuario = Usuario.buscarUsuario(txtbox_usuario.Text, conexion); //Actualizamos usuario
+                        usuario = sumarIntentoFallido(usuario, conexion);
                         if (usuario.intentosFallidos >= 3)
                         {
-                            SqlCommand inhabilitarUsuario = new SqlCommand(string.Format("UPDATE ELIMINAR_CAR.Usuario SET habilitado=0 WHERE id_usuario='{0}'", usuario.id_usuario), conexion);
-                            inhabilitarUsuario.ExecuteNonQuery();
-                            usuario = Usuario.buscarUsuario(txtbox_usuario.Text, conexion); //Actualizamos usuario
+                            usuario = inhabilitarUsuario(usuario, conexion);
                             MessageBox.Show("El usuario se encuentra bloqueado", "Clinica-FRBA: ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                         else
@@ -68,12 +63,34 @@ namespace ClinicaFrba
                         return null;
                     }
                 }
+
                 else {
                     MessageBox.Show("El usuario se encuentra bloqueado", "Clinica-FRBA: ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return null;
                     }            
             }
             return usuario;
+        }
+
+        private Usuario inhabilitarUsuario(Usuario usuario, SqlConnection conexion)
+        {
+            SqlCommand inhabilitarUsuario = new SqlCommand(string.Format("UPDATE ELIMINAR_CAR.Usuario SET habilitado=0 WHERE id_usuario='{0}'", usuario.id_usuario), conexion);
+            inhabilitarUsuario.ExecuteNonQuery();
+            return Usuario.buscarUsuario(txtbox_usuario.Text, conexion); //Actualizamos usuario
+        }
+
+        private Usuario sumarIntentoFallido(Usuario usuario, SqlConnection conexion)
+        {
+            SqlCommand sumarIntentoFallido = new SqlCommand(string.Format("UPDATE ELIMINAR_CAR.Usuario SET intentos_fallidos=intentos_fallidos+1 WHERE id_usuario='{0}'", usuario.id_usuario), conexion);
+            sumarIntentoFallido.ExecuteNonQuery();
+            return Usuario.buscarUsuario(txtbox_usuario.Text, conexion); //Actualizamos usuario
+        }
+
+        private Usuario restablecerIntentosFallidos(Usuario usuario, SqlConnection conexion)
+        {
+            SqlCommand restablecerIntentosFallidos = new SqlCommand(string.Format("UPDATE ELIMINAR_CAR.Usuario SET intentos_fallidos=0 WHERE id_usuario='{0}'", usuario.id_usuario), conexion);
+            restablecerIntentosFallidos.ExecuteNonQuery();
+            return Usuario.buscarUsuario(txtbox_usuario.Text, conexion); //Actualizamos usuario
         }
 
         private void btn_iniciar_Click(object sender, EventArgs e)
@@ -88,7 +105,6 @@ namespace ClinicaFrba
                     Elegir_Rol elegirRol = new Elegir_Rol(u.id_usuario);
                     elegirRol.ShowDialog();
                     ComboBox cb_rol = (ComboBox)elegirRol.Controls["cb_rol"];
-                    resultado.Text = ((Rol)cb_rol.SelectedItem).Nombre;
                     id_rol = ((Rol)cb_rol.SelectedItem).id_rol;
                 }
                 else if (roles.Count != 0) //Tiene uno solo

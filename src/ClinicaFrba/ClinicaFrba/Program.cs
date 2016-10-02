@@ -20,10 +20,6 @@ namespace ClinicaFrba
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Login());
-           /* using ( SqlConnection conexion =  DBConnector.ObtenerConexion()){
-
-            SqlCommand comando = new SqlCommand("SELECT * FROM ELIMINAR_CAR.Afiliado",conexion);
-            comando.ExecuteNonQuery();*/
             DBConnector.ObtenerConexion().Close();
             }
         }

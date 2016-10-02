@@ -31,9 +31,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.txtbox_usuario = new System.Windows.Forms.TextBox();
-            this.txtbox_contrasenia = new System.Windows.Forms.TextBox();
             this.btn_iniciar = new System.Windows.Forms.Button();
-            this.resultado = new System.Windows.Forms.Label();
+            this.txtbox_contrasenia = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // label1
@@ -64,15 +63,6 @@
             this.txtbox_usuario.Size = new System.Drawing.Size(205, 22);
             this.txtbox_usuario.TabIndex = 2;
             // 
-            // txtbox_contrasenia
-            // 
-            this.txtbox_contrasenia.Location = new System.Drawing.Point(277, 222);
-            this.txtbox_contrasenia.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.txtbox_contrasenia.Name = "txtbox_contrasenia";
-            this.txtbox_contrasenia.PasswordChar = '•';
-            this.txtbox_contrasenia.Size = new System.Drawing.Size(205, 22);
-            this.txtbox_contrasenia.TabIndex = 3;
-            // 
             // btn_iniciar
             // 
             this.btn_iniciar.Location = new System.Drawing.Point(619, 302);
@@ -84,14 +74,14 @@
             this.btn_iniciar.UseVisualStyleBackColor = true;
             this.btn_iniciar.Click += new System.EventHandler(this.btn_iniciar_Click);
             // 
-            // resultado
+            // txtbox_contrasenia
             // 
-            this.resultado.AutoSize = true;
-            this.resultado.Location = new System.Drawing.Point(440, 357);
-            this.resultado.Name = "resultado";
-            this.resultado.Size = new System.Drawing.Size(20, 17);
-            this.resultado.TabIndex = 5;
-            this.resultado.Text = " _";
+            this.txtbox_contrasenia.Location = new System.Drawing.Point(277, 222);
+            this.txtbox_contrasenia.Margin = new System.Windows.Forms.Padding(4);
+            this.txtbox_contrasenia.Name = "txtbox_contrasenia";
+            this.txtbox_contrasenia.Size = new System.Drawing.Size(205, 22);
+            this.txtbox_contrasenia.TabIndex = 3;
+            this.txtbox_contrasenia.UseSystemPasswordChar = true;
             // 
             // Login
             // 
@@ -99,9 +89,8 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1043, 455);
-            this.Controls.Add(this.resultado);
-            this.Controls.Add(this.btn_iniciar);
             this.Controls.Add(this.txtbox_contrasenia);
+            this.Controls.Add(this.btn_iniciar);
             this.Controls.Add(this.txtbox_usuario);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -119,9 +108,8 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtbox_usuario;
-        private System.Windows.Forms.TextBox txtbox_contrasenia;
         private System.Windows.Forms.Button btn_iniciar;
-        private System.Windows.Forms.Label resultado;
+        private System.Windows.Forms.TextBox txtbox_contrasenia;
     }
 }
 
