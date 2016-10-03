@@ -21,6 +21,7 @@ namespace ClinicaFrba.AbmRol
             InitializeComponent();
             this.conexion = DBConnector.ObtenerConexion();
             this.id_usuario = id_usuario;
+            this.ActiveControl = tb_nombre;
         }
 
         private void limpiarFuncionalidades()
@@ -64,9 +65,61 @@ namespace ClinicaFrba.AbmRol
 
         private void btn_aceptar_Click(object sender, EventArgs e)
         {
+            if (tb_nombre.Text == "")
+            {
+                if (this.cantidadCheckeadas() == 0)
+                {
+                    MessageBox.Show("Introduzca un nombre de rol y seleccione alguna(s) funcionalidad(es)", "Clinica-FRBA: ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                MessageBox.Show("Introduzca un nombre de rol", "Clinica-FRBA: ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            else if (tb_nombre.Text.Length > 20)
+            {
+                if (this.cantidadCheckeadas() == 0)
+                {
+                    MessageBox.Show("Introduzca un nombre de rol más corto y seleccione alguna(s) funcionalidad(es)", "Clinica-FRBA: ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                MessageBox.Show("Introduzca un nombre de rol más corto", "Clinica-FRBA: ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            if (yaExisteRol())
+            {
+                if (this.cantidadCheckeadas() == 0)
+                {
+                    MessageBox.Show("El rol a crear ya existe. Seleccione alguna(s) funcionalidad(es)", "Clinica-FRBA: ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                MessageBox.Show("El rol a crear ya existe", "Clinica-FRBA: ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            if (this.cantidadCheckeadas() == 0)
+            {
+                MessageBox.Show("Seleccione alguna(s) funcionalidad(es)", "Clinica-FRBA: ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            //si pasa todo esto que agregue el rol
             this.agregarATablaRol();
-            this.agregarAEntidadAsociativa();
+            this.agregarAEntidadAsociativa(); //agrega a funcionalidades_por_rol
             this.btn_limpiar_Click(sender, e);
+            MessageBox.Show("El rol fue creado correctamente", "Clinica-FRBA", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private Boolean yaExisteRol()
+        {
+            SqlCommand verificar = new SqlCommand(string.Format("select nombre_rol from eliminar_car.Rol where nombre_rol = '{0}'", tb_nombre.Text), conexion);
+            SqlDataReader reader = verificar.ExecuteReader();
+            String value;
+            if (reader.Read())
+            {
+                value = reader.GetString(0);
+                reader.Close();
+                if (value.Equals(tb_nombre.Text, StringComparison.InvariantCultureIgnoreCase)) return true;
+            }
+            reader.Close();
+            return false;
         }
 
         private void agregarATablaRol()
@@ -92,11 +145,11 @@ namespace ClinicaFrba.AbmRol
         private void agregarAEntidadAsociativa()
         {
             List<int> lista = this.obtenerIdFunChecked();
+            SqlCommand agregarFuncionalidadesPorRol;
             foreach (int id in lista)
             {
-                SqlCommand agregarFuncionalidadesPorRol = new SqlCommand(string.Format("insert into ELIMINAR_CAR.Funcionalidades_por_rol (id_rol, id_funcionalidad) values (@id_rol, @id_fun)"), conexion);
-                agregarFuncionalidadesPorRol.Parameters.AddWithValue("@id_rol", this.obtenerIdRol());
-                
+                agregarFuncionalidadesPorRol = new SqlCommand(string.Format("insert into ELIMINAR_CAR.Funcionalidades_por_rol (id_rol, id_funcionalidad) values (@id_rol, @id_fun)"), conexion);
+                agregarFuncionalidadesPorRol.Parameters.AddWithValue("@id_rol", this.obtenerIdRol());                
                 agregarFuncionalidadesPorRol.Parameters.AddWithValue("@id_fun", id);
                 agregarFuncionalidadesPorRol.ExecuteNonQuery();
             }
@@ -105,12 +158,29 @@ namespace ClinicaFrba.AbmRol
         private List<int> obtenerIdFunChecked()
         {
             List<int> lista = new List<int>();
+            foreach (DataGridViewRow f in this.obtenerFunCheckeadas())
+            {
+                lista.Add((int)f.Cells[1].Value);//obtengo el id_funcionalidad para cada uno
+            }
+            return lista;
+        }
+
+        private List<DataGridViewRow> obtenerFunCheckeadas()
+        {
+            List<DataGridViewRow> lista = new List<DataGridViewRow>();
             foreach (DataGridViewRow f in listaFun.Rows)
             {
                 DataGridViewCheckBoxCell cell = f.Cells[0] as DataGridViewCheckBoxCell;
-                if (cell.Value == cell.TrueValue) lista.Add((int)f.Cells[1].Value);//obtengo el id_funcionalidad para cada uno
+                if (cell.Value == cell.TrueValue) lista.Add(f);
             }
             return lista;
+        }
+
+        private int cantidadCheckeadas()
+        {
+            int i = 0;
+            foreach (DataGridViewRow f in this.obtenerFunCheckeadas()) i++;
+            return i;
         }
     }
 }
