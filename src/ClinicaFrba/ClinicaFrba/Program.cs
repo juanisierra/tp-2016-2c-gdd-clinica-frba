@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
 using System.Data;
+using ClinicaFrba.Registrar_Agenta_Medico;
 
 namespace ClinicaFrba
 {
