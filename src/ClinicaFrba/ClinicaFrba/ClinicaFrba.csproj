@@ -98,6 +98,7 @@
     <Compile Include="Cancelar Atencion\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Clases\Agenda_Diaria.cs" />
     <Compile Include="Clases\Enums.cs" />
     <Compile Include="Clases\Especialidad.cs" />
     <Compile Include="Clases\Profesional.cs" />
@@ -196,6 +197,8 @@
       <DependentUpon>AltaAgenda.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\DataSources\ClinicaFrba.Abm_Profesional.SeleccionarProfesional.datasource" />
+    <None Include="Properties\DataSources\ClinicaFrba.Clases.Agenda_Diaria.datasource" />
+    <None Include="Properties\DataSources\ClinicaFrba.Clases.Especialidad.datasource" />
     <None Include="Properties\DataSources\ClinicaFrba.Clases.Profesional.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

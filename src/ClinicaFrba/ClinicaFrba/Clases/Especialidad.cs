@@ -7,17 +7,16 @@ using System.Data.SqlClient;
 
 namespace ClinicaFrba.Clases
 {
-    class Especialidad
+    public class Especialidad
     {
         public int id_especialidad { set; get; }
         public String descripcion { set; get; }
         public int id_tipo_especialidad { set; get; }
 
-        public List<Especialidad> especialidadesPorProfesional(String matricula_profesional)
+        public static List<Especialidad> especialidadesPorProfesional(long matricula_profesional)
         {
             SqlConnection conexion = DBConnector.ObtenerConexion();
-            SqlCommand traerEspecialidades = new SqlCommand("SELECT id_especialidad,desc_especialidad,id_tipo_especialidad FROM ELIMINAR_CAR.Especialidad e JOIN ELIMINAR_CAR.Especialidad_por_profesional p on (e.id_especialidad=p.id_especialidad) WHERE p.matricula = {0}", conexion);
-            traerEspecialidades.Parameters.Add(matricula_profesional);
+            SqlCommand traerEspecialidades = new SqlCommand(string.Format("SELECT p.id_especialidad,desc_especialidad,id_tipo_especialidad FROM ELIMINAR_CAR.Especialidad e JOIN ELIMINAR_CAR.Especialidad_por_profesional p on (e.id_especialidad=p.id_especialidad) WHERE p.matricula = {0}",matricula_profesional.ToString()), conexion);
             SqlDataReader reader = traerEspecialidades.ExecuteReader();
             List<Especialidad> especialidades = new List<Especialidad>();
             while (reader.Read())

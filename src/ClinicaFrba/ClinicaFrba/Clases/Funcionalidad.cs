@@ -7,7 +7,7 @@ using System.Data.SqlClient;
 using ClinicaFrba.AbmRol;
 namespace ClinicaFrba
 {
-    class Funcionalidad
+    public class Funcionalidad
     {
         public int id_funcionalidad { get; set; }
         public string descripcion { get; set; }

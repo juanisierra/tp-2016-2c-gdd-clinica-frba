@@ -5,6 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace ClinicaFrba.Clases
-{   enum tipo_doc  {PASAPORTE,DNI};
+{   public enum tipo_doc  {PASAPORTE,DNI};
  
 }

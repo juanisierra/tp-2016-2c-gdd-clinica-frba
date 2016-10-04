@@ -7,7 +7,7 @@ using System.Data.SqlClient;
 
 namespace ClinicaFrba.Clases
 {
-    class Rol
+    public class Rol
     {
        public int id_rol { get; set; }
        public String Nombre { get; set; }

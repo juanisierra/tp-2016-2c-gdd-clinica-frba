@@ -7,7 +7,7 @@ using System.Data.SqlClient;
 
 namespace ClinicaFrba.Clases
 {
-    class Usuario
+    public class Usuario
     {
        public String id_usuario;
        public Byte[] contrasenia;
