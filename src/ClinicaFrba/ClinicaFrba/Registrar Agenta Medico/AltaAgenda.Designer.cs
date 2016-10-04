@@ -99,6 +99,15 @@
             this.horahastaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.idespecialidadDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.agendaDiariaBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.label_agenda = new System.Windows.Forms.Label();
+            this.label25 = new System.Windows.Forms.Label();
+            this.franja_inicio = new System.Windows.Forms.DateTimePicker();
+            this.franja_fin = new System.Windows.Forms.DateTimePicker();
+            this.label26 = new System.Windows.Forms.Label();
+            this.label27 = new System.Windows.Forms.Label();
+            this.label28 = new System.Windows.Forms.Label();
+            this.label29 = new System.Windows.Forms.Label();
+            this.label30 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.l_desde_h)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.l_desde_m)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.l_hasta_m)).BeginInit();
@@ -131,7 +140,7 @@
             // 
             // btn_aceptar
             // 
-            this.btn_aceptar.Location = new System.Drawing.Point(465, 357);
+            this.btn_aceptar.Location = new System.Drawing.Point(628, 415);
             this.btn_aceptar.Name = "btn_aceptar";
             this.btn_aceptar.Size = new System.Drawing.Size(75, 23);
             this.btn_aceptar.TabIndex = 1;
@@ -1004,7 +1013,7 @@
             this.horahastaDataGridViewTextBoxColumn,
             this.idespecialidadDataGridViewTextBoxColumn});
             this.dgv.DataSource = this.agendaDiariaBindingSource;
-            this.dgv.Location = new System.Drawing.Point(43, 250);
+            this.dgv.Location = new System.Drawing.Point(-1, 319);
             this.dgv.Name = "dgv";
             this.dgv.RowTemplate.Height = 24;
             this.dgv.Size = new System.Drawing.Size(660, 92);
@@ -1044,11 +1053,98 @@
             // 
             this.agendaDiariaBindingSource.DataSource = typeof(ClinicaFrba.Clases.Agenda_Diaria);
             // 
+            // label_agenda
+            // 
+            this.label_agenda.AutoSize = true;
+            this.label_agenda.Location = new System.Drawing.Point(28, 9);
+            this.label_agenda.Name = "label_agenda";
+            this.label_agenda.Size = new System.Drawing.Size(77, 17);
+            this.label_agenda.TabIndex = 12;
+            this.label_agenda.Text = "Agenda de";
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Location = new System.Drawing.Point(47, 271);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(97, 17);
+            this.label25.TabIndex = 13;
+            this.label25.Text = "Franja Desde:";
+            // 
+            // franja_inicio
+            // 
+            this.franja_inicio.Location = new System.Drawing.Point(150, 269);
+            this.franja_inicio.Name = "franja_inicio";
+            this.franja_inicio.Size = new System.Drawing.Size(200, 22);
+            this.franja_inicio.TabIndex = 14;
+            // 
+            // franja_fin
+            // 
+            this.franja_fin.Location = new System.Drawing.Point(460, 270);
+            this.franja_fin.Name = "franja_fin";
+            this.franja_fin.Size = new System.Drawing.Size(200, 22);
+            this.franja_fin.TabIndex = 14;
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Location = new System.Drawing.Point(53, 36);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(29, 17);
+            this.label26.TabIndex = 15;
+            this.label26.Text = "Dia";
+            // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.Location = new System.Drawing.Point(199, 36);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(88, 17);
+            this.label27.TabIndex = 15;
+            this.label27.Text = "Especialidad";
+            // 
+            // label28
+            // 
+            this.label28.AutoSize = true;
+            this.label28.Location = new System.Drawing.Point(426, 36);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(49, 17);
+            this.label28.TabIndex = 15;
+            this.label28.Text = "Desde";
+            // 
+            // label29
+            // 
+            this.label29.AutoSize = true;
+            this.label29.Location = new System.Drawing.Point(594, 36);
+            this.label29.Name = "label29";
+            this.label29.Size = new System.Drawing.Size(45, 17);
+            this.label29.TabIndex = 15;
+            this.label29.Text = "Hasta";
+            // 
+            // label30
+            // 
+            this.label30.AutoSize = true;
+            this.label30.Location = new System.Drawing.Point(385, 273);
+            this.label30.Name = "label30";
+            this.label30.Size = new System.Drawing.Size(53, 17);
+            this.label30.TabIndex = 13;
+            this.label30.Text = "Hasta: ";
+            // 
             // AltaAgenda
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(715, 450);
+            this.Controls.Add(this.label29);
+            this.Controls.Add(this.label28);
+            this.Controls.Add(this.label27);
+            this.Controls.Add(this.label26);
+            this.Controls.Add(this.franja_fin);
+            this.Controls.Add(this.franja_inicio);
+            this.Controls.Add(this.label30);
+            this.Controls.Add(this.label25);
+            this.Controls.Add(this.btn_aceptar);
+            this.Controls.Add(this.label_agenda);
             this.Controls.Add(this.dgv);
             this.Controls.Add(this.s_especialidad);
             this.Controls.Add(this.check_sabados);
@@ -1110,9 +1206,8 @@
             this.Controls.Add(this.m_desde_h);
             this.Controls.Add(this.l_desde_m);
             this.Controls.Add(this.l_desde_h);
-            this.Controls.Add(this.btn_aceptar);
             this.Name = "AltaAgenda";
-            this.Text = "Form1";
+            this.Text = "Registro de Agenda";
             this.Load += new System.EventHandler(this.AltaAgenda_Load);
             ((System.ComponentModel.ISupportInitialize)(this.l_desde_h)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.l_desde_m)).EndInit();
@@ -1219,5 +1314,14 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn horahastaDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn idespecialidadDataGridViewTextBoxColumn;
         private System.Windows.Forms.BindingSource agendaDiariaBindingSource;
+        private System.Windows.Forms.Label label_agenda;
+        private System.Windows.Forms.Label label25;
+        private System.Windows.Forms.DateTimePicker franja_inicio;
+        private System.Windows.Forms.DateTimePicker franja_fin;
+        private System.Windows.Forms.Label label26;
+        private System.Windows.Forms.Label label27;
+        private System.Windows.Forms.Label label28;
+        private System.Windows.Forms.Label label29;
+        private System.Windows.Forms.Label label30;
     }
 }

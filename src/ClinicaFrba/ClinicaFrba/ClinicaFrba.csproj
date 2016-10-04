@@ -100,8 +100,10 @@
     </Compile>
     <Compile Include="Clases\Agenda_Diaria.cs" />
     <Compile Include="Clases\Enums.cs" />
+    <Compile Include="Utils\Errores.cs" />
     <Compile Include="Clases\Especialidad.cs" />
     <Compile Include="Clases\Profesional.cs" />
+    <Compile Include="Clases\Rango_Atencion.cs" />
     <Compile Include="Clases\Rol.cs" />
     <Compile Include="Clases\Usuario.cs" />
     <Compile Include="Clases\Funcionalidad.cs" />

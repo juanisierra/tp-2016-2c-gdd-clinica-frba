@@ -27,7 +27,8 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
             formulario.ShowDialog();
             profesional = (Profesional)((DataGridView)formulario.Controls["dgv_profesional"]).CurrentRow.DataBoundItem;
             List<Especialidad> especialidades = Especialidad.especialidadesPorProfesional(profesional.matricula);
-           l_especialidad.DataSource = especialidades;
+           label_agenda.Text = "Agenda de: " + profesional.nombre+" " + profesional.apellido;
+          l_especialidad.DataSource = especialidades;
           m_especialidad.DataSource = especialidades;
           x_especialidad.DataSource = especialidades;
           j_especialidad.DataSource = especialidades;
@@ -38,6 +39,33 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
         private void btn_aceptar_Click(object sender, EventArgs e)
         {
             List<Agenda_Diaria> agenda = crearAgenda();
+            Rango_Atencion rango = new Rango_Atencion();
+            rango.matricula = profesional.matricula;
+            rango.fecha_desde = franja_inicio.Value;
+            rango.fecha_hasta = franja_fin.Value;
+            Errores errores = new Errores();
+            if(!rango.esValido())
+            {
+                errores.agregarError("La fecha de inicio de la franja debe ser anterior a la de fin.");
+            }
+            if(rango.fecha_desde< DateTime.Today || rango.fecha_hasta<DateTime.Today)
+            {
+                errores.agregarError("Las fechas de inicio y fin de la franja deben ser posteriores al dia de hoy.");
+            }
+            if(agenda.Any(elem => !elem.esValida()))
+            {
+                errores.agregarError("La hora de fin del turno no puede ser anterior a la de inicio.");
+            }
+            if (agenda.Sum(elem => elem.horasDiarias()) > 48)
+            {
+                errores.agregarError("Esta prohibido trabajar mas de 48hs semanales. Por favor disminuya sus horas diarias.");
+            }
+            if(errores.huboError())
+            {
+                
+                MessageBox.Show(errores.stringErrores(), "Clinica-FRBA: ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            
+            }
             dgv.DataSource = agenda;
         }
 
@@ -259,7 +287,7 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
             }
             return disponibilidades;
         }
-      
+        
 
     }
 }
