@@ -76,7 +76,7 @@ FOREIGN KEY (id_especialidad) REFERENCES ELIMINAR_CAR.Especialidad(id_especialid
 
 CREATE TABLE ELIMINAR_CAR.Agenda_Diaria (
 id_agenda BIGINT PRIMARY KEY,
-dia INT --0 domingo...
+dia INT, --0 domingo...
 matricula BIGINT,
 hora_desde TIME,
 hora_hasta TIME,
