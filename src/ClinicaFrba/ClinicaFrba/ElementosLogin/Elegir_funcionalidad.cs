@@ -29,7 +29,7 @@ namespace ClinicaFrba.ElementosLogin
 
         private void btn_aceptar_Click(object sender, EventArgs e)
         {
-            Form formularioAAbrir = Funcionalidad.formularioPorID(((Funcionalidad)cb_funcionalidad.SelectedItem).id_funcionalidad,id_usuario);
+            Form formularioAAbrir = Funcionalidad.formularioPorID(((Funcionalidad)cb_funcionalidad.SelectedItem).id_funcionalidad,id_usuario, id_rol);
             formularioAAbrir.ShowDialog();
         }
 

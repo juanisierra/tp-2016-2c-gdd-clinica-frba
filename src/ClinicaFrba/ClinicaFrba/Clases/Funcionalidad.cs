@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
 using ClinicaFrba.AbmRol;
+using ClinicaFrba.Compra_Bono;
+
 namespace ClinicaFrba
 {
     class Funcionalidad
@@ -28,13 +30,16 @@ namespace ClinicaFrba
             reader.Close();
             return lista;
         }
-        public static System.Windows.Forms.Form formularioPorID(int id_funcionalidad,String id_usuario)
+        public static System.Windows.Forms.Form formularioPorID(int id_funcionalidad,String id_usuario, int id_rol)
         {
             switch (id_funcionalidad)
             {
                 case 1:
                     return new ABMRol(id_usuario);
-                break;
+                    break;
+                case 8:
+                    return new CompraBonos(id_usuario, id_rol);
+                    break;
 
             }
             return null;
