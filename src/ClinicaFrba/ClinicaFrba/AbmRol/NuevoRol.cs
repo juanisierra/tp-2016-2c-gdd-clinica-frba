@@ -161,5 +161,10 @@ namespace ClinicaFrba.AbmRol
             foreach (DataGridViewRow f in this.obtenerFunCheckeadas()) i++;
             return i;
         }
+
+        private void groupBox1_Enter(object sender, EventArgs e)
+        {
+
+        }
     }
 }

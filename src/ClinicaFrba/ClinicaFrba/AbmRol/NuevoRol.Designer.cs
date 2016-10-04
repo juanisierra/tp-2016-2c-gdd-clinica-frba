@@ -43,14 +43,13 @@
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.listaFun);
-            this.groupBox1.Location = new System.Drawing.Point(23, 54);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
+            this.groupBox1.Location = new System.Drawing.Point(17, 44);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox1.Size = new System.Drawing.Size(344, 211);
+            this.groupBox1.Size = new System.Drawing.Size(258, 171);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Funcionalidades:";
+            this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
             // 
             // listaFun
             // 
@@ -60,11 +59,12 @@
             this.listaFun.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.listaFun.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Check});
-            this.listaFun.Location = new System.Drawing.Point(7, 25);
+            this.listaFun.Location = new System.Drawing.Point(5, 20);
+            this.listaFun.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.listaFun.Name = "listaFun";
             this.listaFun.RowHeadersVisible = false;
             this.listaFun.RowTemplate.Height = 24;
-            this.listaFun.Size = new System.Drawing.Size(326, 179);
+            this.listaFun.Size = new System.Drawing.Size(244, 145);
             this.listaFun.TabIndex = 0;
             // 
             // Check
@@ -78,27 +78,24 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(20, 20);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Location = new System.Drawing.Point(15, 16);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(62, 17);
+            this.label1.Size = new System.Drawing.Size(47, 13);
             this.label1.TabIndex = 1;
             this.label1.Text = "Nombre:";
             // 
             // tb_nombre
             // 
-            this.tb_nombre.Location = new System.Drawing.Point(95, 17);
-            this.tb_nombre.Margin = new System.Windows.Forms.Padding(4);
+            this.tb_nombre.Location = new System.Drawing.Point(71, 14);
             this.tb_nombre.Name = "tb_nombre";
-            this.tb_nombre.Size = new System.Drawing.Size(261, 22);
+            this.tb_nombre.Size = new System.Drawing.Size(197, 20);
             this.tb_nombre.TabIndex = 2;
             // 
             // btn_aceptar
             // 
-            this.btn_aceptar.Location = new System.Drawing.Point(246, 339);
-            this.btn_aceptar.Margin = new System.Windows.Forms.Padding(4);
+            this.btn_aceptar.Location = new System.Drawing.Point(184, 275);
             this.btn_aceptar.Name = "btn_aceptar";
-            this.btn_aceptar.Size = new System.Drawing.Size(110, 28);
+            this.btn_aceptar.Size = new System.Drawing.Size(82, 23);
             this.btn_aceptar.TabIndex = 3;
             this.btn_aceptar.Text = "Aceptar";
             this.btn_aceptar.UseVisualStyleBackColor = true;
@@ -106,10 +103,9 @@
             // 
             // btn_limpiar
             // 
-            this.btn_limpiar.Location = new System.Drawing.Point(23, 339);
-            this.btn_limpiar.Margin = new System.Windows.Forms.Padding(4);
+            this.btn_limpiar.Location = new System.Drawing.Point(17, 275);
             this.btn_limpiar.Name = "btn_limpiar";
-            this.btn_limpiar.Size = new System.Drawing.Size(110, 28);
+            this.btn_limpiar.Size = new System.Drawing.Size(82, 23);
             this.btn_limpiar.TabIndex = 4;
             this.btn_limpiar.Text = "Limpiar";
             this.btn_limpiar.UseVisualStyleBackColor = true;
@@ -118,27 +114,27 @@
             // cb_habilitar
             // 
             this.cb_habilitar.AutoSize = true;
-            this.cb_habilitar.Location = new System.Drawing.Point(23, 288);
+            this.cb_habilitar.Location = new System.Drawing.Point(17, 234);
+            this.cb_habilitar.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.cb_habilitar.Name = "cb_habilitar";
-            this.cb_habilitar.Size = new System.Drawing.Size(82, 21);
+            this.cb_habilitar.Size = new System.Drawing.Size(64, 17);
             this.cb_habilitar.TabIndex = 5;
             this.cb_habilitar.Text = "Habilitar";
             this.cb_habilitar.UseVisualStyleBackColor = true;
             // 
-            // ABMRol
+            // NuevoRol
             // 
             this.AcceptButton = this.btn_aceptar;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(409, 380);
+            this.ClientSize = new System.Drawing.Size(307, 309);
             this.Controls.Add(this.cb_habilitar);
             this.Controls.Add(this.btn_limpiar);
             this.Controls.Add(this.btn_aceptar);
             this.Controls.Add(this.tb_nombre);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.groupBox1);
-            this.Margin = new System.Windows.Forms.Padding(4);
-            this.Name = "ABMRol";
+            this.Name = "NuevoRol";
             this.Text = "Crear Rol";
             this.Load += new System.EventHandler(this.NuevoRol_Load);
             this.groupBox1.ResumeLayout(false);
