@@ -159,6 +159,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Compra Bono\CompraBono.resx">
       <DependentUpon>CompraBono.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="AbmRol\ModifRol.resx">
       <DependentUpon>ModifRol.cs</DependentUpon>
     </EmbeddedResource>
