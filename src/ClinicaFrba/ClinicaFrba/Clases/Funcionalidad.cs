@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Data.SqlClient;
 using ClinicaFrba.AbmRol;
  using ClinicaFrba.Registrar_Agenta_Medico;
+using ClinicaFrba.Compra_Bono;
 namespace ClinicaFrba
 {
     public class Funcionalidad
@@ -49,17 +50,22 @@ namespace ClinicaFrba
             lector.Close();
             return lista;
         }
-        
-        public static System.Windows.Forms.Form formularioPorID(int id_funcionalidad,String id_usuario)
+
+        public static System.Windows.Forms.Form formularioPorID(int id_funcionalidad,String id_usuario, int id_rol)
         {
             switch (id_funcionalidad)
             {
                 case 1:
                     return new ABMRol(id_usuario);
+
                 break;
                 case 7:
                  return new AltaAgenda(id_usuario);
                  break;
+                case 8:
+                    return new CompraBonos(id_usuario, id_rol);
+                    break;
+
             }
             return null;
         }

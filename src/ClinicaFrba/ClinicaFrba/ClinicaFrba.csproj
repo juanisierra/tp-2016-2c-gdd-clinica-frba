@@ -104,6 +104,7 @@
     <Compile Include="Clases\Especialidad.cs" />
     <Compile Include="Clases\Profesional.cs" />
     <Compile Include="Clases\Rango_Atencion.cs" />
+    <Compile Include="Clases\Afiliado.cs" />
     <Compile Include="Clases\Rol.cs" />
     <Compile Include="Clases\Usuario.cs" />
     <Compile Include="Clases\Funcionalidad.cs" />
@@ -121,11 +122,11 @@
     </Compile>
     <Compile Include="Utils\Hash.cs" />
     <Compile Include="Utils\DBConnector.cs" />
-    <Compile Include="Compra Bono\Form1.cs">
+    <Compile Include="Compra Bono\CompraBono.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Compra Bono\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Compra Bono\CompraBono.Designer.cs">
+      <DependentUpon>CompraBono.cs</DependentUpon>
     </Compile>
     <Compile Include="Login.cs">
       <SubType>Form</SubType>
@@ -170,6 +171,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AbmRol\ABMRol.resx">
       <DependentUpon>ABMRol.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Compra Bono\CompraBono.resx">
+      <DependentUpon>CompraBono.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AbmRol\ModifRol.resx">
       <DependentUpon>ModifRol.cs</DependentUpon>
