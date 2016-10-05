@@ -315,8 +315,8 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
                insertar.Parameters.Add("@dia", SqlDbType.Int).Value = (int) elem.dia;
                insertar.Parameters.Add("@matricula", SqlDbType.BigInt).Value = elem.matricula;
                //string format = "yyyy-MM-dd HH:MM:ss";
-               insertar.Parameters.Add("@hora_desde", SqlDbType.DateTime).Value = elem.hora_desde;
-               insertar.Parameters.Add("@hora_hasta", SqlDbType.DateTime).Value = elem.hora_hasta;
+               insertar.Parameters.Add("@hora_desde", SqlDbType.Time).Value = elem.hora_desde;
+               insertar.Parameters.Add("@hora_hasta", SqlDbType.Time).Value = elem.hora_hasta;
                insertar.Parameters.Add("@id_especialidad", SqlDbType.Int).Value = elem.id_especialidad;
                insertar.ExecuteNonQuery();
              });

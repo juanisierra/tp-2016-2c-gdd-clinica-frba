@@ -64,6 +64,9 @@ namespace ClinicaFrba
                 case 8:
                     return new CompraBonos(id_usuario, id_rol);
                     break;
+                case 9 :
+                    return new Pedir_Turno.PedirTurno(id_usuario, id_rol);
+                    break;
 
             }
             return null;

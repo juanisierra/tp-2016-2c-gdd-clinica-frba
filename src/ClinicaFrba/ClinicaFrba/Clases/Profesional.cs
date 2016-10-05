@@ -63,5 +63,10 @@ namespace ClinicaFrba.Clases
         {
             return especialidades.Any(esp => esp.id_especialidad== id_especialidad);
         }
+        public List<DayOfWeek> diasQueTrabajaNormalmente(int id_especialidad) // Sin sacarle los dias cancelados
+        {
+            List<Agenda_Diaria>  agenda = Agenda_Diaria.getAgendaProfesional(this.matricula, id_especialidad);
+            return  agenda.Select(a => a.dia).ToList<DayOfWeek>();
+        }
     }
 }
