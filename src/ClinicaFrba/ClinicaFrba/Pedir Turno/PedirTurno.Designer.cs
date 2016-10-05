@@ -34,6 +34,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.btn_aceptar = new System.Windows.Forms.Button();
+            this.label_especialidad = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // cb_dia
@@ -43,6 +44,7 @@
             this.cb_dia.Name = "cb_dia";
             this.cb_dia.Size = new System.Drawing.Size(404, 24);
             this.cb_dia.TabIndex = 0;
+            this.cb_dia.SelectedIndexChanged += new System.EventHandler(this.cb_dia_SelectedIndexChanged);
             // 
             // cb_hora
             // 
@@ -55,7 +57,7 @@
             // label_nombre_profesional
             // 
             this.label_nombre_profesional.AutoSize = true;
-            this.label_nombre_profesional.Location = new System.Drawing.Point(73, 28);
+            this.label_nombre_profesional.Location = new System.Drawing.Point(73, 9);
             this.label_nombre_profesional.Name = "label_nombre_profesional";
             this.label_nombre_profesional.Size = new System.Drawing.Size(165, 17);
             this.label_nombre_profesional.TabIndex = 1;
@@ -88,11 +90,21 @@
             this.btn_aceptar.Text = "Confirmar Turno";
             this.btn_aceptar.UseVisualStyleBackColor = true;
             // 
+            // label_especialidad
+            // 
+            this.label_especialidad.AutoSize = true;
+            this.label_especialidad.Location = new System.Drawing.Point(73, 39);
+            this.label_especialidad.Name = "label_especialidad";
+            this.label_especialidad.Size = new System.Drawing.Size(96, 17);
+            this.label_especialidad.TabIndex = 4;
+            this.label_especialidad.Text = "Especialidad: ";
+            // 
             // PedirTurno
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(672, 264);
+            this.Controls.Add(this.label_especialidad);
             this.Controls.Add(this.btn_aceptar);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -115,5 +127,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button btn_aceptar;
+        private System.Windows.Forms.Label label_especialidad;
     }
 }

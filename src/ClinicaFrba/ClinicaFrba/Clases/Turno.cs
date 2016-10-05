@@ -10,14 +10,14 @@ namespace ClinicaFrba.Clases
 {
     public class Turno
     {
-        Int64 id_turno { set; get; }
-        DateTime fecha_estipulada { set; get; }
-        Int64 matricula { set; get; }
-        Int64 id_afiliado { set; get; }
-        Int64 id_bono { set; get; }
-        DateTime momento_llegada { set; get; }
-        int id_especialidad { set; get; }
-        Boolean activo { set; get; }
+       public Int64 id_turno { set; get; }
+       public DateTime fecha_estipulada { set; get; }
+       public Int64 matricula { set; get; }
+       public Int64 id_afiliado { set; get; }
+       public Int64 id_bono { set; get; }
+       public DateTime momento_llegada { set; get; }
+       public  int id_especialidad { set; get; }
+       public Boolean activo { set; get; }
         public static List<Turno> turnosPorProfesionalYEspecialidad(Int64 matricula, int id_especialidad)
         {
             List<Turno> turnos = new List<Turno>();
@@ -34,8 +34,8 @@ namespace ClinicaFrba.Clases
                 turno.fecha_estipulada = reader.GetDateTime(1);
                 turno.matricula = reader.GetInt64(2);
                 turno.id_afiliado = reader.GetInt64(3);
-                turno.id_bono = reader.GetInt64(4);
-                turno.momento_llegada = reader.GetDateTime(5);
+                if(!reader.IsDBNull(4)) turno.id_bono = reader.GetInt64(4);
+                if (!reader.IsDBNull(5))  turno.momento_llegada = reader.GetDateTime(5);
                 turno.id_especialidad = reader.GetInt32(6);
                 turno.activo = reader.GetBoolean(7);
                 turnos.Add(turno);

@@ -19,6 +19,8 @@ namespace ClinicaFrba.Pedir_Turno
         public Profesional profesionalElegido { set; get; }
         public Especialidad especialidadElegida { set; get; }
         public List<DateTime> diasRango { set; get; }
+        public List<Agenda_Diaria> agenda { set; get; }
+        public List<TimeSpan> horarios { set; get; }
         public PedirTurno(String id_usuario,int id_rol)
         {
             InitializeComponent();
@@ -32,8 +34,23 @@ namespace ClinicaFrba.Pedir_Turno
             formularioProf.ShowDialog();
             profesionalElegido = (Profesional)((DataGridView)formularioProf.Controls["dgv_profesional"]).CurrentRow.DataBoundItem;
             especialidadElegida = (Especialidad)((ComboBox)formularioProf.Controls["cb_especialidad"]).SelectedItem;
+            label_nombre_profesional.Text = "Turnos disponibles con el Dr./Dra. " + profesionalElegido.apellido + ", " + profesionalElegido.nombre;
+            label_especialidad.Text = "Especialidad: " + especialidadElegida.descripcion;
+            CalcularDiasRango();
+            cb_dia.DataSource = diasRango;
+            agenda = Agenda_Diaria.getAgendaProfesional(profesionalElegido.matricula, especialidadElegida.id_especialidad);
+            horarios = new List<TimeSpan>();
+            if(cb_dia.SelectedItem!=null) {
+                CalcularHorarios();
+                }
+            
+            
+            }
+        public void CalcularDiasRango()
+        {
             Rango_Atencion rango = Rango_Atencion.rangoPorProfesional(profesionalElegido.matricula);
             List<DayOfWeek> diasQueTrabaja = profesionalElegido.diasQueTrabajaNormalmente(especialidadElegida.id_especialidad);
+            
             if (rango != null)
             {
                 diasRango = Rango_Atencion.generarDiasRango(rango);
@@ -47,7 +64,21 @@ namespace ClinicaFrba.Pedir_Turno
             List<DateTime> diasCancelados = new List<DateTime>();
             cancelaciones.ForEach(c => diasCancelados.AddRange(c.diasCancelados())); //Agrego los dias que se cancelan
             diasRango.RemoveAll(elem => diasCancelados.Contains(elem));
-            cb_dia.DataSource = diasRango;
-            }
+            diasRango = diasRango.Distinct().OrderBy(d => d.Year).ThenBy(d => d.Month).ThenBy(d => d.Day).ToList<DateTime>();
+        }
+        public void CalcularHorarios()
+        {   Agenda_Diaria dia = null;
+            if(cb_dia.SelectedItem!=null && agenda!=null)  dia = agenda.Find(elem => elem.dia == (((DateTime)cb_dia.SelectedItem).DayOfWeek));
+            if (dia != null) horarios = dia.generarHorarios();
+            List<Turno> turnos = Turno.turnosPorProfesionalYEspecialidad(profesionalElegido.matricula, especialidadElegida.id_especialidad);
+            List<TimeSpan> horariosOcupados = turnos.FindAll(t => t.activo && t.fecha_estipulada.Date == ((DateTime)cb_dia.SelectedItem).Date).Select(t => t.fecha_estipulada.TimeOfDay).ToList<TimeSpan>();
+           if(horarios!=null) horarios.RemoveAll(horario => horariosOcupados.Contains(horario));
+            cb_hora.DataSource = horarios;
+        }
+
+        private void cb_dia_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            CalcularHorarios();
+        }
     }
 }

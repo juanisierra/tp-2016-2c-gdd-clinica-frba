@@ -35,8 +35,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.cb_especialidad = new System.Windows.Forms.ComboBox();
             this.especialidadesBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.label2 = new System.Windows.Forms.Label();
             this.profesionalBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.label2 = new System.Windows.Forms.Label();
             this.seleccionarProfesionalBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.dgv_profesional)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.especialidadesBindingSource)).BeginInit();
@@ -93,6 +93,7 @@
             this.cb_especialidad.Location = new System.Drawing.Point(499, 12);
             this.cb_especialidad.Name = "cb_especialidad";
             this.cb_especialidad.Size = new System.Drawing.Size(318, 24);
+            this.cb_especialidad.Sorted = true;
             this.cb_especialidad.TabIndex = 4;
             this.cb_especialidad.ValueMember = "id_especialidad";
             this.cb_especialidad.SelectedIndexChanged += new System.EventHandler(this.cb_especialidad_SelectedIndexChanged);
@@ -102,6 +103,10 @@
             this.especialidadesBindingSource.DataMember = "especialidades";
             this.especialidadesBindingSource.DataSource = this.profesionalBindingSource;
             // 
+            // profesionalBindingSource
+            // 
+            this.profesionalBindingSource.DataSource = typeof(ClinicaFrba.Clases.Profesional);
+            // 
             // label2
             // 
             this.label2.AutoSize = true;
@@ -110,10 +115,6 @@
             this.label2.Size = new System.Drawing.Size(88, 17);
             this.label2.TabIndex = 5;
             this.label2.Text = "Especialidad";
-            // 
-            // profesionalBindingSource
-            // 
-            this.profesionalBindingSource.DataSource = typeof(ClinicaFrba.Clases.Profesional);
             // 
             // seleccionarProfesionalBindingSource
             // 
