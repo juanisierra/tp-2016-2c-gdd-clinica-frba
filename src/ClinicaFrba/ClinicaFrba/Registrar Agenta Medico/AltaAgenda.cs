@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using ClinicaFrba.Abm_Profesional;
 using ClinicaFrba.Clases;
+using System.Data.SqlClient;
 namespace ClinicaFrba.Registrar_Agenta_Medico
 {
     public partial class AltaAgenda : Form
@@ -23,17 +24,23 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
 
         public void AltaAgenda_Load(object sender, EventArgs e)
         {
-            SeleccionarProfesional formulario = new SeleccionarProfesional();
-            formulario.ShowDialog();
-            profesional = (Profesional)((DataGridView)formulario.Controls["dgv_profesional"]).CurrentRow.DataBoundItem;
-            List<Especialidad> especialidades = Especialidad.especialidadesPorProfesional(profesional.matricula);
+           SeleccionarProfesional formulario = new SeleccionarProfesional();
+           formulario.ShowDialog();
+           profesional = (Profesional)((DataGridView)formulario.Controls["dgv_profesional"]).CurrentRow.DataBoundItem;
+           while(Profesional.tieneAgenda(profesional.matricula))
+           {
+               MessageBox.Show("El profesional seleccionado ya tiene una agenda.", "Clinica-FRBA: ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+               formulario.ShowDialog();
+               profesional = (Profesional)((DataGridView)formulario.Controls["dgv_profesional"]).CurrentRow.DataBoundItem;
+           }
+           List<Especialidad> especialidades = Especialidad.especialidadesPorProfesional(profesional.matricula);
            label_agenda.Text = "Agenda de: " + profesional.nombre+" " + profesional.apellido;
-          l_especialidad.DataSource = especialidades;
-          m_especialidad.DataSource = especialidades;
-          x_especialidad.DataSource = especialidades;
-          j_especialidad.DataSource = especialidades;
-          v_especialidad.DataSource = especialidades;
-          s_especialidad.DataSource = especialidades;
+          l_especialidad.Items.AddRange(especialidades.ToArray());
+          m_especialidad.Items.AddRange(especialidades.ToArray());
+          x_especialidad.Items.AddRange(especialidades.ToArray());
+          j_especialidad.Items.AddRange(especialidades.ToArray());
+          v_especialidad.Items.AddRange(especialidades.ToArray());
+          s_especialidad.Items.AddRange(especialidades.ToArray());
         }
 
         private void btn_aceptar_Click(object sender, EventArgs e)
@@ -60,13 +67,23 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
             {
                 errores.agregarError("Esta prohibido trabajar mas de 48hs semanales. Por favor disminuya sus horas diarias.");
             }
-            if(errores.huboError())
+            if ((check_lunes.Checked && l_especialidad.SelectedItem == null) || (check_martes.Checked && m_especialidad.SelectedItem == null) || (check_miercoles.Checked && x_especialidad.SelectedItem == null) || (check_jueves.Checked && j_especialidad.SelectedItem == null) || (check_viernes.Checked && v_especialidad.SelectedItem == null) || (check_sabados.Checked && s_especialidad.SelectedItem == null))
             {
-                
-                MessageBox.Show(errores.stringErrores(), "Clinica-FRBA: ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            
+                errores.agregarError("La especialidad no puede ser nula.");
             }
-            dgv.DataSource = agenda;
+            if (errores.huboError())
+            {
+
+                MessageBox.Show(errores.stringErrores(), "Clinica-FRBA: ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            }
+            else
+            {
+                insert(agenda,rango);
+                MessageBox.Show("Se ha insertado la agenda correctamente.", "Clinica-FRBA", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            }
+            this.Close();
         }
 
         #region checkeos campos
@@ -255,39 +272,56 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
         private List<Agenda_Diaria> crearAgenda()
         {
             List<Agenda_Diaria> disponibilidades = new List<Agenda_Diaria>();
-            if (check_lunes.Checked)
+            if (check_lunes.Checked && l_especialidad.SelectedItem!=null)
             {
                 disponibilidades.Add(new Agenda_Diaria(1, profesional.matricula, (int)l_desde_h.Value, (int)l_desde_m.Value, (int)l_hasta_h.Value, (int)l_hasta_m.Value, ((Especialidad)l_especialidad.SelectedItem).id_especialidad));
 
             }
-            if (check_martes.Checked)
+            if (check_martes.Checked && m_especialidad.SelectedItem != null)
             {
                 disponibilidades.Add(new Agenda_Diaria(2, profesional.matricula, (int)m_desde_h.Value, (int)m_desde_m.Value, (int)m_hasta_h.Value, (int)m_hasta_m.Value, ((Especialidad)m_especialidad.SelectedItem).id_especialidad));
 
             }
-            if (check_miercoles.Checked)
+            if (check_miercoles.Checked && x_especialidad.SelectedItem != null)
             {
                 disponibilidades.Add(new Agenda_Diaria(3, profesional.matricula, (int)x_desde_h.Value, (int)x_desde_m.Value, (int)x_hasta_h.Value, (int)x_hasta_m.Value, ((Especialidad)x_especialidad.SelectedItem).id_especialidad));
 
             }
-            if (check_jueves.Checked)
+            if (check_jueves.Checked && j_especialidad.SelectedItem != null)
             {
                 disponibilidades.Add(new Agenda_Diaria(4, profesional.matricula, (int)j_desde_h.Value, (int)j_desde_m.Value, (int)j_hasta_h.Value, (int)j_hasta_m.Value, ((Especialidad)j_especialidad.SelectedItem).id_especialidad));
 
             }
-            if (check_viernes.Checked)
+            if (check_viernes.Checked && v_especialidad.SelectedItem != null)
             {
                 disponibilidades.Add(new Agenda_Diaria(5, profesional.matricula, (int)v_desde_h.Value, (int)v_desde_m.Value, (int)v_hasta_h.Value, (int)v_hasta_m.Value, ((Especialidad)v_especialidad.SelectedItem).id_especialidad));
 
             }
-            if (check_sabados.Checked)
+            if (check_sabados.Checked && s_especialidad.SelectedItem != null)
             {
                 disponibilidades.Add(new Agenda_Diaria(6, profesional.matricula, (int)s_desde_h.Value, (int)s_desde_m.Value, (int)s_hasta_h.Value, (int)s_hasta_m.Value, ((Especialidad)s_especialidad.SelectedItem).id_especialidad));
 
             }
             return disponibilidades;
         }
-        
+        private void insert(List<Agenda_Diaria> agenda,Rango_Atencion rango)
+        {   
+            agenda.ForEach(elem => {
+              SqlCommand insertar = new SqlCommand("INSERT INTO ELIMINAR_CAR.Agenda_Diaria (dia,matricula,hora_desde,hora_hasta,id_especialidad) VALUES (@dia,@matricula,@hora_desde,@hora_hasta,@id_especialidad)",DBConnector.ObtenerConexion());
+              insertar.Parameters.Add("@dia", SqlDbType.Int).Value = (int) elem.dia;
+              insertar.Parameters.Add("@matricula", SqlDbType.BigInt).Value = elem.matricula;
+              //string format = "yyyy-MM-dd HH:MM:ss";
+              insertar.Parameters.Add("@hora_desde", SqlDbType.DateTime).Value = elem.hora_desde;
+              insertar.Parameters.Add("@hora_hasta", SqlDbType.DateTime).Value = elem.hora_hasta;
+              insertar.Parameters.Add("@id_especialidad", SqlDbType.Int).Value = elem.id_especialidad;
+              insertar.ExecuteNonQuery();
+            });
+            SqlCommand insertarRango = new SqlCommand("INSERT INTO ELIMINAR_CAR.Rango_Atencion (matricula,fecha_desde,fecha_hasta) VALUES (@matricula,@fecha_desde,@fecha_hasta)", DBConnector.ObtenerConexion());
+            insertarRango.Parameters.Add("@matricula", SqlDbType.BigInt).Value = rango.matricula;
+            insertarRango.Parameters.Add("@fecha_desde", SqlDbType.DateTime).Value = rango.fecha_desde;
+            insertarRango.Parameters.Add("@fecha_hasta", SqlDbType.DateTime).Value = rango.fecha_hasta;
+            insertarRango.ExecuteNonQuery();
+        }
 
     }
 }

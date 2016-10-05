@@ -21,8 +21,8 @@ namespace ClinicaFrba.Clases
         {
             this.dia =(DayOfWeek) dia;
             this.matricula = matricula;
-            this.hora_desde = new DateTime(1, 1, 1, h_desde, m_desde,0);
-            this.hora_hasta = new DateTime(1, 1, 1, h_hasta, m_hasta,0);
+            this.hora_desde = new DateTime(1900, 1, 1, h_desde, m_desde,0);
+            this.hora_hasta = new DateTime(1900, 1, 1, h_hasta, m_hasta, 0);
             this.id_especialidad = id_especialidad;
         }
         public double horasDiarias()
