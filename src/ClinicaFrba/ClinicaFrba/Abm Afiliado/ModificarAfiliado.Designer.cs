@@ -40,6 +40,7 @@
             this.textBox5 = new System.Windows.Forms.TextBox();
             this.textBox6 = new System.Windows.Forms.TextBox();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.button_Aceptar = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -139,11 +140,21 @@
             this.comboBox1.Size = new System.Drawing.Size(134, 21);
             this.comboBox1.TabIndex = 12;
             // 
+            // button_Aceptar
+            // 
+            this.button_Aceptar.Location = new System.Drawing.Point(66, 227);
+            this.button_Aceptar.Name = "button_Aceptar";
+            this.button_Aceptar.Size = new System.Drawing.Size(171, 27);
+            this.button_Aceptar.TabIndex = 13;
+            this.button_Aceptar.Text = "Aceptar";
+            this.button_Aceptar.UseVisualStyleBackColor = true;
+            // 
             // ModificarAfiliado
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 261);
+            this.ClientSize = new System.Drawing.Size(284, 275);
+            this.Controls.Add(this.button_Aceptar);
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.textBox6);
             this.Controls.Add(this.textBox5);
@@ -158,6 +169,7 @@
             this.Controls.Add(this.label1);
             this.Name = "ModificarAfiliado";
             this.Text = "ModificarAfiliado";
+            this.Load += new System.EventHandler(this.ModificarAfiliado_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -177,5 +189,6 @@
         private System.Windows.Forms.TextBox textBox5;
         private System.Windows.Forms.TextBox textBox6;
         private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.Button button_Aceptar;
     }
 }

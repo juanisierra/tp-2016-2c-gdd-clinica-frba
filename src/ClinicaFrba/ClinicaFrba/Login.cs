@@ -121,5 +121,10 @@ namespace ClinicaFrba
                 }
             }
         }
+
+        private void Login_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
