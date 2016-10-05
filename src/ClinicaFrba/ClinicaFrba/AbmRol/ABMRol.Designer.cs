@@ -29,120 +29,95 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.listaFun = new System.Windows.Forms.DataGridView();
-            this.Check = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.label1 = new System.Windows.Forms.Label();
-            this.tb_nombre = new System.Windows.Forms.TextBox();
-            this.btn_aceptar = new System.Windows.Forms.Button();
-            this.btn_limpiar = new System.Windows.Forms.Button();
-            this.cb_habilitar = new System.Windows.Forms.CheckBox();
+            this.listaRoles = new System.Windows.Forms.DataGridView();
+            this.btn_agregar = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
+            this.btn_modif = new System.Windows.Forms.Button();
+            this.btn_quitar = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.listaFun)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.listaRoles)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.listaFun);
-            this.groupBox1.Location = new System.Drawing.Point(23, 54);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
+            this.groupBox1.Controls.Add(this.listaRoles);
+            this.groupBox1.Location = new System.Drawing.Point(12, 47);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox1.Size = new System.Drawing.Size(344, 211);
-            this.groupBox1.TabIndex = 0;
+            this.groupBox1.Size = new System.Drawing.Size(307, 337);
+            this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Funcionalidades:";
+            this.groupBox1.Text = "Roles";
             // 
-            // listaFun
+            // listaRoles
             // 
-            this.listaFun.AllowUserToAddRows = false;
-            this.listaFun.AllowUserToDeleteRows = false;
-            this.listaFun.AllowUserToResizeRows = false;
-            this.listaFun.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.listaFun.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Check});
-            this.listaFun.Location = new System.Drawing.Point(7, 25);
-            this.listaFun.Name = "listaFun";
-            this.listaFun.RowHeadersVisible = false;
-            this.listaFun.RowTemplate.Height = 24;
-            this.listaFun.Size = new System.Drawing.Size(326, 179);
-            this.listaFun.TabIndex = 0;
+            this.listaRoles.AllowUserToAddRows = false;
+            this.listaRoles.AllowUserToDeleteRows = false;
+            this.listaRoles.AllowUserToResizeRows = false;
+            this.listaRoles.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.listaRoles.Location = new System.Drawing.Point(6, 21);
+            this.listaRoles.Name = "listaRoles";
+            this.listaRoles.ReadOnly = true;
+            this.listaRoles.RowHeadersVisible = false;
+            this.listaRoles.RowTemplate.Height = 24;
+            this.listaRoles.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.listaRoles.Size = new System.Drawing.Size(295, 310);
+            this.listaRoles.TabIndex = 0;
+            this.listaRoles.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.listaRoles_CellContentClick);
             // 
-            // Check
+            // btn_agregar
             // 
-            this.Check.FalseValue = "false";
-            this.Check.HeaderText = " ";
-            this.Check.Name = "Check";
-            this.Check.TrueValue = "true";
-            this.Check.Width = 35;
+            this.btn_agregar.Location = new System.Drawing.Point(337, 108);
+            this.btn_agregar.Name = "btn_agregar";
+            this.btn_agregar.Size = new System.Drawing.Size(75, 32);
+            this.btn_agregar.TabIndex = 2;
+            this.btn_agregar.Text = "Agregar";
+            this.btn_agregar.UseVisualStyleBackColor = true;
+            this.btn_agregar.Click += new System.EventHandler(this.btn_agregar_Click);
             // 
-            // label1
+            // label2
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(20, 20);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(62, 17);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Nombre:";
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(15, 18);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(217, 17);
+            this.label2.TabIndex = 6;
+            this.label2.Text = "Seleccione un rol y/o una acción:";
             // 
-            // tb_nombre
+            // btn_modif
             // 
-            this.tb_nombre.Location = new System.Drawing.Point(95, 17);
-            this.tb_nombre.Margin = new System.Windows.Forms.Padding(4);
-            this.tb_nombre.Name = "tb_nombre";
-            this.tb_nombre.Size = new System.Drawing.Size(261, 22);
-            this.tb_nombre.TabIndex = 2;
+            this.btn_modif.Location = new System.Drawing.Point(337, 171);
+            this.btn_modif.Name = "btn_modif";
+            this.btn_modif.Size = new System.Drawing.Size(75, 32);
+            this.btn_modif.TabIndex = 7;
+            this.btn_modif.Text = "Modificar";
+            this.btn_modif.UseVisualStyleBackColor = true;
+            this.btn_modif.Click += new System.EventHandler(this.btn_modif_Click);
             // 
-            // btn_aceptar
+            // btn_quitar
             // 
-            this.btn_aceptar.Location = new System.Drawing.Point(246, 339);
-            this.btn_aceptar.Margin = new System.Windows.Forms.Padding(4);
-            this.btn_aceptar.Name = "btn_aceptar";
-            this.btn_aceptar.Size = new System.Drawing.Size(110, 28);
-            this.btn_aceptar.TabIndex = 3;
-            this.btn_aceptar.Text = "Aceptar";
-            this.btn_aceptar.UseVisualStyleBackColor = true;
-            this.btn_aceptar.Click += new System.EventHandler(this.btn_aceptar_Click);
-            // 
-            // btn_limpiar
-            // 
-            this.btn_limpiar.Location = new System.Drawing.Point(23, 339);
-            this.btn_limpiar.Margin = new System.Windows.Forms.Padding(4);
-            this.btn_limpiar.Name = "btn_limpiar";
-            this.btn_limpiar.Size = new System.Drawing.Size(110, 28);
-            this.btn_limpiar.TabIndex = 4;
-            this.btn_limpiar.Text = "Limpiar";
-            this.btn_limpiar.UseVisualStyleBackColor = true;
-            this.btn_limpiar.Click += new System.EventHandler(this.btn_limpiar_Click);
-            // 
-            // cb_habilitar
-            // 
-            this.cb_habilitar.AutoSize = true;
-            this.cb_habilitar.Location = new System.Drawing.Point(23, 288);
-            this.cb_habilitar.Name = "cb_habilitar";
-            this.cb_habilitar.Size = new System.Drawing.Size(82, 21);
-            this.cb_habilitar.TabIndex = 5;
-            this.cb_habilitar.Text = "Habilitar";
-            this.cb_habilitar.UseVisualStyleBackColor = true;
+            this.btn_quitar.Location = new System.Drawing.Point(337, 239);
+            this.btn_quitar.Name = "btn_quitar";
+            this.btn_quitar.Size = new System.Drawing.Size(75, 32);
+            this.btn_quitar.TabIndex = 8;
+            this.btn_quitar.Text = "Quitar";
+            this.btn_quitar.UseVisualStyleBackColor = true;
+            this.btn_quitar.Click += new System.EventHandler(this.btn_quitar_Click);
             // 
             // ABMRol
             // 
-            this.AcceptButton = this.btn_aceptar;
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(409, 380);
-            this.Controls.Add(this.cb_habilitar);
-            this.Controls.Add(this.btn_limpiar);
-            this.Controls.Add(this.btn_aceptar);
-            this.Controls.Add(this.tb_nombre);
-            this.Controls.Add(this.label1);
+            this.ClientSize = new System.Drawing.Size(442, 400);
+            this.Controls.Add(this.btn_quitar);
+            this.Controls.Add(this.btn_modif);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.btn_agregar);
             this.Controls.Add(this.groupBox1);
-            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "ABMRol";
-            this.Text = "Crear Rol";
-            this.Load += new System.EventHandler(this.NuevoRol_Load);
+            this.Text = "ABMRol";
+            this.Load += new System.EventHandler(this.ABMRol_Load);
             this.groupBox1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.listaFun)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.listaRoles)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -151,12 +126,11 @@
         #endregion
 
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox tb_nombre;
-        private System.Windows.Forms.Button btn_aceptar;
-        private System.Windows.Forms.DataGridView listaFun;
-        private System.Windows.Forms.Button btn_limpiar;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn Check;
-        private System.Windows.Forms.CheckBox cb_habilitar;
+        private System.Windows.Forms.DataGridView listaRoles;
+        private System.Windows.Forms.Button btn_agregar;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button btn_modif;
+        private System.Windows.Forms.Button btn_quitar;
+
     }
 }

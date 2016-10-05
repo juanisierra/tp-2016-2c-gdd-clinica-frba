@@ -23,12 +23,6 @@ namespace ClinicaFrba
            
         }
 
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
-        }
-
-
         private Usuario login()
         {
             SqlConnection conexion = DBConnector.ObtenerConexion();

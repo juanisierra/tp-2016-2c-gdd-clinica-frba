@@ -14,6 +14,7 @@ namespace ClinicaFrba
         public int id_funcionalidad { get; set; }
         public string descripcion { get; set; }
         public static Dictionary<int, Type> Formularios { get; set; }  //Une cada id de funcionalidad con un formulario    
+        
         public static List<Funcionalidad> funcionalidadesPorRol(int id_rol)
         {   
             SqlConnection conexion = DBConnector.ObtenerConexion();
@@ -30,6 +31,26 @@ namespace ClinicaFrba
             reader.Close();
             return lista;
         }
+
+        public static List<Funcionalidad> todasLasFuncionalidades()
+        {
+            SqlConnection conexion = DBConnector.ObtenerConexion();
+            SqlCommand funcionalidades = new SqlCommand(string.Format("SELECT id_funcionalidad, descripcion FROM ELIMINAR_CAR.Funcionalidad"), conexion);
+            SqlDataReader lector = funcionalidades.ExecuteReader();
+
+            List<Funcionalidad> lista = new List<Funcionalidad>();
+
+            while (lector.Read())
+            {
+                Funcionalidad func = new Funcionalidad();
+                func.id_funcionalidad = lector.GetInt16(0);
+                func.descripcion = lector.GetString(1);
+                lista.Add(func);
+            }
+            lector.Close();
+            return lista;
+        }
+
         public static System.Windows.Forms.Form formularioPorID(int id_funcionalidad,String id_usuario, int id_rol)
         {
             switch (id_funcionalidad)

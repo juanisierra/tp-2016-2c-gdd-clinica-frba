@@ -29,5 +29,23 @@ namespace ClinicaFrba.Clases
             reader.Close();
             return lista;
         }
+
+        public static List<Rol> rolesTotales()
+        {
+            SqlConnection conexion = DBConnector.ObtenerConexion();
+            SqlCommand traerRoles = new SqlCommand(string.Format("SELECT id_rol,habilitado,nombre_rol FROM ELIMINAR_CAR.Rol"), conexion);
+            SqlDataReader reader = traerRoles.ExecuteReader();
+            List<Rol> lista = new List<Rol>();
+            while (reader.Read())
+            {
+                Rol r = new Rol();
+                r.id_rol = reader.GetInt16(0);
+                r.habilitado = reader.GetBoolean(1);
+                r.Nombre = reader.GetString(2);
+                lista.Add(r);
+            }
+            reader.Close();
+            return lista;
+        }
     }
 }
