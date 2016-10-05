@@ -41,5 +41,18 @@ namespace ClinicaFrba.Clases
         reader.Close();
         return profesionales;
     }
+        public static Boolean tieneAgenda(Int64 matricula)
+     {
+         SqlCommand traerAgendasDiarias = new SqlCommand(string.Format("SELECT id_agenda FROM ELIMINAR_CAR.Agenda_Diaria WHERE matricula={0}",matricula.ToString()), DBConnector.ObtenerConexion());
+         SqlDataReader reader = traerAgendasDiarias.ExecuteReader();
+         List<Int64> agendas = new List<Int64>();
+         while (reader.Read())agendas.Add(reader.GetInt64(0));
+         reader.Close();
+         SqlCommand traerFranja = new SqlCommand(string.Format("SELECT id_rango FROM ELIMINAR_CAR.Rango_Atencion WHERE matricula={0}", matricula.ToString()), DBConnector.ObtenerConexion());
+         SqlDataReader reader2 = traerFranja.ExecuteReader();
+         while (reader2.Read()) agendas.Add(reader2.GetInt64(0));
+         reader2.Close();
+         return (agendas.Count() > 0);
+     }
     }
 }
