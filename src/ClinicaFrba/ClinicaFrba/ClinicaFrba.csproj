@@ -197,11 +197,17 @@
     <Compile Include="Registro Resultado\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Abm Afiliado\EliminarAfiliado.resx">
+      <DependentUpon>EliminarAfiliado.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Abm Afiliado\ModificarAfiliado.resx">
       <DependentUpon>ModificarAfiliado.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Abm Profesional\SeleccionarProfesionalPorEspecialidad.resx">
       <DependentUpon>SeleccionarProfesionalPorEspecialidad.cs</DependentUpon>
+ </EmbeddedResource>
+    <EmbeddedResource Include="Abm Afiliado\NuevoAfiliado.resx">
+      <DependentUpon>NuevoAfiliado.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Abm Profesional\SeleccionarProfesional.resx">
       <DependentUpon>SeleccionarProfesional.cs</DependentUpon>

@@ -12,6 +12,7 @@ namespace ClinicaFrba.Clases
        public int id_rol { get; set; }
        public String Nombre { get; set; }
        public Boolean habilitado { get; set; }
+        
         public static List<Rol> rolesDeUsuario(String id_usuario)
         {
             SqlConnection conexion = DBConnector.ObtenerConexion();
