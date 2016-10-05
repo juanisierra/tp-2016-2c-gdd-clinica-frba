@@ -57,7 +57,6 @@ namespace ClinicaFrba
             {
                 case 1:
                     return new ABMRol(id_usuario);
-
                 break;
                 case 7:
                  return new AltaAgenda(id_usuario);

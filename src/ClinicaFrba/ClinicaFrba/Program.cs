@@ -6,6 +6,8 @@ using System.Windows.Forms;
 using System.Data.SqlClient;
 using System.Data;
 using ClinicaFrba.Registrar_Agenta_Medico;
+using ClinicaFrba.Clases;
+using ClinicaFrba.Abm_Profesional;
 
 namespace ClinicaFrba
 {

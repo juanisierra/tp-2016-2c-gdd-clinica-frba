@@ -99,7 +99,6 @@
             this.label28 = new System.Windows.Forms.Label();
             this.label29 = new System.Windows.Forms.Label();
             this.label30 = new System.Windows.Forms.Label();
-            this.label31 = new System.Windows.Forms.Label();
             this.agendaDiariaBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.especialidadBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.especialidadBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
@@ -1059,15 +1058,6 @@
             this.label30.TabIndex = 13;
             this.label30.Text = "Hasta: ";
             // 
-            // label31
-            // 
-            this.label31.AutoSize = true;
-            this.label31.Location = new System.Drawing.Point(398, 9);
-            this.label31.Name = "label31";
-            this.label31.Size = new System.Drawing.Size(54, 17);
-            this.label31.TabIndex = 16;
-            this.label31.Text = "label31";
-            // 
             // agendaDiariaBindingSource
             // 
             this.agendaDiariaBindingSource.DataSource = typeof(ClinicaFrba.Clases.Agenda_Diaria);
@@ -1085,7 +1075,6 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(715, 450);
-            this.Controls.Add(this.label31);
             this.Controls.Add(this.label29);
             this.Controls.Add(this.label28);
             this.Controls.Add(this.label27);
@@ -1266,6 +1255,5 @@
         private System.Windows.Forms.Label label28;
         private System.Windows.Forms.Label label29;
         private System.Windows.Forms.Label label30;
-        private System.Windows.Forms.Label label31;
     }
 }

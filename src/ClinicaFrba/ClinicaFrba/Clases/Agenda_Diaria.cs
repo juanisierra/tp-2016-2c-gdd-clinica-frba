@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data.SqlClient;
 
 namespace ClinicaFrba.Clases
 {
@@ -29,7 +30,12 @@ namespace ClinicaFrba.Clases
         {
             return (hora_hasta - hora_desde).TotalHours;
         }
-
+        /*public List<Agenda_Diaria> getAgendaProfesional(Int64 matricula)
+        {
+            SqlCommand traerAgendas = new SqlCommand();
+            traerAgendas.Connection = DBConnector.ObtenerConexion();
+            //traerAgendas.CommandText = ""
+        }*/
 
 
 

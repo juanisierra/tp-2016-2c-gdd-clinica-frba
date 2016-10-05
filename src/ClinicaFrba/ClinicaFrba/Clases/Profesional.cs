@@ -18,6 +18,7 @@ namespace ClinicaFrba.Clases
     public Decimal numero_doc { set; get; }
     public tipo_doc tipo_doc {set;get;}
     public DateTime fecha_nac {set;get;}
+    public List<Especialidad> especialidades { set; get; }
     public static List<Profesional> profesionales(SqlConnection conexion)
     {
         SqlCommand traerProfesionales = new SqlCommand("SELECT matricula,tipo_doc,numero_doc,nombre,apellido,direccion,telefono,mail,fecha_nac,usuario FROM ELIMINAR_CAR.Profesional", conexion);
@@ -39,6 +40,10 @@ namespace ClinicaFrba.Clases
             profesionales.Add(p);
         }
         reader.Close();
+        profesionales.ForEach(prof =>
+        {
+           prof.especialidades= Especialidad.especialidadesPorProfesional(prof.matricula);
+        });
         return profesionales;
     }
         public static Boolean tieneAgenda(Int64 matricula)
@@ -54,5 +59,9 @@ namespace ClinicaFrba.Clases
          reader2.Close();
          return (agendas.Count() > 0);
      }
+        public Boolean tieneEspecialidad(int id_especialidad)
+        {
+            return especialidades.Any(esp => esp.id_especialidad== id_especialidad);
+        }
     }
 }

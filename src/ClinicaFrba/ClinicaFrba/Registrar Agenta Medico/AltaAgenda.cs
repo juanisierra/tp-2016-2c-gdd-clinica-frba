@@ -21,18 +21,22 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
             InitializeComponent();
             this.id_usuario = id_usuario;
         }
-
+        
         public void AltaAgenda_Load(object sender, EventArgs e)
         {
            SeleccionarProfesional formulario = new SeleccionarProfesional();
             formulario.ShowDialog();
+            Boolean cerradoPorusuario = false;
             profesional = (Profesional)((DataGridView)formulario.Controls["dgv_profesional"]).CurrentRow.DataBoundItem;
-            while(Profesional.tieneAgenda(profesional.matricula))
+            if (formulario.fueCerradoPorUsuario == true) cerradoPorusuario = true;
+            while (Profesional.tieneAgenda(profesional.matricula) && cerradoPorusuario==false)
             {
                 MessageBox.Show("El profesional seleccionado ya tiene una agenda.", "Clinica-FRBA: ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 formulario.ShowDialog();
                 profesional = (Profesional)((DataGridView)formulario.Controls["dgv_profesional"]).CurrentRow.DataBoundItem;
+                if (formulario.fueCerradoPorUsuario == true) cerradoPorusuario = true;
             }
+            if (formulario.fueCerradoPorUsuario == true) this.Close();
             List<Especialidad> especialidades = Especialidad.especialidadesPorProfesional(profesional.matricula);label_agenda.Text = "Agenda de: " + profesional.nombre+" " + profesional.apellido;
             l_especialidad.Items.AddRange(especialidades.ToArray());
             m_especialidad.Items.AddRange(especialidades.ToArray());

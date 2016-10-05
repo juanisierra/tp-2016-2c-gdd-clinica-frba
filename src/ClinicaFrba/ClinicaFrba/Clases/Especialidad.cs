@@ -30,5 +30,22 @@ namespace ClinicaFrba.Clases
             reader.Close();
             return especialidades;
         }
+        public static List<Especialidad> todasLasEspecialidades()
+        {
+            SqlConnection conexion = DBConnector.ObtenerConexion();
+            SqlCommand traerEspecialidades = new SqlCommand("SELECT id_especialidad,desc_especialidad,id_tipo_especialidad FROM ELIMINAR_CAR.Especialidad", conexion);
+            SqlDataReader reader = traerEspecialidades.ExecuteReader();
+            List<Especialidad> especialidades = new List<Especialidad>();
+            while (reader.Read())
+            {
+                Especialidad e = new Especialidad();
+                e.id_especialidad = reader.GetInt32(0);
+                e.descripcion = reader.GetString(1);
+                e.id_tipo_especialidad = reader.GetInt32(2);
+                especialidades.Add(e);
+            }
+            reader.Close();
+            return especialidades;
+        }
     }
 }

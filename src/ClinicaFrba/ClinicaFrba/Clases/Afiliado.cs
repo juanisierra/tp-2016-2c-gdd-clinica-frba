@@ -17,7 +17,7 @@ namespace ClinicaFrba.Clases
         public string direccion { get; set; }
         public long telefono { get; set; }
         public string mail { get; set; }
-        public string fechaNac { get; set; }
+        public DateTime fechaNac { get; set; }
         public string estadoCivil { get; set; }
         public char sexo { get; set; }
         public int idPlan { get; set; }
@@ -46,7 +46,7 @@ namespace ClinicaFrba.Clases
                 afiliado.direccion= reader.GetString(5);
                 afiliado.telefono= reader.GetInt64(6);
                 afiliado.mail= reader.GetString(7);
-                afiliado.fechaNac = reader.GetDateTime(8).ToString("yyyy-MM-dd HH:mm:ss");
+                afiliado.fechaNac = reader.GetDateTime(8);
                 afiliado.estadoCivil= reader.GetString(9);
                 if (reader.IsDBNull(10))
                     afiliado.sexo = '-';

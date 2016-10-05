@@ -86,6 +86,12 @@
     <Compile Include="Abm Planes\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Abm Profesional\SeleccionarProfesionalPorEspecialidad.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Abm Profesional\SeleccionarProfesionalPorEspecialidad.Designer.cs">
+      <DependentUpon>SeleccionarProfesionalPorEspecialidad.cs</DependentUpon>
+    </Compile>
     <Compile Include="Abm Profesional\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -124,6 +130,7 @@
     </Compile>
     <Compile Include="Clases\Agenda_Diaria.cs" />
     <Compile Include="Clases\Enums.cs" />
+    <Compile Include="Clases\Turno.cs" />
     <Compile Include="Utils\Errores.cs" />
     <Compile Include="Clases\Especialidad.cs" />
     <Compile Include="Clases\Profesional.cs" />
@@ -192,6 +199,9 @@
     </Compile>
     <EmbeddedResource Include="Abm Afiliado\ModificarAfiliado.resx">
       <DependentUpon>ModificarAfiliado.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Abm Profesional\SeleccionarProfesionalPorEspecialidad.resx">
+      <DependentUpon>SeleccionarProfesionalPorEspecialidad.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Abm Profesional\SeleccionarProfesional.resx">
       <DependentUpon>SeleccionarProfesional.cs</DependentUpon>
