@@ -123,9 +123,16 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="Clases\Agenda_Diaria.cs" />
+    <Compile Include="Clases\Bono.cs" />
     <Compile Include="Clases\Cancelacion_Profesional.cs" />
     <Compile Include="Clases\Enums.cs" />
     <Compile Include="Clases\Turno.cs" />
+    <Compile Include="Registro Llegada\SeleccionarBono.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Registro Llegada\SeleccionarBono.Designer.cs">
+      <DependentUpon>SeleccionarBono.cs</DependentUpon>
+    </Compile>
     <Compile Include="Utils\Errores.cs" />
     <Compile Include="Clases\Especialidad.cs" />
     <Compile Include="Clases\Profesional.cs" />
@@ -180,11 +187,11 @@
     <Compile Include="Registrar Agenta Medico\AltaAgenda.Designer.cs">
       <DependentUpon>AltaAgenda.cs</DependentUpon>
     </Compile>
-    <Compile Include="Registro Llegada\Form1.cs">
+    <Compile Include="Registro Llegada\RegistroLlegada.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Registro Llegada\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Registro Llegada\RegistroLlegada.Designer.cs">
+      <DependentUpon>RegistroLlegada.cs</DependentUpon>
     </Compile>
     <Compile Include="Registro Resultado\Form1.cs">
       <SubType>Form</SubType>
@@ -240,10 +247,17 @@
     <EmbeddedResource Include="Registrar Agenta Medico\AltaAgenda.resx">
       <DependentUpon>AltaAgenda.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Registro Llegada\RegistroLlegada.resx">
+      <DependentUpon>RegistroLlegada.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Registro Llegada\SeleccionarBono.resx">
+      <DependentUpon>SeleccionarBono.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\DataSources\ClinicaFrba.Abm_Profesional.SeleccionarProfesional.datasource" />
     <None Include="Properties\DataSources\ClinicaFrba.Clases.Agenda_Diaria.datasource" />
     <None Include="Properties\DataSources\ClinicaFrba.Clases.Especialidad.datasource" />
     <None Include="Properties\DataSources\ClinicaFrba.Clases.Profesional.datasource" />
+    <None Include="Properties\DataSources\ClinicaFrba.Clases.Turno.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

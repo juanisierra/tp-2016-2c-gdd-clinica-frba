@@ -120,7 +120,7 @@ namespace ClinicaFrba.Pedir_Turno
                     horarios.RemoveAll(horario => (horario < DateTime.Now.TimeOfDay));
                 }
             }
-            List<Turno> turnos = Turno.turnosPorProfesionalYEspecialidad(profesionalElegido.matricula, especialidadElegida.id_especialidad);
+            List<Turno> turnos = Turno.turnosFuturosPorProfesionalYEspecialidad(profesionalElegido.matricula, especialidadElegida.id_especialidad);
             List<TimeSpan> horariosOcupados = turnos.FindAll(t => t.activo && t.fecha_estipulada.Date == ((DateTime)cb_dia.SelectedItem).Date).Select(t => t.fecha_estipulada.TimeOfDay).ToList<TimeSpan>();
            // tantes.Text = horarios.Count().ToString();
             //tacancelar.Text = horariosOcupados.Count().ToString();

@@ -47,5 +47,6 @@ namespace ClinicaFrba.Clases
             reader.Close();
             return especialidades;
         }
+  
     }
 }

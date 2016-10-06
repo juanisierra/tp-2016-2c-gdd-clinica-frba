@@ -67,6 +67,9 @@ namespace ClinicaFrba
                 case 9 :
                     return new Pedir_Turno.PedirTurno(id_usuario, id_rol);
                     break;
+                case 10:
+                    return new Registro_Llegada.RegistroLlegada(id_usuario, id_rol);
+                    break;
 
             }
             return null;

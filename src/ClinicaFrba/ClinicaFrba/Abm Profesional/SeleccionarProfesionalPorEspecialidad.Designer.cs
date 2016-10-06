@@ -47,7 +47,7 @@
             // dgv_profesional
             // 
             this.dgv_profesional.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgv_profesional.Location = new System.Drawing.Point(26, 51);
+            this.dgv_profesional.Location = new System.Drawing.Point(17, 113);
             this.dgv_profesional.MultiSelect = false;
             this.dgv_profesional.Name = "dgv_profesional";
             this.dgv_profesional.ReadOnly = true;
@@ -90,7 +90,7 @@
             // 
             this.cb_especialidad.DisplayMember = "descripcion";
             this.cb_especialidad.FormattingEnabled = true;
-            this.cb_especialidad.Location = new System.Drawing.Point(499, 12);
+            this.cb_especialidad.Location = new System.Drawing.Point(692, 65);
             this.cb_especialidad.Name = "cb_especialidad";
             this.cb_especialidad.Size = new System.Drawing.Size(318, 24);
             this.cb_especialidad.TabIndex = 4;
@@ -109,7 +109,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(394, 15);
+            this.label2.Location = new System.Drawing.Point(587, 68);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(88, 17);
             this.label2.TabIndex = 5;
@@ -131,7 +131,7 @@
             this.Controls.Add(this.dgv_profesional);
             this.Controls.Add(this.flowLayoutPanel1);
             this.Name = "SeleccionarProfesionalPorEspecialidad";
-            this.Text = "Form2";
+            this.Text = "Seleccionar Profesional";
             this.Load += new System.EventHandler(this.SeleccionarProfesional_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgv_profesional)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.especialidadesBindingSource)).EndInit();
