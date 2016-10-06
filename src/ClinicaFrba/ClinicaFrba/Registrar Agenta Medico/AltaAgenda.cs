@@ -15,28 +15,66 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
     public partial class AltaAgenda : Form
     {
         public string id_usuario { set; get; }
+        public int id_rol { set; get; }
         public Profesional profesional { set; get; }
-        public AltaAgenda(String id_usuario)
+        public AltaAgenda(String id_usuario,int id_rol)
         {
             InitializeComponent();
             this.id_usuario = id_usuario;
+            this.id_rol = id_rol;
         }
         
         public void AltaAgenda_Load(object sender, EventArgs e)
         {
-           SeleccionarProfesional formulario = new SeleccionarProfesional();
-            formulario.ShowDialog();
-            Boolean cerradoPorusuario = false;
-            profesional = (Profesional)((DataGridView)formulario.Controls["dgv_profesional"]).CurrentRow.DataBoundItem;
-            if (formulario.fueCerradoPorUsuario == true) cerradoPorusuario = true;
-            while (Profesional.tieneAgenda(profesional.matricula) && cerradoPorusuario==false)
+            if (id_rol == 3) ///Es profesional
             {
-                MessageBox.Show("El profesional seleccionado ya tiene una agenda.", "Clinica-FRBA: ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                SqlCommand traerIdProfesional = new SqlCommand();
+                traerIdProfesional.CommandType = CommandType.StoredProcedure;
+                traerIdProfesional.Connection = DBConnector.ObtenerConexion();
+                traerIdProfesional.CommandText = "ELIMINAR_CAR.matricula_por_usuario";
+                traerIdProfesional.Parameters.Add(new SqlParameter("@usuario", id_usuario));
+                SqlParameter matricula = new SqlParameter();
+                matricula.ParameterName = "@matricula";
+                matricula.DbType = DbType.Int64;
+                matricula.Direction = ParameterDirection.Output;
+                traerIdProfesional.Parameters.Add(matricula);
+                traerIdProfesional.ExecuteNonQuery();
+                if (traerIdProfesional.Parameters["@matricula"].SqlValue != DBNull.Value)
+                {
+                   profesional = Profesional.traerProfesionalPorMatricula((Int64) traerIdProfesional.Parameters["@matricula"].Value);
+                }
+                else //NO hay matricula en un profesional
+                {
+                    MessageBox.Show("Error, el usuario con el que se ingresó tiene rol de Profesional pero no tiene matricula","ERROR",MessageBoxButtons.OK,MessageBoxIcon.Error);
+                    this.Close();
+                }
+                if(Profesional.tieneAgenda(profesional.matricula))
+                {
+                    MessageBox.Show("Ya ha ingresado una agenda. Solo puede ingresarse una vez", "Clinica-FRBA: ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    this.Close();
+                }
+            }
+            else if (id_rol == 2 || id_rol == 4)
+            {
+                SeleccionarProfesional formulario = new SeleccionarProfesional();
                 formulario.ShowDialog();
+                Boolean cerradoPorusuario = false;
                 profesional = (Profesional)((DataGridView)formulario.Controls["dgv_profesional"]).CurrentRow.DataBoundItem;
                 if (formulario.fueCerradoPorUsuario == true) cerradoPorusuario = true;
+                while (Profesional.tieneAgenda(profesional.matricula) && cerradoPorusuario == false)
+                {
+                    MessageBox.Show("El profesional seleccionado ya tiene una agenda.", "Clinica-FRBA: ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    formulario.ShowDialog();
+                    profesional = (Profesional)((DataGridView)formulario.Controls["dgv_profesional"]).CurrentRow.DataBoundItem;
+                    if (formulario.fueCerradoPorUsuario == true) cerradoPorusuario = true;
+                }
+                if (formulario.fueCerradoPorUsuario == true) this.Close();
             }
-            if (formulario.fueCerradoPorUsuario == true) this.Close();
+            else
+            {
+                MessageBox.Show("El usuario actual no deberia tener acceso a esta funcionalidad.", "Clinica-FRBA: ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.Close();
+            }
             List<Especialidad> especialidades = Especialidad.especialidadesPorProfesional(profesional.matricula);label_agenda.Text = "Agenda de: " + profesional.nombre+" " + profesional.apellido;
             l_especialidad.Items.AddRange(especialidades.ToArray());
             m_especialidad.Items.AddRange(especialidades.ToArray());

@@ -59,7 +59,7 @@ namespace ClinicaFrba
                     return new ABMRol(id_usuario);
                 break;
                 case 7:
-                 return new AltaAgenda(id_usuario);
+                 return new AltaAgenda(id_usuario,id_rol);
                  break;
                 case 8:
                     return new CompraBonos(id_usuario, id_rol);

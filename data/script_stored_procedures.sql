@@ -1,15 +1,4 @@
-CREATE PROCEDURE ELIMINAR_CAR.verificar_login( @usuario varchar(20),@contrasenia BINARY(32))
+CREATE PROCEDURE ELIMINAR_CAR.matricula_por_usuario(@usuario varchar(20),@matricula BIGINT OUTPUT)
 AS  
-IF (SELECT contrasenia FROM ELIMINAR_CAR.Usuario WHERE id_usuario=@usuario) = @contrasenia
-    RETURN 1  
-ELSE  
-    RETURN 0;  
+SELECT TOP 1 @matricula=matricula FROM ELIMINAR_CAR.Profesional p JOIN ELIMINAR_CAR.Usuario u on (p.usuario = u.id_usuario) WHERE id_usuario=@usuario
 GO  
-
-declare @password  VARCHAR(20) SET @password='w23e' 
-declare @enc BiNARY(32) SET @enc=HashBytes('SHA2_256',@password)
-declare @resultado INT
-EXECUTE @resultado = ELIMINAR_CAR.verificar_login 'admin',@enc
-PRINT @resultado
-SELECT id_usuario,contrasenia,intentos_fallidos,habilitado FROM ELIMINAR_CAR.Usuario WHERE id_usuario = 'admin' 
-
