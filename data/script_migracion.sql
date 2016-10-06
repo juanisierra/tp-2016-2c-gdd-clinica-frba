@@ -62,7 +62,7 @@ GROUP BY Paciente_DNI
 --Afiliados		Usamos row number para generar los numeros de las familias
 INSERT INTO eliminar_car.afiliado
 (numero_doc,tipo_doc,nombre,apellido,direccion,telefono,mail,fecha_nac,estado_civil,id_afiliado,id_plan,id_familia,familiares_a_cargo,activo)
-SELECT  DISTINCT m.Paciente_Dni,1,m.Paciente_Nombre,m.Paciente_Apellido,m.Paciente_Direccion,m.Paciente_Telefono,m.Paciente_Mail,m.Paciente_Fecha_nac,'soltero',(row_number() OVER (ORDER BY m.Paciente_Dni))*100+1,m.Plan_Med_Codigo,row_number() OVER (ORDER BY m.Paciente_Dni),0,1
+SELECT  DISTINCT m.Paciente_Dni,1,m.Paciente_Nombre,m.Paciente_Apellido,m.Paciente_Direccion,m.Paciente_Telefono,m.Paciente_Mail,m.Paciente_Fecha_nac,1,(row_number() OVER (ORDER BY m.Paciente_Dni))*100+1,m.Plan_Med_Codigo,row_number() OVER (ORDER BY m.Paciente_Dni),0,1
 FROM gd_esquema.maestra m 
 GROUP BY m.Paciente_Dni,m.Paciente_Nombre,m.Paciente_Apellido,m.Paciente_Direccion,m.Paciente_Telefono,m.Paciente_Mail,m.Paciente_Fecha_nac,m.Plan_Med_Codigo
 

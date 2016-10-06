@@ -94,8 +94,8 @@ direccion VARCHAR(100),
 telefono BIGINT,
 mail VARCHAR(60),
 fecha_nac DATE,
-estado_civil VARCHAR(12) CHECK(estado_civil IN ('soltero','casado','viudo','concubinato','divorciado')),
-sexo CHAR CHECK(sexo IN ('m','f')),
+estado_civil INT CHECK(estado_civil>=0 AND estado_civil<=4), --Casado, Soltero, Viudo, Concubinato, Divorciado
+sexo INT CHECK(sexo>=0 AND sexo<=2) DEFAULT 0, --NoEspecificado, Masculino, Femenino
 id_plan INT,
 id_familia BIGINT,
 familiares_a_cargo INT,
