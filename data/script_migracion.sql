@@ -217,4 +217,8 @@ INSERT INTO ELIMINAR_CAR.Funcionalidades_por_rol
 (id_rol,id_funcionalidad)
 Values (3,7);
 
+--Darle pedir turno a afiliado
+INSERT INTO ELIMINAR_CAR.Funcionalidades_por_rol
+(id_rol,id_funcionalidad)
+Values (1,9);
 --TODO darle funcionalidades a los otros roles

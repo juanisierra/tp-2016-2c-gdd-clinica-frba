@@ -22,7 +22,7 @@ namespace ClinicaFrba.Clases
         {
             List<Turno> turnos = new List<Turno>();
             SqlCommand traerTurnos = new SqlCommand();
-            traerTurnos.CommandText = "SELECT id_turno,fecha_estipulada,matricula,id_afiliado,id_bono,momento_llegada,id_especialidad,activo FROM ELIMINAR_CAR.Turno  WHERE fecha_estipulada>GETDATE() AND matricula=@matricula  AND id_especialidad=@id_especialidad";
+            traerTurnos.CommandText = "SELECT id_turno,fecha_estipulada,matricula,id_afiliado,id_bono,momento_llegada,id_especialidad,activo FROM ELIMINAR_CAR.Turno  WHERE fecha_estipulada>=GETDATE() AND matricula=@matricula  AND id_especialidad=@id_especialidad";
             traerTurnos.Connection = DBConnector.ObtenerConexion();
             traerTurnos.Parameters.Add("@matricula",SqlDbType.BigInt).Value = matricula;
             traerTurnos.Parameters.Add("@id_especialidad",SqlDbType.Int).Value = id_especialidad;

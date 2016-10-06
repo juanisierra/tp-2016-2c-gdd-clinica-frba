@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
+using System.Data;
 
 namespace ClinicaFrba.Clases
 {
-    class Afiliado
+    public class Afiliado
     {
         public Int64 idAfiliado { get; set; }
         public tipo_doc tipoDoc { get; set; }
@@ -65,6 +66,66 @@ namespace ClinicaFrba.Clases
             }
             reader.Close();
             return lista;
+        }
+        public static Int64 getIdAfiliadoPorUsuario(String id_usuario) //Retorna -1 si no tiene
+        {
+            SqlCommand traerIdUsuario = new SqlCommand();
+            traerIdUsuario.CommandType = CommandType.StoredProcedure;
+            traerIdUsuario.Connection = DBConnector.ObtenerConexion();
+            traerIdUsuario.CommandText = "ELIMINAR_CAR.afiliado_por_usuario";
+            traerIdUsuario.Parameters.Add(new SqlParameter("@usuario", id_usuario));
+            SqlParameter afiliado = new SqlParameter();
+            afiliado.ParameterName = "@afiliado";
+            afiliado.DbType = DbType.Int64;
+            afiliado.Direction = ParameterDirection.Output;
+            traerIdUsuario.Parameters.Add(afiliado);
+            traerIdUsuario.ExecuteNonQuery();
+            if (traerIdUsuario.Parameters["@afiliado"].SqlValue != DBNull.Value)
+            {
+                return (Int64)traerIdUsuario.Parameters["@afiliado"].Value;
+            }
+            else
+            {
+                return -1;
+            }
+        }
+        public static Afiliado getAfiliadoPorID(Int64 id_afiliado)
+        {
+            SqlCommand traerAfiliados = new SqlCommand("SELECT id_afiliado,tipo_doc,numero_doc,nombre,apellido,direccion,telefono,mail,fecha_nac,estado_civil,sexo,id_plan,id_familia,familiares_a_cargo,activo,fecha_baja,num_consulta_actual,usuario FROM ELIMINAR_CAR.Afiliado WHERE id_afiliado=@id_afiliado", DBConnector.ObtenerConexion());
+            traerAfiliados.Parameters.Add(new SqlParameter("@id_afiliado",SqlDbType.BigInt)).Value = id_afiliado;            
+            SqlDataReader reader = traerAfiliados.ExecuteReader();
+            List<Afiliado> lista = new List<Afiliado>();
+            while (reader.Read())
+            {
+                Afiliado afiliado = new Afiliado();
+                afiliado.idAfiliado = reader.GetInt64(0);
+                afiliado.tipoDoc= (tipo_doc) reader.GetInt32(1);
+                afiliado.nroDoc= reader.GetDecimal(2);
+                afiliado.nombre= reader.GetString(3);
+                afiliado.apellido= reader.GetString(4);
+                afiliado.direccion= reader.GetString(5);
+                afiliado.telefono= reader.GetInt64(6);
+                afiliado.mail= reader.GetString(7);
+                afiliado.fechaNac = reader.GetDateTime(8);
+                afiliado.estadoCivil= (estado_civil) reader.GetInt32(9);
+                if (reader.IsDBNull(10))
+                    afiliado.sexo = sexo.NoEspecificado;
+                else
+                    afiliado.sexo = (sexo) reader.GetInt32(10);
+                afiliado.idPlan= reader.GetInt32(11);
+                afiliado.idFamilia= reader.GetInt64(12);
+                afiliado.familiaresACargo= reader.GetInt32(13);
+                afiliado.activo= reader.GetBoolean(14);
+                if (reader.IsDBNull(15)) ;
+                else   afiliado.fechaBaja = reader.GetDateTime(15);
+                afiliado.numConsultaActual= reader.GetInt64(16);
+                afiliado.usuario= reader.GetString(17);
+
+                lista.Add(afiliado);
+            }
+            reader.Close();
+            return lista.First();
+            
         }
     }
 }

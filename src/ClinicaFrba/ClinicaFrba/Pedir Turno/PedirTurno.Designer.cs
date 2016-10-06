@@ -89,6 +89,7 @@
             this.btn_aceptar.TabIndex = 3;
             this.btn_aceptar.Text = "Confirmar Turno";
             this.btn_aceptar.UseVisualStyleBackColor = true;
+            this.btn_aceptar.Click += new System.EventHandler(this.btn_aceptar_Click);
             // 
             // label_especialidad
             // 
