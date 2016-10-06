@@ -93,7 +93,6 @@
             this.cb_especialidad.Location = new System.Drawing.Point(499, 12);
             this.cb_especialidad.Name = "cb_especialidad";
             this.cb_especialidad.Size = new System.Drawing.Size(318, 24);
-            this.cb_especialidad.Sorted = true;
             this.cb_especialidad.TabIndex = 4;
             this.cb_especialidad.ValueMember = "id_especialidad";
             this.cb_especialidad.SelectedIndexChanged += new System.EventHandler(this.cb_especialidad_SelectedIndexChanged);

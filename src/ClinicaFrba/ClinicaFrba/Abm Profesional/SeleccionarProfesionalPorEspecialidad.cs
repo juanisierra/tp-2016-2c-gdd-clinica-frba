@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ClinicaFrba.Clases;
+using ClinicaFrba.Abm_Especialidades_Medicas;
 
 namespace ClinicaFrba.Abm_Profesional
 {
@@ -24,10 +25,15 @@ namespace ClinicaFrba.Abm_Profesional
             profesionalesFiltrado = new List<Profesional>();
              this.FormClosing += SeleccionarProfesional_Closing;
              fueCerradoPorUsuario = false;
-             todasLasEspecialidades = Especialidad.todasLasEspecialidades();
+             todasLasEspecialidades = new List<Especialidad>();
+            Especialidad e = new Especialidad();
+            e.id_especialidad=-1;
+            e.descripcion = "Todas las especialidades";
+            todasLasEspecialidades.Add(e);
+            todasLasEspecialidades.AddRange(Especialidad.todasLasEspecialidades().OrderBy(elem => elem.descripcion));
              cb_especialidad.DataSource = todasLasEspecialidades;
              profesionalesFiltrado.Clear();
-             profesionalesFiltrado.AddRange(profesionales.FindAll(prof => prof.tieneEspecialidad(((Especialidad)cb_especialidad.SelectedItem).id_especialidad)));
+             profesionalesFiltrado.AddRange(profesionales); //Por defecto muestra todos
              dgv_profesional.DataSource = profesionalesFiltrado;
         }
 
@@ -38,9 +44,15 @@ namespace ClinicaFrba.Abm_Profesional
 
         private void btn_aceptar_Click(object sender, EventArgs e)
         {
-            this.Close();
-            this.fueCerradoPorUsuario = false;
-        }
+            if (dgv_profesional.CurrentRow.DataBoundItem != null)
+            {
+                this.Close();
+                this.fueCerradoPorUsuario = false;
+            }
+            }
+           
+ 
+        
 
         private void SeleccionarProfesional_Load(object sender, EventArgs e)
         {
@@ -53,11 +65,18 @@ namespace ClinicaFrba.Abm_Profesional
             }
 
         private void cb_especialidad_SelectedIndexChanged(object sender, EventArgs e)
-        {
+        {   
             dgv_profesional.DataSource = null;
             profesionalesFiltrado.Clear();
-            profesionalesFiltrado.AddRange(profesionales.FindAll(prof => prof.tieneEspecialidad(((Especialidad)cb_especialidad.SelectedItem).id_especialidad)));
-            dgv_profesional.DataSource = profesionalesFiltrado;
+            if (((Especialidad)cb_especialidad.SelectedItem).id_especialidad == -1) //Listar todas
+            {
+                profesionalesFiltrado.AddRange(profesionales);
+            }
+            else
+            {
+                profesionalesFiltrado.AddRange(profesionales.FindAll(prof => prof.tieneEspecialidad(((Especialidad)cb_especialidad.SelectedItem).id_especialidad)));
+            }
+                dgv_profesional.DataSource = profesionalesFiltrado;
         }
     }
 }

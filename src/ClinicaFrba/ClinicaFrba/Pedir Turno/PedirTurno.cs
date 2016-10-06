@@ -1,4 +1,5 @@
-﻿using ClinicaFrba.Abm_Profesional;
+﻿using ClinicaFrba.Abm_Especialidades_Medicas;
+using ClinicaFrba.Abm_Profesional;
 using ClinicaFrba.Clases;
 using System;
 using System.Collections.Generic;
@@ -57,19 +58,33 @@ namespace ClinicaFrba.Pedir_Turno
                 SeleccionarProfesionalPorEspecialidad formularioProf = new SeleccionarProfesionalPorEspecialidad();
                 formularioProf.ShowDialog();
                 profesionalElegido = (Profesional)((DataGridView)formularioProf.Controls["dgv_profesional"]).CurrentRow.DataBoundItem;
-                especialidadElegida = (Especialidad)((ComboBox)formularioProf.Controls["cb_especialidad"]).SelectedItem;
-                label_nombre_profesional.Text = "Turnos disponibles con el Dr./Dra. " + profesionalElegido.apellido + ", " + profesionalElegido.nombre;
-                label_especialidad.Text = "Especialidad: " + especialidadElegida.descripcion;
-                cb_dia.DataSource = null;
-                CalcularDiasRango();
-                cb_dia.DataSource = diasRango;
-                agenda = Agenda_Diaria.getAgendaProfesional(profesionalElegido.matricula, especialidadElegida.id_especialidad);
-                horarios = new List<TimeSpan>();
-                if (cb_dia.SelectedItem != null)
-                {
-                    CalcularHorarios();
-                }
-
+               especialidadElegida = (Especialidad)((ComboBox)formularioProf.Controls["cb_especialidad"]).SelectedItem;
+               if (!formularioProf.fueCerradoPorUsuario)
+               {
+                   if (especialidadElegida.id_especialidad == -1) //Todavia no eligio especialidad
+                   {
+                       SeleccionarEspecialidad formularioEsp = new SeleccionarEspecialidad(Especialidad.especialidadesPorProfesional(profesionalElegido.matricula));
+                       formularioEsp.ShowDialog();
+                       if (formularioEsp.fueCerradoPorUsuario) this.Close(); //El usuario se va
+                       else
+                       {
+                           especialidadElegida =(Especialidad) ((ComboBox)formularioEsp.Controls["cb_especialidad"]).SelectedItem;
+                       }
+                   }
+                   label_nombre_profesional.Text = "Turnos disponibles con el Dr./Dra. " + profesionalElegido.apellido + ", " + profesionalElegido.nombre;
+                   label_especialidad.Text = "Especialidad: " + especialidadElegida.descripcion;
+                   cb_dia.DataSource = null;
+                   CalcularDiasRango();
+                   cb_dia.DataSource = diasRango;
+                   agenda = Agenda_Diaria.getAgendaProfesional(profesionalElegido.matricula, especialidadElegida.id_especialidad);
+                   horarios = new List<TimeSpan>();
+                   if (cb_dia.SelectedItem != null)
+                   {
+                       CalcularHorarios();
+                   }
+               } else {
+                   this.Close();
+               }
             }
             }
         public void CalcularDiasRango()
