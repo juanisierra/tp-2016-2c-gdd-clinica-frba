@@ -88,6 +88,27 @@ namespace ClinicaFrba.Clases
          reader2.Close();
          return (agendas.Count() > 0);
      }
+        public static Int64 matriculaPorUsuario(String id_usuario) //Devuelve -1 si no tiene
+        {        SqlCommand traerIdProfesional = new SqlCommand();
+                traerIdProfesional.CommandType = CommandType.StoredProcedure;
+                traerIdProfesional.Connection = DBConnector.ObtenerConexion();
+                traerIdProfesional.CommandText = "ELIMINAR_CAR.matricula_por_usuario";
+                traerIdProfesional.Parameters.Add(new SqlParameter("@usuario", id_usuario));
+                SqlParameter matricula = new SqlParameter();
+                matricula.ParameterName = "@matricula";
+                matricula.DbType = DbType.Int64;
+                matricula.Direction = ParameterDirection.Output;
+                traerIdProfesional.Parameters.Add(matricula);
+                traerIdProfesional.ExecuteNonQuery();
+                if (traerIdProfesional.Parameters["@matricula"].SqlValue != DBNull.Value)
+                {
+                    return (Int64)traerIdProfesional.Parameters["@matricula"].Value;
+                }
+                else
+                {
+                    return -1;
+                }
+        }
         public Boolean tieneEspecialidad(int id_especialidad)
         {
             return especialidades.Any(esp => esp.id_especialidad== id_especialidad);

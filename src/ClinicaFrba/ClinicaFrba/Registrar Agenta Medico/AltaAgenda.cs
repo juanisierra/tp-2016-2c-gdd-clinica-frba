@@ -27,21 +27,9 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
         public void AltaAgenda_Load(object sender, EventArgs e)
         {
             if (id_rol == 3) ///Es profesional
-            {
-                SqlCommand traerIdProfesional = new SqlCommand();
-                traerIdProfesional.CommandType = CommandType.StoredProcedure;
-                traerIdProfesional.Connection = DBConnector.ObtenerConexion();
-                traerIdProfesional.CommandText = "ELIMINAR_CAR.matricula_por_usuario";
-                traerIdProfesional.Parameters.Add(new SqlParameter("@usuario", id_usuario));
-                SqlParameter matricula = new SqlParameter();
-                matricula.ParameterName = "@matricula";
-                matricula.DbType = DbType.Int64;
-                matricula.Direction = ParameterDirection.Output;
-                traerIdProfesional.Parameters.Add(matricula);
-                traerIdProfesional.ExecuteNonQuery();
-                if (traerIdProfesional.Parameters["@matricula"].SqlValue != DBNull.Value)
-                {
-                   profesional = Profesional.traerProfesionalPorMatricula((Int64) traerIdProfesional.Parameters["@matricula"].Value);
+            {      Int64 matricula = Profesional.matriculaPorUsuario(id_usuario);
+                 if(matricula!=-1)   {
+                   profesional = Profesional.traerProfesionalPorMatricula(matricula);
                 }
                 else //NO hay matricula en un profesional
                 {
