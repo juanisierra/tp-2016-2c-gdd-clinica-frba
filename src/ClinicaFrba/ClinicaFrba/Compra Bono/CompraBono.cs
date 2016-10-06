@@ -40,7 +40,6 @@ namespace ClinicaFrba.Compra_Bono
         private void CompraBonos_Load(object sender, EventArgs e)
         {
             conexion = DBConnector.ObtenerConexion();
-
             if (id_rol == 1)
             {
                 this.Height = altoAfiliado;

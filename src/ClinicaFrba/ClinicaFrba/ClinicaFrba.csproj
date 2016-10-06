@@ -110,18 +110,6 @@
     <Compile Include="AbmRol\ABMRol.Designer.cs">
       <DependentUpon>ABMRol.cs</DependentUpon>
     </Compile>
-    <Compile Include="AbmRol\ModifRol.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="AbmRol\ModifRol.Designer.cs">
-      <DependentUpon>ModifRol.cs</DependentUpon>
-    </Compile>
-    <Compile Include="AbmRol\NuevoRol.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="AbmRol\NuevoRol.Designer.cs">
-      <DependentUpon>NuevoRol.cs</DependentUpon>
-    </Compile>
     <Compile Include="Cancelar Atencion\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -218,12 +206,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Compra Bono\CompraBono.resx">
       <DependentUpon>CompraBono.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="AbmRol\ModifRol.resx">
-      <DependentUpon>ModifRol.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="AbmRol\NuevoRol.resx">
-      <DependentUpon>NuevoRol.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ElementosLogin\Elegir_funcionalidad.resx">
       <DependentUpon>Elegir_funcionalidad.cs</DependentUpon>
