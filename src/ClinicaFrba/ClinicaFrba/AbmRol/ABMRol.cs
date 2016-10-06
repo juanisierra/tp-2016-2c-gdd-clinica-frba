@@ -26,8 +26,7 @@ namespace ClinicaFrba.AbmRol
 
         private void tildarFuncionalidadesDelRol()
         {
-            int j = 0;
-            
+            int j = 0;            
             foreach (Funcionalidad f in Funcionalidad.funcionalidadesPorRol((int)listaRoles.SelectedRows[0].Cells[0].Value))
             {
                 DataGridViewCheckBoxCell cell = listaFun.Rows[j].Cells[0] as DataGridViewCheckBoxCell;
@@ -80,23 +79,29 @@ namespace ClinicaFrba.AbmRol
             return false;
         }
 
-        private void agregarATablaRol()
+        private void modificarTablaRol()
         {
             int habilitar = 0;
             if (cb_habilitar.Checked) habilitar = 1;
-            SqlCommand agregarRol;
+            SqlCommand agregarRol = new SqlCommand();
             if (btn_crear.Checked)
             {
                 agregarRol = new SqlCommand(string.Format("insert into eliminar_car.rol (nombre_rol, habilitado) values (@nombre,@habilitado)"), conexion);
                 agregarRol.Parameters.AddWithValue("@nombre", tb_nombre.Text);
                 agregarRol.Parameters.AddWithValue("@habilitado", habilitar);
             }
-            else agregarRol = new SqlCommand(string.Format("UPDATE ELIMINAR_CAR.rol SET nombre_rol='{0}', habilitado='{2}' WHERE id_rol='{1}'", tb_nombre.Text, (int)listaRoles.SelectedRows[0].Cells[0].Value, habilitar), conexion);
+            if (btn_modif.Checked) agregarRol = new SqlCommand(string.Format("UPDATE ELIMINAR_CAR.rol SET nombre_rol='{0}', habilitado='{2}' WHERE id_rol='{1}'", tb_nombre.Text, (int)listaRoles.SelectedRows[0].Cells[0].Value, habilitar), conexion);
+            if (btn_quitar.Checked) agregarRol = new SqlCommand(string.Format("UPDATE ELIMINAR_CAR.rol SET habilitado=0 WHERE id_rol='{0}'", (int)listaRoles.SelectedRows[0].Cells[0].Value), conexion);
             agregarRol.ExecuteNonQuery();
         }
 
-        private void agregarAEntidadAsociativa()
+        private void modificarEntidadAsociativa()
         {
+            if (btn_quitar.Checked)
+            {
+                eliminarRolesPorUsuario();
+                return;
+            }
             List<int> lista = this.obtenerIdFunChecked();
             SqlCommand agregarFuncionalidadesPorRol;
             if (btn_modif.Checked) eliminarEntidadesAsoc();
@@ -109,10 +114,27 @@ namespace ClinicaFrba.AbmRol
             }
         }
 
+        private void eliminarRolesPorUsuario()
+        {
+            SqlCommand eliminar = new SqlCommand(string.Format("delete from ELIMINAR_CAR.Roles_por_usuarios where id_rol = {0}", (int)listaRoles.SelectedRows[0].Cells[0].Value), conexion);
+            eliminar.ExecuteNonQuery();
+        }
+
         private void eliminarEntidadesAsoc()
         {
             SqlCommand eliminarTodas = new SqlCommand(string.Format("delete from ELIMINAR_CAR.Funcionalidades_por_rol where id_rol = {0}", (int)listaRoles.SelectedRows[0].Cells[0].Value), conexion);
             eliminarTodas.ExecuteNonQuery();
+        }
+
+        private int contarCheckeadas()
+        {
+            int i = 0;
+            foreach (DataGridViewRow row in listaFun.Rows)
+            {
+                DataGridViewCheckBoxCell cell = row.Cells[0] as DataGridViewCheckBoxCell;
+                if (cell.Value == cell.TrueValue) i++;
+            }
+            return i;
         }
 
         private List<DataGridViewRow> funCheckeadas()
@@ -147,12 +169,17 @@ namespace ClinicaFrba.AbmRol
             listaFun.Columns[1].Visible = false;
             listaFun.Columns[2].Width = 250;
             listaFun.Columns[2].HeaderText = "Descripción";
-            listaFun.Columns[2].ReadOnly = true;
             tb_nombre.Enabled = false;
+            listaFun.ReadOnly = true;
+            cb_habilitar.Enabled = false;
         }
 
         private void btn_modif_CheckedChanged(object sender, EventArgs e)
         {
+            tb_nombre.ReadOnly = false;
+            listaFun.ReadOnly = false;
+            listaFun.Columns[2].ReadOnly = true;
+            cb_habilitar.Enabled = true;
             tb_nombre.Enabled = true;
             tb_nombre.Text = listaRoles.SelectedRows[0].Cells[1].Value.ToString();
             destildarTodasFun();
@@ -163,6 +190,10 @@ namespace ClinicaFrba.AbmRol
 
         private void btn_crear_CheckedChanged(object sender, EventArgs e)
         {
+            tb_nombre.ReadOnly = false;
+            listaFun.ReadOnly = false;
+            listaFun.Columns[2].ReadOnly = true;
+            cb_habilitar.Enabled = true;
             tb_nombre.Enabled = true;
             tb_nombre.Clear();
             this.destildarTodasFun();
@@ -171,13 +202,17 @@ namespace ClinicaFrba.AbmRol
 
         private void btn_quitar_CheckedChanged(object sender, EventArgs e)
         {
-            tb_nombre.Enabled = true;
             btn_modif_CheckedChanged(sender, e);
+            tb_nombre.Text = listaRoles.SelectedRows[0].Cells[1].Value.ToString();
+            tb_nombre.ReadOnly = true;
+            listaFun.ReadOnly = true;
+            cb_habilitar.Enabled = false;
         }
 
         private void listaRoles_SelectionChanged(object sender, EventArgs e)
         {
-            if (btn_modif.Checked || btn_quitar.Checked) this.btn_modif_CheckedChanged(sender, e);
+            if (btn_modif.Checked) this.btn_modif_CheckedChanged(sender, e);
+            if (btn_quitar.Checked) this.btn_quitar_CheckedChanged(sender, e);
         }
 
         private void btn_limpiar_Click(object sender, EventArgs e)
@@ -195,18 +230,42 @@ namespace ClinicaFrba.AbmRol
 
         private void btn_aceptar_Click(object sender, EventArgs e)
         {
+            String cadenaErrores = "";
+            Boolean error = false;
+            if (tb_nombre.Text == "")
+            {
+                cadenaErrores = cadenaErrores + "- Introduzca un nombre de rol\n";
+                error = true;
+            }
+            if (btn_crear.Checked)
+            {
+                if (yaExisteRolACrear())
+                {
+                    cadenaErrores = cadenaErrores + "- El rol a crear ya existe\n";
+                    error = true;
+                }
+            }
             if (btn_crear.Checked || btn_modif.Checked)
             {
-                this.agregarATablaRol();
-                this.agregarAEntidadAsociativa(); //agrega a funcionalidades_por_rol
+                if (contarCheckeadas() == 0)
+                {
+                    cadenaErrores = cadenaErrores + "- Seleccione alguna funcionalidad\n";
+                    error = true;
+                }
+            }
+
+            if (error)
+            {
+                MessageBox.Show("Solucione los siguientes errores:\n\n"+cadenaErrores, "Clinica-FRBA: ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            else
+            {
+                this.modificarTablaRol();
+                this.modificarEntidadAsociativa(); //agrega a funcionalidades_por_rol
                 btn_crear.Checked = true;
                 DialogResult resultado = MessageBox.Show("Operación realizada con éxito!", "Clinica-FRBA", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 if (resultado == DialogResult.OK) this.Close();
-            }
-
-            if (btn_quitar.Checked)
-            {
-
             }
         }
     }

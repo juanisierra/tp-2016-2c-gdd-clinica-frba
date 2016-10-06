@@ -80,9 +80,9 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(15, 21);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(217, 17);
+            this.label2.Size = new System.Drawing.Size(154, 17);
             this.label2.TabIndex = 6;
-            this.label2.Text = "Seleccione un rol y/o una acción:";
+            this.label2.Text = "Seleccione una acción:";
             // 
             // cb_habilitar
             // 
@@ -115,6 +115,7 @@
             this.listaFun.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Check});
             this.listaFun.Location = new System.Drawing.Point(7, 25);
+            this.listaFun.MultiSelect = false;
             this.listaFun.Name = "listaFun";
             this.listaFun.RowHeadersVisible = false;
             this.listaFun.RowTemplate.Height = 24;
@@ -142,7 +143,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(21, 64);
+            this.label1.Location = new System.Drawing.Point(15, 62);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(62, 17);
