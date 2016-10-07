@@ -66,3 +66,18 @@ INSERT INTO ELIMINAR_CAR.Consulta
 (fecha_consulta,id_turno,sintomas,diagnostico)
 VALUES (@fecha,@turno,@sintomas,@diagnostico)
 GO
+
+CREATE PROCEDURE ELIMINAR_CAR.turnosCancelablesAfiliado (@id_afiliado BIGINT,@fecha DATETIME)
+AS
+SELECT t.id_turno,fecha_estipulada,t.matricula,p.nombre,p.apellido,t.id_especialidad,e.desc_especialidad FROM ELIMINAR_CAR.Turno t JOIN ELIMINAR_CAR.Especialidad e ON (t.id_especialidad=e.id_especialidad)  JOIN ELIMINAR_CAR.Profesional p on (t.matricula=p.matricula) WHERE t.momento_llegada IS NULL AND t.activo=1 AND CAST(fecha_estipulada AS DATE)>CAST(@fecha AS DATE) AND id_afiliado=@id_afiliado
+GO
+
+CREATE PROCEDURE ELIMINAR_CAR.cancelarTurnoAfiliado (@id_turno BIGINT,@id_afiliado BIGINT, @motivo VARCHAR(200))
+AS
+UPDATE ELIMINAR_CAR.Turno
+SET activo=0
+WHERE id_turno=@id_turno
+INSERT INTO ELIMINAR_CAR.Cancelacion_Afiliado
+(id_afiliado,id_turno,motivo)
+VALUES (@id_afiliado,@id_turno,@motivo)
+GO

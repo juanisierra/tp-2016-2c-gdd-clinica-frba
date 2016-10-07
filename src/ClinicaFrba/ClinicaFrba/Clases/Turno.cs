@@ -13,6 +13,8 @@ namespace ClinicaFrba.Clases
        public Int64 id_turno { set; get; }
        public DateTime fecha_estipulada { set; get; }
        public Int64 matricula { set; get; }
+       public String profesional_nombre { set; get; }
+       public String profesional_apellido { set; get; }
        public Int64 id_afiliado { set; get; }
        public String afiliado_nombre { set; get; }
        public String afiliado_apellido { set; get; }
@@ -109,6 +111,29 @@ namespace ClinicaFrba.Clases
                 turno.desc_especialidad = reader.GetString(8);
                 turno.afiliado_nombre = reader.GetString(9);
                 turno.afiliado_apellido = reader.GetString(10);
+                turnos.Add(turno);
+            }
+            reader.Close();
+            return turnos;
+        }
+        public static List<Turno> traerTurnosCancelablesAfiliado(Int64 id_afiliado, DateTime dia)
+        {
+            SqlCommand traerTurnos = new SqlCommand("ELIMINAR_CAR.turnosCancelablesAfiliado", DBConnector.ObtenerConexion());
+            traerTurnos.CommandType = CommandType.StoredProcedure;
+            traerTurnos.Parameters.Add("@id_afiliado", SqlDbType.BigInt).Value = id_afiliado;
+            traerTurnos.Parameters.Add("@fecha", DateTime.Today);
+            List<Turno> turnos = new List<Turno>();
+            SqlDataReader reader = traerTurnos.ExecuteReader();
+            while (reader.Read())
+            {
+                Turno turno = new Turno();
+                turno.id_turno = reader.GetInt64(0);
+                turno.fecha_estipulada = reader.GetDateTime(1);
+                turno.matricula = reader.GetInt64(2);
+                turno.profesional_nombre = reader.GetString(3);
+                turno.profesional_apellido = reader.GetString(4);
+                turno.id_especialidad = reader.GetInt32(5);
+                turno.desc_especialidad = reader.GetString(6);
                 turnos.Add(turno);
             }
             reader.Close();

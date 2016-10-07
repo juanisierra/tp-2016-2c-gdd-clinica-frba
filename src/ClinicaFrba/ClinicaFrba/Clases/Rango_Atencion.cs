@@ -16,7 +16,7 @@ namespace ClinicaFrba.Clases
         public DateTime fecha_hasta { set; get; }
         public Boolean esValido()
         {
-            return fecha_desde <= fecha_hasta;
+            return fecha_desde.Date <= fecha_hasta.Date;
         }
         public static Rango_Atencion rangoPorProfesional(Int64 matricula)
         {

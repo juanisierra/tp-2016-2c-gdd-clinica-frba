@@ -226,4 +226,8 @@ Values (3,11);
 INSERT INTO ELIMINAR_CAR.Funcionalidades_por_rol
 (id_rol,id_funcionalidad)
 Values (1,9);
+--Darle cancelar atencion a afiliado
+INSERT INTO ELIMINAR_CAR.Funcionalidades_por_rol
+(id_rol,id_funcionalidad)
+Values (1,12);
 --TODO darle funcionalidades a los otros roles

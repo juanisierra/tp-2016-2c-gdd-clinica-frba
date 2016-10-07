@@ -73,6 +73,11 @@ namespace ClinicaFrba
                 case 11:
                     return new Registro_Resultado.RegistroResultado(id_usuario, id_rol);
                     break;
+                case 12:
+                    if(id_rol==1) return new Cancelar_Atencion.CancelacionAfiliado(id_usuario,id_rol);
+                    else return new Cancelar_Atencion.CancelacionProfesional(id_usuario, id_rol);
+                    break;
+
             }
             return null;
         }

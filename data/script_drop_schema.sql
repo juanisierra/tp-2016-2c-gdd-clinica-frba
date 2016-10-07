@@ -1,5 +1,7 @@
 USE [GD2C2016]
 GO
+DROP PROCEDURE ELIMINAR_CAR.cancelarTurnoAfiliado 
+DROP PROCEDURE ELIMINAR_CAR.turnosCancelablesAfiliado
 DROP PROCEDURE ELIMINAR_CAR.registrarConsulta;
 DROP PROCEDURE ELIMINAR_CAR.turnosParaDiagnosticar;
 DROP PROCEDURE ELIMINAR_CAR.registrarLlegada;

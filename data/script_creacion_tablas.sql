@@ -147,7 +147,7 @@ CREATE TABLE ELIMINAR_CAR.Cancelacion_Afiliado (
 id_cancelacion BIGINT PRIMARY KEY IDENTITY(1,1),
 id_turno BIGINT,
 id_afiliado BIGINT,
-motivo VARCHAR(100),
+motivo VARCHAR(200),
 FOREIGN KEY (id_turno) REFERENCES ELIMINAR_CAR.Turno(id_turno),
 FOREIGN KEY (id_afiliado) REFERENCES ELIMINAR_CAR.Afiliado(id_afiliado));
 
