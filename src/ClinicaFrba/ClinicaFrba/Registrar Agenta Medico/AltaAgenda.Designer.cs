@@ -143,6 +143,7 @@
             // 
             // l_desde_h
             // 
+            this.l_desde_h.Enabled = false;
             this.l_desde_h.Location = new System.Drawing.Point(388, 70);
             this.l_desde_h.Maximum = new decimal(new int[] {
             20,
@@ -166,6 +167,7 @@
             // 
             // l_desde_m
             // 
+            this.l_desde_m.Enabled = false;
             this.l_desde_m.Increment = new decimal(new int[] {
             30,
             0,
@@ -220,6 +222,7 @@
             // 
             // l_hasta_m
             // 
+            this.l_hasta_m.Enabled = false;
             this.l_hasta_m.Increment = new decimal(new int[] {
             30,
             0,
@@ -238,6 +241,7 @@
             // 
             // l_hasta_h
             // 
+            this.l_hasta_h.Enabled = false;
             this.l_hasta_h.Location = new System.Drawing.Point(555, 70);
             this.l_hasta_h.Maximum = new decimal(new int[] {
             20,
@@ -262,8 +266,6 @@
             // check_lunes
             // 
             this.check_lunes.AutoSize = true;
-            this.check_lunes.Checked = true;
-            this.check_lunes.CheckState = System.Windows.Forms.CheckState.Checked;
             this.check_lunes.Location = new System.Drawing.Point(43, 70);
             this.check_lunes.Name = "check_lunes";
             this.check_lunes.Size = new System.Drawing.Size(69, 21);
@@ -275,6 +277,7 @@
             // l_especialidad
             // 
             this.l_especialidad.DisplayMember = "descripcion";
+            this.l_especialidad.Enabled = false;
             this.l_especialidad.FormattingEnabled = true;
             this.l_especialidad.Location = new System.Drawing.Point(150, 70);
             this.l_especialidad.Name = "l_especialidad";
@@ -283,6 +286,7 @@
             // 
             // m_desde_h
             // 
+            this.m_desde_h.Enabled = false;
             this.m_desde_h.Location = new System.Drawing.Point(388, 100);
             this.m_desde_h.Maximum = new decimal(new int[] {
             20,
@@ -306,6 +310,7 @@
             // 
             // m_desde_m
             // 
+            this.m_desde_m.Enabled = false;
             this.m_desde_m.Increment = new decimal(new int[] {
             30,
             0,
@@ -342,6 +347,7 @@
             // 
             // m_hasta_h
             // 
+            this.m_hasta_h.Enabled = false;
             this.m_hasta_h.Location = new System.Drawing.Point(555, 100);
             this.m_hasta_h.Maximum = new decimal(new int[] {
             20,
@@ -365,6 +371,7 @@
             // 
             // m_hasta_m
             // 
+            this.m_hasta_m.Enabled = false;
             this.m_hasta_m.Increment = new decimal(new int[] {
             30,
             0,
@@ -402,8 +409,6 @@
             // check_martes
             // 
             this.check_martes.AutoSize = true;
-            this.check_martes.Checked = true;
-            this.check_martes.CheckState = System.Windows.Forms.CheckState.Checked;
             this.check_martes.Location = new System.Drawing.Point(43, 100);
             this.check_martes.Name = "check_martes";
             this.check_martes.Size = new System.Drawing.Size(73, 21);
@@ -415,6 +420,7 @@
             // m_especialidad
             // 
             this.m_especialidad.DisplayMember = "descripcion";
+            this.m_especialidad.Enabled = false;
             this.m_especialidad.FormattingEnabled = true;
             this.m_especialidad.Location = new System.Drawing.Point(150, 100);
             this.m_especialidad.Name = "m_especialidad";
@@ -423,6 +429,7 @@
             // 
             // x_desde_h
             // 
+            this.x_desde_h.Enabled = false;
             this.x_desde_h.Location = new System.Drawing.Point(388, 130);
             this.x_desde_h.Maximum = new decimal(new int[] {
             20,
@@ -446,6 +453,7 @@
             // 
             // x_desde_m
             // 
+            this.x_desde_m.Enabled = false;
             this.x_desde_m.Increment = new decimal(new int[] {
             30,
             0,
@@ -482,6 +490,7 @@
             // 
             // x_hasta_h
             // 
+            this.x_hasta_h.Enabled = false;
             this.x_hasta_h.Location = new System.Drawing.Point(555, 130);
             this.x_hasta_h.Maximum = new decimal(new int[] {
             20,
@@ -505,6 +514,7 @@
             // 
             // x_hasta_m
             // 
+            this.x_hasta_m.Enabled = false;
             this.x_hasta_m.Increment = new decimal(new int[] {
             30,
             0,
@@ -542,8 +552,6 @@
             // check_miercoles
             // 
             this.check_miercoles.AutoSize = true;
-            this.check_miercoles.Checked = true;
-            this.check_miercoles.CheckState = System.Windows.Forms.CheckState.Checked;
             this.check_miercoles.Location = new System.Drawing.Point(43, 130);
             this.check_miercoles.Name = "check_miercoles";
             this.check_miercoles.Size = new System.Drawing.Size(90, 21);
@@ -555,6 +563,7 @@
             // x_especialidad
             // 
             this.x_especialidad.DisplayMember = "descripcion";
+            this.x_especialidad.Enabled = false;
             this.x_especialidad.FormattingEnabled = true;
             this.x_especialidad.Location = new System.Drawing.Point(150, 130);
             this.x_especialidad.Name = "x_especialidad";
@@ -563,6 +572,7 @@
             // 
             // j_desde_h
             // 
+            this.j_desde_h.Enabled = false;
             this.j_desde_h.Location = new System.Drawing.Point(388, 160);
             this.j_desde_h.Maximum = new decimal(new int[] {
             20,
@@ -586,6 +596,7 @@
             // 
             // j_desde_m
             // 
+            this.j_desde_m.Enabled = false;
             this.j_desde_m.Increment = new decimal(new int[] {
             30,
             0,
@@ -622,6 +633,7 @@
             // 
             // j_hasta_h
             // 
+            this.j_hasta_h.Enabled = false;
             this.j_hasta_h.Location = new System.Drawing.Point(555, 160);
             this.j_hasta_h.Maximum = new decimal(new int[] {
             20,
@@ -645,6 +657,7 @@
             // 
             // j_hasta_m
             // 
+            this.j_hasta_m.Enabled = false;
             this.j_hasta_m.Increment = new decimal(new int[] {
             30,
             0,
@@ -682,8 +695,6 @@
             // check_jueves
             // 
             this.check_jueves.AutoSize = true;
-            this.check_jueves.Checked = true;
-            this.check_jueves.CheckState = System.Windows.Forms.CheckState.Checked;
             this.check_jueves.Location = new System.Drawing.Point(43, 160);
             this.check_jueves.Name = "check_jueves";
             this.check_jueves.Size = new System.Drawing.Size(75, 21);
@@ -695,6 +706,7 @@
             // j_especialidad
             // 
             this.j_especialidad.DisplayMember = "descripcion";
+            this.j_especialidad.Enabled = false;
             this.j_especialidad.FormattingEnabled = true;
             this.j_especialidad.Location = new System.Drawing.Point(150, 160);
             this.j_especialidad.Name = "j_especialidad";
@@ -703,6 +715,7 @@
             // 
             // v_desde_h
             // 
+            this.v_desde_h.Enabled = false;
             this.v_desde_h.Location = new System.Drawing.Point(388, 190);
             this.v_desde_h.Maximum = new decimal(new int[] {
             20,
@@ -726,6 +739,7 @@
             // 
             // v_desde_m
             // 
+            this.v_desde_m.Enabled = false;
             this.v_desde_m.Increment = new decimal(new int[] {
             30,
             0,
@@ -762,6 +776,7 @@
             // 
             // v_hasta_h
             // 
+            this.v_hasta_h.Enabled = false;
             this.v_hasta_h.Location = new System.Drawing.Point(555, 190);
             this.v_hasta_h.Maximum = new decimal(new int[] {
             20,
@@ -785,6 +800,7 @@
             // 
             // v_hasta_m
             // 
+            this.v_hasta_m.Enabled = false;
             this.v_hasta_m.Increment = new decimal(new int[] {
             30,
             0,
@@ -822,8 +838,6 @@
             // check_viernes
             // 
             this.check_viernes.AutoSize = true;
-            this.check_viernes.Checked = true;
-            this.check_viernes.CheckState = System.Windows.Forms.CheckState.Checked;
             this.check_viernes.Location = new System.Drawing.Point(43, 190);
             this.check_viernes.Name = "check_viernes";
             this.check_viernes.Size = new System.Drawing.Size(78, 21);
@@ -835,6 +849,7 @@
             // v_especialidad
             // 
             this.v_especialidad.DisplayMember = "descripcion";
+            this.v_especialidad.Enabled = false;
             this.v_especialidad.FormattingEnabled = true;
             this.v_especialidad.Location = new System.Drawing.Point(150, 190);
             this.v_especialidad.Name = "v_especialidad";
@@ -843,6 +858,7 @@
             // 
             // s_desde_h
             // 
+            this.s_desde_h.Enabled = false;
             this.s_desde_h.Location = new System.Drawing.Point(388, 220);
             this.s_desde_h.Maximum = new decimal(new int[] {
             15,
@@ -866,6 +882,7 @@
             // 
             // s_desde_m
             // 
+            this.s_desde_m.Enabled = false;
             this.s_desde_m.Increment = new decimal(new int[] {
             30,
             0,
@@ -902,6 +919,7 @@
             // 
             // s_hasta_h
             // 
+            this.s_hasta_h.Enabled = false;
             this.s_hasta_h.Location = new System.Drawing.Point(555, 220);
             this.s_hasta_h.Maximum = new decimal(new int[] {
             15,
@@ -925,6 +943,7 @@
             // 
             // s_hasta_m
             // 
+            this.s_hasta_m.Enabled = false;
             this.s_hasta_m.Increment = new decimal(new int[] {
             30,
             0,
@@ -962,8 +981,6 @@
             // check_sabados
             // 
             this.check_sabados.AutoSize = true;
-            this.check_sabados.Checked = true;
-            this.check_sabados.CheckState = System.Windows.Forms.CheckState.Checked;
             this.check_sabados.Location = new System.Drawing.Point(43, 220);
             this.check_sabados.Name = "check_sabados";
             this.check_sabados.Size = new System.Drawing.Size(79, 21);
@@ -975,6 +992,7 @@
             // s_especialidad
             // 
             this.s_especialidad.DisplayMember = "descripcion";
+            this.s_especialidad.Enabled = false;
             this.s_especialidad.FormattingEnabled = true;
             this.s_especialidad.Location = new System.Drawing.Point(150, 220);
             this.s_especialidad.Name = "s_especialidad";

@@ -86,7 +86,7 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
             }
             if(rango.fecha_desde< DateTime.Today || rango.fecha_hasta<DateTime.Today)
             {
-                errores.agregarError("Las fechas de inicio y fin de la franja deben ser posteriores al dia de hoy.");
+                errores.agregarError("Las fechas de inicio y fin de la franja deben ser posteriores o iguales al dia de hoy.");
             }
             if(agenda.Any(elem => !elem.esValida()))
             {
@@ -100,6 +100,10 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
               {
                 errores.agregarError("La especialidad no puede ser nula.");
              }
+            if(!check_lunes.Checked && !check_martes.Checked && !check_miercoles.Checked && !check_jueves.Checked && !check_viernes.Checked && !check_sabados.Checked)
+            {
+                errores.agregarError("Debe seleccionar por lo menos un dia de la semana.");
+            }
             if(errores.huboError())
             {
                 
@@ -109,9 +113,9 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
              {
                  insert(agenda,rango);
                  MessageBox.Show("Se ha insertado la agenda correctamente.", "Clinica-FRBA", MessageBoxButtons.OK, MessageBoxIcon.Information);
- 
+                 this.Close();
              }
-             this.Close();
+             
           }
 
         
