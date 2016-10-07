@@ -37,6 +37,7 @@ namespace ClinicaFrba.Registro_Resultado
                 turnos = Turno.turnosDiagnosticablesPorProfesional(matricula, DateTime.Today);
                 dgv_turno.DataSource = turnos;
             }
+            ActualizarCampos();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -58,12 +59,32 @@ namespace ClinicaFrba.Registro_Resultado
                 MessageBox.Show("Atencion registrada Correctamente", "Clinica-FRBA", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 ActualizarHora();
                 ActualizarTurnos();
+                ActualizarCampos();
             }
         }
 
         private void dt_dia_ValueChanged(object sender, EventArgs e)
         {
             ActualizarHora();
+        }
+        private void ActualizarCampos()
+        {
+            if (dgv_turno.CurrentRow == null)
+            {
+                tb_diagnostico.Enabled = false;
+                tb_sintomas.Enabled = false;
+                dt_dia.Enabled = false;
+                dt_hora.Enabled = false;
+                button1.Enabled = false;
+            }
+            else
+            {
+                tb_diagnostico.Enabled = true;
+                tb_sintomas.Enabled = true;
+                dt_dia.Enabled = true;
+                dt_hora.Enabled = true;
+                button1.Enabled = true;
+            }
         }
         private void ActualizarHora()
         {
@@ -83,6 +104,11 @@ namespace ClinicaFrba.Registro_Resultado
             dgv_turno.DataSource = null;
             turnos = Turno.turnosDiagnosticablesPorProfesional(matricula, DateTime.Today);
             dgv_turno.DataSource = turnos;
+        }
+
+        private void dgv_turno_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            ActualizarCampos();
         }
     }
 }

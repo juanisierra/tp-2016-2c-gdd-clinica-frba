@@ -30,6 +30,14 @@
         {
             this.components = new System.ComponentModel.Container();
             this.dgv_turno = new System.Windows.Forms.DataGridView();
+            this.idturnoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.fechaestipuladaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.idafiliadoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.afiliadonombreDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.afiliadoapellidoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.momentollegadaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.descespecialidadDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.turnoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.label_turno = new System.Windows.Forms.Label();
             this.dt_dia = new System.Windows.Forms.DateTimePicker();
             this.dt_hora = new System.Windows.Forms.DateTimePicker();
@@ -39,14 +47,6 @@
             this.label3 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.tb_diagnostico = new System.Windows.Forms.TextBox();
-            this.idturnoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.fechaestipuladaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.idafiliadoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.afiliadonombreDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.afiliadoapellidoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.momentollegadaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.descespecialidadDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.turnoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.dgv_turno)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.turnoBindingSource)).BeginInit();
             this.SuspendLayout();
@@ -71,6 +71,60 @@
             this.dgv_turno.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgv_turno.Size = new System.Drawing.Size(976, 169);
             this.dgv_turno.TabIndex = 0;
+            this.dgv_turno.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_turno_CellContentClick);
+            // 
+            // idturnoDataGridViewTextBoxColumn
+            // 
+            this.idturnoDataGridViewTextBoxColumn.DataPropertyName = "id_turno";
+            this.idturnoDataGridViewTextBoxColumn.HeaderText = "id_turno";
+            this.idturnoDataGridViewTextBoxColumn.Name = "idturnoDataGridViewTextBoxColumn";
+            this.idturnoDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // fechaestipuladaDataGridViewTextBoxColumn
+            // 
+            this.fechaestipuladaDataGridViewTextBoxColumn.DataPropertyName = "fecha_estipulada";
+            this.fechaestipuladaDataGridViewTextBoxColumn.HeaderText = "fecha_estipulada";
+            this.fechaestipuladaDataGridViewTextBoxColumn.Name = "fechaestipuladaDataGridViewTextBoxColumn";
+            this.fechaestipuladaDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // idafiliadoDataGridViewTextBoxColumn
+            // 
+            this.idafiliadoDataGridViewTextBoxColumn.DataPropertyName = "id_afiliado";
+            this.idafiliadoDataGridViewTextBoxColumn.HeaderText = "id_afiliado";
+            this.idafiliadoDataGridViewTextBoxColumn.Name = "idafiliadoDataGridViewTextBoxColumn";
+            this.idafiliadoDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // afiliadonombreDataGridViewTextBoxColumn
+            // 
+            this.afiliadonombreDataGridViewTextBoxColumn.DataPropertyName = "afiliado_nombre";
+            this.afiliadonombreDataGridViewTextBoxColumn.HeaderText = "afiliado_nombre";
+            this.afiliadonombreDataGridViewTextBoxColumn.Name = "afiliadonombreDataGridViewTextBoxColumn";
+            this.afiliadonombreDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // afiliadoapellidoDataGridViewTextBoxColumn
+            // 
+            this.afiliadoapellidoDataGridViewTextBoxColumn.DataPropertyName = "afiliado_apellido";
+            this.afiliadoapellidoDataGridViewTextBoxColumn.HeaderText = "afiliado_apellido";
+            this.afiliadoapellidoDataGridViewTextBoxColumn.Name = "afiliadoapellidoDataGridViewTextBoxColumn";
+            this.afiliadoapellidoDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // momentollegadaDataGridViewTextBoxColumn
+            // 
+            this.momentollegadaDataGridViewTextBoxColumn.DataPropertyName = "momento_llegada";
+            this.momentollegadaDataGridViewTextBoxColumn.HeaderText = "momento_llegada";
+            this.momentollegadaDataGridViewTextBoxColumn.Name = "momentollegadaDataGridViewTextBoxColumn";
+            this.momentollegadaDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // descespecialidadDataGridViewTextBoxColumn
+            // 
+            this.descespecialidadDataGridViewTextBoxColumn.DataPropertyName = "desc_especialidad";
+            this.descespecialidadDataGridViewTextBoxColumn.HeaderText = "desc_especialidad";
+            this.descespecialidadDataGridViewTextBoxColumn.Name = "descespecialidadDataGridViewTextBoxColumn";
+            this.descespecialidadDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // turnoBindingSource
+            // 
+            this.turnoBindingSource.DataSource = typeof(ClinicaFrba.Clases.Turno);
             // 
             // label_turno
             // 
@@ -155,59 +209,6 @@
             this.tb_diagnostico.Name = "tb_diagnostico";
             this.tb_diagnostico.Size = new System.Drawing.Size(947, 51);
             this.tb_diagnostico.TabIndex = 4;
-            // 
-            // idturnoDataGridViewTextBoxColumn
-            // 
-            this.idturnoDataGridViewTextBoxColumn.DataPropertyName = "id_turno";
-            this.idturnoDataGridViewTextBoxColumn.HeaderText = "id_turno";
-            this.idturnoDataGridViewTextBoxColumn.Name = "idturnoDataGridViewTextBoxColumn";
-            this.idturnoDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // fechaestipuladaDataGridViewTextBoxColumn
-            // 
-            this.fechaestipuladaDataGridViewTextBoxColumn.DataPropertyName = "fecha_estipulada";
-            this.fechaestipuladaDataGridViewTextBoxColumn.HeaderText = "fecha_estipulada";
-            this.fechaestipuladaDataGridViewTextBoxColumn.Name = "fechaestipuladaDataGridViewTextBoxColumn";
-            this.fechaestipuladaDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // idafiliadoDataGridViewTextBoxColumn
-            // 
-            this.idafiliadoDataGridViewTextBoxColumn.DataPropertyName = "id_afiliado";
-            this.idafiliadoDataGridViewTextBoxColumn.HeaderText = "id_afiliado";
-            this.idafiliadoDataGridViewTextBoxColumn.Name = "idafiliadoDataGridViewTextBoxColumn";
-            this.idafiliadoDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // afiliadonombreDataGridViewTextBoxColumn
-            // 
-            this.afiliadonombreDataGridViewTextBoxColumn.DataPropertyName = "afiliado_nombre";
-            this.afiliadonombreDataGridViewTextBoxColumn.HeaderText = "afiliado_nombre";
-            this.afiliadonombreDataGridViewTextBoxColumn.Name = "afiliadonombreDataGridViewTextBoxColumn";
-            this.afiliadonombreDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // afiliadoapellidoDataGridViewTextBoxColumn
-            // 
-            this.afiliadoapellidoDataGridViewTextBoxColumn.DataPropertyName = "afiliado_apellido";
-            this.afiliadoapellidoDataGridViewTextBoxColumn.HeaderText = "afiliado_apellido";
-            this.afiliadoapellidoDataGridViewTextBoxColumn.Name = "afiliadoapellidoDataGridViewTextBoxColumn";
-            this.afiliadoapellidoDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // momentollegadaDataGridViewTextBoxColumn
-            // 
-            this.momentollegadaDataGridViewTextBoxColumn.DataPropertyName = "momento_llegada";
-            this.momentollegadaDataGridViewTextBoxColumn.HeaderText = "momento_llegada";
-            this.momentollegadaDataGridViewTextBoxColumn.Name = "momentollegadaDataGridViewTextBoxColumn";
-            this.momentollegadaDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // descespecialidadDataGridViewTextBoxColumn
-            // 
-            this.descespecialidadDataGridViewTextBoxColumn.DataPropertyName = "desc_especialidad";
-            this.descespecialidadDataGridViewTextBoxColumn.HeaderText = "desc_especialidad";
-            this.descespecialidadDataGridViewTextBoxColumn.Name = "descespecialidadDataGridViewTextBoxColumn";
-            this.descespecialidadDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // turnoBindingSource
-            // 
-            this.turnoBindingSource.DataSource = typeof(ClinicaFrba.Clases.Turno);
             // 
             // RegistroResultado
             // 
