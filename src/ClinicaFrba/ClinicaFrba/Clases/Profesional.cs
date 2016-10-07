@@ -100,7 +100,7 @@ namespace ClinicaFrba.Clases
                 matricula.Direction = ParameterDirection.Output;
                 traerIdProfesional.Parameters.Add(matricula);
                 traerIdProfesional.ExecuteNonQuery();
-                if (traerIdProfesional.Parameters["@matricula"].SqlValue != DBNull.Value)
+                if (traerIdProfesional.Parameters["@matricula"].Value != DBNull.Value)
                 {
                     return (Int64)traerIdProfesional.Parameters["@matricula"].Value;
                 }

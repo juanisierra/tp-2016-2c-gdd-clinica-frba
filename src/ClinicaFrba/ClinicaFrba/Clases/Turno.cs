@@ -83,5 +83,36 @@ namespace ClinicaFrba.Clases
             reader.Close();
             return turnos;
         }
+        public static List<Turno> turnosDiagnosticablesPorProfesional(Int64 matricula, DateTime dia)
+        {
+            List<Turno> turnos = new List<Turno>();
+            SqlCommand traerTurnos = new SqlCommand();
+            traerTurnos.CommandText = "ELIMINAR_CAR.turnosParaDiagnosticar";
+            traerTurnos.CommandType = CommandType.StoredProcedure;
+            traerTurnos.Connection = DBConnector.ObtenerConexion();
+            traerTurnos.Parameters.Add("@matricula", SqlDbType.BigInt).Value = matricula;
+            traerTurnos.Parameters.Add("@fecha", SqlDbType.DateTime).Value = dia;
+            SqlDataReader reader = traerTurnos.ExecuteReader();
+            while (reader.Read())
+            {
+                Turno turno = new Turno();
+                turno.id_turno = reader.GetInt64(0);
+                turno.fecha_estipulada = reader.GetDateTime(1);
+                turno.matricula = reader.GetInt64(2);
+                turno.id_afiliado = reader.GetInt64(3);
+                if (!reader.IsDBNull(4)) turno.id_bono = reader.GetInt64(4);
+                else turno.id_bono = null;
+                if (!reader.IsDBNull(5)) turno.momento_llegada = reader.GetDateTime(5);
+                else turno.momento_llegada = null;
+                turno.id_especialidad = reader.GetInt32(6);
+                turno.activo = reader.GetBoolean(7);
+                turno.desc_especialidad = reader.GetString(8);
+                turno.afiliado_nombre = reader.GetString(9);
+                turno.afiliado_apellido = reader.GetString(10);
+                turnos.Add(turno);
+            }
+            reader.Close();
+            return turnos;
+        }
     }
 }

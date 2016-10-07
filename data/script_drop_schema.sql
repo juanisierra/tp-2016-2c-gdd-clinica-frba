@@ -1,5 +1,7 @@
 USE [GD2C2016]
 GO
+DROP PROCEDURE ELIMINAR_CAR.registrarConsulta;
+DROP PROCEDURE ELIMINAR_CAR.turnosParaDiagnosticar;
 DROP PROCEDURE ELIMINAR_CAR.registrarLlegada;
 DROP PROCEDURE ELIMINAR_CAR.bonosDisponibles;
 DROP PROCEDURE ELIMINAR_CAR.turnosFuturosPorProfesionalYEspecialidad;

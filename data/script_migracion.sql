@@ -212,10 +212,15 @@ INSERT INTO ELIMINAR_CAR.Funcionalidades_por_rol
 (id_rol,id_funcionalidad)
 SELECT 4,id_funcionalidad
 FROM ELIMINAR_CAR.Funcionalidad
+
 --Darle alta agenda a profesional
 INSERT INTO ELIMINAR_CAR.Funcionalidades_por_rol
 (id_rol,id_funcionalidad)
 Values (3,7);
+--Registro diagnostico a profesional
+INSERT INTO ELIMINAR_CAR.Funcionalidades_por_rol
+(id_rol,id_funcionalidad)
+Values (3,11);
 
 --Darle pedir turno a afiliado
 INSERT INTO ELIMINAR_CAR.Funcionalidades_por_rol

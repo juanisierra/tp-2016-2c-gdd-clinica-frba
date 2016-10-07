@@ -70,7 +70,9 @@ namespace ClinicaFrba
                 case 10:
                     return new Registro_Llegada.RegistroLlegada(id_usuario, id_rol);
                     break;
-
+                case 11:
+                    return new Registro_Resultado.RegistroResultado(id_usuario, id_rol);
+                    break;
             }
             return null;
         }

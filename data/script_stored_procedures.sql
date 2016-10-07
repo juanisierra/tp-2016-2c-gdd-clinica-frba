@@ -54,3 +54,15 @@ WHERE id_turno=@id_turno
 UPDATE ELIMINAR_CAR.Afiliado
 SET num_consulta_actual=num_consulta_actual+1
 GO
+
+CREATE PROCEDURE ELIMINAR_CAR.turnosParaDiagnosticar (@matricula BIGINT,@fecha DATETIME)
+AS
+SELECT t.id_turno,fecha_estipulada,matricula,t.id_afiliado,id_bono,momento_llegada,t.id_especialidad,t.activo,e.desc_especialidad,a.nombre,a.apellido FROM ELIMINAR_CAR.Turno t LEFT JOIN ELIMINAR_CAR.Consulta c on (c.id_turno=t.id_turno) JOIN ELIMINAR_CAR.Afiliado a ON(a.id_afiliado=t.id_afiliado) JOIN ELIMINAR_CAR.Especialidad e ON (t.id_especialidad=e.id_especialidad)  WHERE t.momento_llegada IS NOT NULL AND c.id_consulta IS NULL AND CAST(fecha_estipulada AS DATE)=CAST(@fecha AS DATE) AND @matricula=matricula
+GO
+
+CREATE PROCEDURE ELIMINAR_CAR.registrarConsulta (@fecha DATETIME,@turno BIGINT,@sintomas VARCHAR(202),@diagnostico VARCHAR(202))
+AS
+INSERT INTO ELIMINAR_CAR.Consulta
+(fecha_consulta,id_turno,sintomas,diagnostico)
+VALUES (@fecha,@turno,@sintomas,@diagnostico)
+GO

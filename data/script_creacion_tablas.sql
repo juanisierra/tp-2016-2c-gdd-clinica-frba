@@ -165,8 +165,8 @@ CREATE TABLE ELIMINAR_CAR.Consulta (
 id_consulta BIGINT PRIMARY KEY IDENTITY(1,1),
 fecha_consulta DATETIME,
 id_turno BIGINT,
-sintomas VARCHAR(100),
-diagnostico VARCHAR(100),
+sintomas VARCHAR(202),
+diagnostico VARCHAR(202),
 FOREIGN KEY (id_turno) REFERENCES ELIMINAR_CAR.Turno(id_turno));
 
 CREATE TABLE ELIMINAR_CAR.Rango_Atencion (
