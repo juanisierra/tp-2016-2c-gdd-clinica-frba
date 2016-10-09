@@ -213,7 +213,7 @@ INSERT INTO ELIMINAR_CAR.Funcionalidades_por_rol
 SELECT 4,id_funcionalidad
 FROM ELIMINAR_CAR.Funcionalidad
 
---Darle alta agenda a profesional
+--Darle Alta Agenda a profesional
 INSERT INTO ELIMINAR_CAR.Funcionalidades_por_rol
 (id_rol,id_funcionalidad)
 Values (3,7);
@@ -225,12 +225,17 @@ Values (3,11);
 INSERT INTO ELIMINAR_CAR.Funcionalidades_por_rol
 (id_rol,id_funcionalidad)
 Values (3,12);
---Darle pedir turno a afiliado
+--Darle Pedir Turno a afiliado
 INSERT INTO ELIMINAR_CAR.Funcionalidades_por_rol
 (id_rol,id_funcionalidad)
 Values (1,9);
---Darle cancelar atencion a afiliado
+--Darle Cancelar Atencion a afiliado
+INSERT INTO ELIMINAR_CAR.Funcionalidades_por_rol
+(id_rol,id_funcionalidad)
+Values (1,8);
+--Darle Comprar Bonos a afiliado
 INSERT INTO ELIMINAR_CAR.Funcionalidades_por_rol
 (id_rol,id_funcionalidad)
 Values (1,12);
+
 --TODO darle funcionalidades a los otros roles

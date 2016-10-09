@@ -22,6 +22,7 @@ namespace ClinicaFrba.Clases
         public estado_civil estadoCivil { get; set; }
         public sexo sexo { get; set; }
         public int idPlan { get; set; }
+        public string descPlan { get; set; }
         public long idFamilia { get; set; }
         public int familiaresACargo { get; set; }
         public bool activo { get; set; }
@@ -40,7 +41,7 @@ namespace ClinicaFrba.Clases
             {
                 Afiliado afiliado = new Afiliado();
                 afiliado.idAfiliado = reader.GetInt64(0);
-                afiliado.tipoDoc= (tipo_doc) reader.GetInt32(1);
+                afiliado.tipoDoc= (tipo_doc)reader.GetInt32(1);
                 afiliado.nroDoc= reader.GetDecimal(2);
                 afiliado.nombre= reader.GetString(3);
                 afiliado.apellido= reader.GetString(4);
@@ -126,6 +127,37 @@ namespace ClinicaFrba.Clases
             reader.Close();
             return lista.First();
             
+        }
+
+        public static List<Afiliado> listarAfiliadosCompraBonos(SqlCommand comando)
+        {
+            SqlConnection conexion = DBConnector.ObtenerConexion();
+
+            SqlDataReader reader = comando.ExecuteReader();
+            //SqlCommand afiliados = new SqlCommand(string.Format("SELECT id_afiliado, nombre, apellido, tipo_doc, numero_doc, fecha_nac, direccion, telefono, desc_plan, a.id_plan, num_consulta_actual, activo, fecha_baja FROM ELIMINAR_CAR.Afiliado a JOIN ELIMINAR_CAR.Planes p ON (a.id_plan=p.id_plan)"), conexion);
+            List<Afiliado> lista = new List<Afiliado>();
+            while (reader.Read())
+            {
+                Afiliado afiliado = new Afiliado();
+                afiliado.idAfiliado = reader.GetInt64(0);
+                afiliado.nombre = reader.GetString(1);
+                afiliado.apellido = reader.GetString(2);
+                afiliado.tipoDoc = (tipo_doc)reader.GetInt32(3);
+                afiliado.nroDoc = reader.GetDecimal(4);
+                afiliado.fechaNac = reader.GetDateTime(5);
+                afiliado.direccion = reader.GetString(6);
+                afiliado.telefono = reader.GetInt64(7);
+                afiliado.descPlan = reader.GetString(8);
+                afiliado.idPlan = reader.GetInt32(9);
+                afiliado.numConsultaActual = reader.GetInt64(10);
+                afiliado.activo= reader.GetBoolean(11);
+                if (!reader.IsDBNull(12))
+                    afiliado.fechaBaja = reader.GetDateTime(12);
+
+                lista.Add(afiliado);
+            }
+            reader.Close();
+            return lista;
         }
     }
 }
