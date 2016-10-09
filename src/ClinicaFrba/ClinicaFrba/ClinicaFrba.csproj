@@ -229,6 +229,9 @@
     <EmbeddedResource Include="Cancelar Atencion\CancelacionAfiliado.resx">
       <DependentUpon>CancelacionAfiliado.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Cancelar Atencion\CancelacionProfesional.resx">
+      <DependentUpon>CancelacionProfesional.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Compra Bono\CompraBono.resx">
       <DependentUpon>CompraBono.cs</DependentUpon>
     </EmbeddedResource>

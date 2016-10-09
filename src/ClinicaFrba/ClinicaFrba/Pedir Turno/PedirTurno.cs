@@ -101,7 +101,7 @@ namespace ClinicaFrba.Pedir_Turno
                 diasRango = new List<DateTime>();
             }
             diasRango.RemoveAll(dia => !diasQueTrabaja.Contains(dia.DayOfWeek)); //Remuevo los dias que no trabaja
-            List<Cancelacion_Profesional> cancelaciones = Cancelacion_Profesional.cancelacionesPorProfesionalYEspecialidad(profesionalElegido.matricula, especialidadElegida.id_especialidad);
+            List<Cancelacion_Profesional> cancelaciones = Cancelacion_Profesional.cancelacionesPorProfesional(profesionalElegido.matricula);
             List<DateTime> diasCancelados = new List<DateTime>();
             cancelaciones.ForEach(c => diasCancelados.AddRange(c.diasCancelados())); //Agrego los dias que se cancelan
             diasRango.RemoveAll(elem => diasCancelados.Contains(elem));

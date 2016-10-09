@@ -154,12 +154,10 @@ FOREIGN KEY (id_afiliado) REFERENCES ELIMINAR_CAR.Afiliado(id_afiliado));
 CREATE TABLE ELIMINAR_CAR.Cancelacion_Profesional (
 id_cancelacion BIGINT PRIMARY KEY IDENTITY(1,1),
 matricula BIGINT,
-motivo VARCHAR(100),
-id_especialidad INT,
+motivo VARCHAR(200),
 fecha_desde DATE,
 fecha_hasta DATE,
-FOREIGN KEY (matricula) REFERENCES ELIMINAR_CAR.Profesional(matricula),
-FOREIGN KEY (id_especialidad) REFERENCES ELIMINAR_CAR.Especialidad(id_especialidad));
+FOREIGN KEY (matricula) REFERENCES ELIMINAR_CAR.Profesional(matricula));
 
 CREATE TABLE ELIMINAR_CAR.Consulta (
 id_consulta BIGINT PRIMARY KEY IDENTITY(1,1),

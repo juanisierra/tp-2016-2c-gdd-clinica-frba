@@ -81,3 +81,13 @@ INSERT INTO ELIMINAR_CAR.Cancelacion_Afiliado
 (id_afiliado,id_turno,motivo)
 VALUES (@id_afiliado,@id_turno,@motivo)
 GO
+
+CREATE PROCEDURE ELIMINAR_CAR.cancelarTurnoProfesional(@matricula BIGINT,@motivo VARCHAR(200),@fecha_desde DATE,@fecha_hasta DATE)
+AS
+SELECT * FROM ELIMINAR_CAR.Turno
+INSERT INTO ELIMINAR_CAR.Cancelacion_Profesional (matricula,motivo,fecha_desde,fecha_hasta)
+VALUES (@matricula,@motivo,@fecha_desde,@fecha_hasta)
+UPDATE ELIMINAR_CAR.Turno
+SET activo=0
+WHERE matricula=@matricula AND CAST(fecha_estipulada AS DATE)>=@fecha_desde AND CAST(fecha_estipulada AS DATE)<=@fecha_hasta
+GO

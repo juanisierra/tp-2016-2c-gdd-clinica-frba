@@ -221,7 +221,10 @@ Values (3,7);
 INSERT INTO ELIMINAR_CAR.Funcionalidades_por_rol
 (id_rol,id_funcionalidad)
 Values (3,11);
-
+--Cancelacion a profesional
+INSERT INTO ELIMINAR_CAR.Funcionalidades_por_rol
+(id_rol,id_funcionalidad)
+Values (3,12);
 --Darle pedir turno a afiliado
 INSERT INTO ELIMINAR_CAR.Funcionalidades_por_rol
 (id_rol,id_funcionalidad)
