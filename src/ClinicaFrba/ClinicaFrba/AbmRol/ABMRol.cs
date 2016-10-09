@@ -172,10 +172,12 @@ namespace ClinicaFrba.AbmRol
             tb_nombre.Enabled = false;
             listaFun.ReadOnly = true;
             cb_habilitar.Enabled = false;
+            btn_limpiar.Enabled = false;
         }
 
         private void btn_modif_CheckedChanged(object sender, EventArgs e)
         {
+            btn_limpiar.Enabled = true;
             tb_nombre.ReadOnly = false;
             listaFun.ReadOnly = false;
             listaFun.Columns[2].ReadOnly = true;
@@ -190,6 +192,7 @@ namespace ClinicaFrba.AbmRol
 
         private void btn_crear_CheckedChanged(object sender, EventArgs e)
         {
+            btn_limpiar.Enabled = true;
             tb_nombre.ReadOnly = false;
             listaFun.ReadOnly = false;
             listaFun.Columns[2].ReadOnly = true;
@@ -207,6 +210,7 @@ namespace ClinicaFrba.AbmRol
             tb_nombre.ReadOnly = true;
             listaFun.ReadOnly = true;
             cb_habilitar.Enabled = false;
+            btn_limpiar.Enabled = false;
         }
 
         private void listaRoles_SelectionChanged(object sender, EventArgs e)
