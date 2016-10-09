@@ -91,3 +91,11 @@ UPDATE ELIMINAR_CAR.Turno
 SET activo=0
 WHERE matricula=@matricula AND CAST(fecha_estipulada AS DATE)>=@fecha_desde AND CAST(fecha_estipulada AS DATE)<=@fecha_hasta
 GO
+
+CREATE PROCEDURE eliminar_car.profesionales_mas_consultados
+as
+select top 5 pro.matricula 'Matrícula', pla.desc_plan 'Plan', e.desc_especialidad 'Especialidad', count(t.id_afiliado) 'Cant. consultas'
+from eliminar_car.Profesional pro join ELIMINAR_CAR.Turno t on (t.matricula = pro.matricula) join ELIMINAR_CAR.Afiliado a on (t.id_afiliado = a.id_afiliado) join ELIMINAR_CAR.Planes pla on (a.id_plan = pla.id_plan) join ELIMINAR_CAR.Especialidad e on (t.id_especialidad = e.id_especialidad)
+group by  pro.matricula, pla.desc_plan, e.desc_especialidad
+order by count(t.id_afiliado) desc
+go

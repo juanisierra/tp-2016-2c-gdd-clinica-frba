@@ -1,5 +1,6 @@
 USE [GD2C2016]
 GO
+DROP PROCEDURE ELIMINAR_CAR.profesionales_mas_consultados;
 DROP PROCEDURE ELIMINAR_CAR.cancelarTurnoProfesional;
 DROP PROCEDURE ELIMINAR_CAR.cancelarTurnoAfiliado; 
 DROP PROCEDURE ELIMINAR_CAR.turnosCancelablesAfiliado;
