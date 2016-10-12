@@ -132,7 +132,14 @@
     <Compile Include="Clases\Bono.cs" />
     <Compile Include="Clases\Cancelacion_Profesional.cs" />
     <Compile Include="Clases\Enums.cs" />
+    <Compile Include="Clases\Plan.cs" />
     <Compile Include="Clases\Turno.cs" />
+    <Compile Include="Compra Bono\SeleccionarAfiliado.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Compra Bono\SeleccionarAfiliado.Designer.cs">
+      <DependentUpon>SeleccionarAfiliado.cs</DependentUpon>
+    </Compile>
     <Compile Include="Registro Llegada\SeleccionarBono.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -235,6 +242,9 @@
     <EmbeddedResource Include="Compra Bono\CompraBono.resx">
       <DependentUpon>CompraBono.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Compra Bono\SeleccionarAfiliado.resx">
+      <DependentUpon>SeleccionarAfiliado.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ElementosLogin\Elegir_funcionalidad.resx">
       <DependentUpon>Elegir_funcionalidad.cs</DependentUpon>
     </EmbeddedResource>
@@ -269,6 +279,7 @@
       <DependentUpon>RegistroResultado.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\DataSources\ClinicaFrba.Abm_Profesional.SeleccionarProfesional.datasource" />
+    <None Include="Properties\DataSources\ClinicaFrba.Clases.Afiliado.datasource" />
     <None Include="Properties\DataSources\ClinicaFrba.Clases.Agenda_Diaria.datasource" />
     <None Include="Properties\DataSources\ClinicaFrba.Clases.Especialidad.datasource" />
     <None Include="Properties\DataSources\ClinicaFrba.Clases.Profesional.datasource" />

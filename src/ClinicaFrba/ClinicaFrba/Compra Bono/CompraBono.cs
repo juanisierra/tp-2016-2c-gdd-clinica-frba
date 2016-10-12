@@ -64,18 +64,13 @@ namespace ClinicaFrba.Compra_Bono
             }
             else
             {
+                SeleccionarAfiliado form = new SeleccionarAfiliado();
+                form.ShowDialog();
                 SqlCommand afiliados = new SqlCommand(string.Format("SELECT id_afiliado, nombre, apellido, tipo_doc, numero_doc, fecha_nac, direccion, telefono, desc_plan, a.id_plan, num_consulta_actual, activo, fecha_baja FROM ELIMINAR_CAR.Afiliado a JOIN ELIMINAR_CAR.Planes p ON (a.id_plan=p.id_plan)"), conexion);
                 List<Afiliado> lista = Afiliado.listarAfiliadosCompraBonos(afiliados);
                 dtgAfiliados.DataSource = lista;
                 dtgAfiliados.MultiSelect = false;
                 chkFiltro.Checked = true;
-                dtgAfiliados.Columns[7].Visible = false;
-                dtgAfiliados.Columns[9].Visible = false;
-                dtgAfiliados.Columns[10].Visible = false;
-                dtgAfiliados.Columns[11].Visible = false;
-                dtgAfiliados.Columns[13].Visible = false;
-                dtgAfiliados.Columns[14].Visible = false;
-                dtgAfiliados.Columns[18].Visible = false;
             }
         }
         
@@ -123,20 +118,21 @@ namespace ClinicaFrba.Compra_Bono
         {
             if (dtgAfiliados.SelectedRows.Count != 0)
             {
-                txtAfiliado.Text = Convert.ToString(dtgAfiliados.SelectedRows[0].Cells[0].Value);
-                txtNombre.Text = Convert.ToString(dtgAfiliados.SelectedRows[0].Cells[3].Value);
-                txtApellido.Text = Convert.ToString(dtgAfiliados.SelectedRows[0].Cells[4].Value);
-                txtPlan.Text = Convert.ToString(dtgAfiliados.SelectedRows[0].Cells[12].Value);
-                txtTipoDoc.Text = Convert.ToString(dtgAfiliados.SelectedRows[0].Cells[1].Value);
-                txtNroDoc.Text = Convert.ToString(dtgAfiliados.SelectedRows[0].Cells[2].Value);
-                txtCantidad.Text = Convert.ToString(dtgAfiliados.SelectedRows[0].Cells[17].Value);
-                id_plan = Convert.ToInt32(dtgAfiliados.SelectedRows[0].Cells[11].Value);
-                SqlCommand precioBono = new SqlCommand(string.Format(
+                Afiliado s = (Afiliado) dtgAfiliados.CurrentRow.DataBoundItem;
+                txtAfiliado.Text = s.idAfiliado.ToString();
+                txtNombre.Text = s.nombre;
+                txtApellido.Text = s.apellido;
+                txtPlan.Text = s.descPlan;
+                txtTipoDoc.Text = s.tipoDoc.ToString();
+                txtNroDoc.Text = s.nroDoc.ToString();
+                //txtCantidad.Text = Convert.ToString(dtgAfiliados.SelectedRows[0].Cells[17].Value);
+                id_plan = s.idPlan;
+                /*SqlCommand precioBono = new SqlCommand(string.Format(
                 "SELECT precio_bono_consulta FROM ELIMINAR_CAR.Planes WHERE id_plan={0}", Convert.ToString(dtgAfiliados.SelectedRows[0].Cells[11].Value)), conexion);
                 reader = precioBono.ExecuteReader();
                 reader.Read();
                 txtPrecioU.Text = Convert.ToString(reader.GetInt32(0));
-                reader.Close();
+                reader.Close();*/
             }
 
             
@@ -201,7 +197,8 @@ namespace ClinicaFrba.Compra_Bono
                 else
                     condApellido = "'{3}'!='{3}'";
 
-            string consulta = "SELECT id_afiliado, nombre, apellido, tipo_doc, numero_doc, fecha_nac, direccion, telefono, desc_plan, a.id_plan, num_consulta_actual, activo, fecha_baja FROM ELIMINAR_CAR.Afiliado a JOIN ELIMINAR_CAR.Planes p ON (a.id_plan=p.id_plan) WHERE " + condId + filtro + condNroDoc + filtro + condNombre + filtro + condApellido + filtro + condPlan;
+           // string consulta = "SELECT id_afiliado, nombre, apellido, tipo_doc, numero_doc, fecha_nac, direccion, telefono, desc_plan, a.id_plan, num_consulta_actual, activo, fecha_baja FROM ELIMINAR_CAR.Afiliado a JOIN ELIMINAR_CAR.Planes p ON (a.id_plan=p.id_plan) WHERE " + condId + filtro + condNroDoc + filtro + condNombre + filtro + condApellido + filtro + condPlan;
+            string consulta = "SELECT id_afiliado, nombre, apellido, tipo_doc, numero_doc, fecha_nac, direccion, telefono, desc_plan, a.id_plan, num_consulta_actual, activo, fecha_baja FROM ELIMINAR_CAR.Afiliado a JOIN ELIMINAR_CAR.Planes p ON (a.id_plan=p.id_plan)";            
             filtrar = new SqlCommand(string.Format(consulta, id_afiliado, nroDoc, txtFiltroNombre.Text, txtFiltroApellido.Text, plan), conexion);
             List<Afiliado> lista = Afiliado.listarAfiliadosCompraBonos(filtrar);
             dtgAfiliados.DataSource = lista;
@@ -218,6 +215,56 @@ namespace ClinicaFrba.Compra_Bono
             }
             else
                 lblPrecioF.Text = "";
+        }
+
+        private void txtFiltroId_MaskInputRejected(object sender, MaskInputRejectedEventArgs e)
+        {
+
+        }
+
+        private void lblFiltroId_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtFiltroDoc_MaskInputRejected(object sender, MaskInputRejectedEventArgs e)
+        {
+
+        }
+
+        private void blFiltroNroDoc_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtFiltroPlan_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblFiltroPlan_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtFiltroApellido_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblFiltroApellido_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtFiltroNombre_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblFiltroNombre_Click(object sender, EventArgs e)
+        {
+
         }
 
     }
