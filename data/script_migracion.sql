@@ -232,10 +232,10 @@ Values (1,9);
 --Darle Cancelar Atencion a afiliado
 INSERT INTO ELIMINAR_CAR.Funcionalidades_por_rol
 (id_rol,id_funcionalidad)
-Values (1,8);
+Values (1,12);
 --Darle Comprar Bonos a afiliado
 INSERT INTO ELIMINAR_CAR.Funcionalidades_por_rol
 (id_rol,id_funcionalidad)
-Values (1,12);
+Values (1,8);
 
 --TODO darle funcionalidades a los otros roles

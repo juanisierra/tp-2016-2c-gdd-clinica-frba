@@ -77,7 +77,7 @@ namespace ClinicaFrba.Clases
             if (tipoDoc != -1) stringAfiliados = stringAfiliados + string.Format(" tipo_doc ={0} AND ", tipoDoc);
             if (id_plan != -1) stringAfiliados = stringAfiliados + string.Format(" p.id_plan ={0} AND ", id_plan);
             if (id_afiliado != -1) stringAfiliados = stringAfiliados + string.Format(" id_afiliado like '{0}%' AND ", id_afiliado);
-            stringAfiliados = stringAfiliados + "1=1";
+            stringAfiliados = stringAfiliados + "activo=1";
             SqlCommand traerAfiliados = new SqlCommand(stringAfiliados, DBConnector.ObtenerConexion());         
             SqlDataReader reader = traerAfiliados.ExecuteReader();
             List<Afiliado> lista = new List<Afiliado>();

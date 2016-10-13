@@ -14,14 +14,11 @@ namespace ClinicaFrba.Compra_Bono
 {
     public partial class CompraBonos : Form
     {
-        const int ancho = 570;
-        const int altoAdmin = 705;
-        const int altoAfiliado = 226;
-
         private string id_usuario { get; set; }
         private int id_rol { get; set; }
         private SqlConnection conexion { get; set; }
         int id_plan;
+
 
         SqlDataReader reader;
 
@@ -39,41 +36,56 @@ namespace ClinicaFrba.Compra_Bono
 
         private void CompraBonos_Load(object sender, EventArgs e)
         {
+             
+            SqlCommand datosAfiliado = new SqlCommand();
             conexion = DBConnector.ObtenerConexion();
             if (id_rol == 1)
-            {
-                this.Height = altoAfiliado;
-                dtgAfiliados.Enabled = false;
-                dtgAfiliados.Visible = false;
-                SqlCommand datosAfiliado = new SqlCommand(string.Format("SELECT id_afiliado, tipo_doc, numero_doc, nombre, apellido, a.id_plan, desc_plan, num_consulta_actual, precio_bono_consulta FROM ELIMINAR_CAR.Afiliado a JOIN ELIMINAR_CAR.Planes p ON (a.id_plan=p.id_plan) WHERE usuario='{0}'", id_usuario), conexion);
-
-                reader = datosAfiliado.ExecuteReader();
-
-                reader.Read();
-                txtAfiliado.Text = Convert.ToString(reader.GetInt64(0));
-                txtTipoDoc.Text = Convert.ToString(reader.GetInt32(1));
-                txtNroDoc.Text = Convert.ToString(reader.GetDecimal(2));
-                txtNombre.Text = reader.GetString(3);
-                txtApellido.Text = reader.GetString(4);
-                id_plan = reader.GetInt32(5);
-                txtPlan.Text = reader.GetString(6);
-                txtCantidad.Text = Convert.ToString(reader.GetInt64(7));
-                txtPrecioU.Text = Convert.ToString(reader.GetInt32(8));
-
-                reader.Close();
+            {   
+                datosAfiliado = new SqlCommand(string.Format("SELECT id_afiliado, tipo_doc, numero_doc, nombre, apellido, a.id_plan, desc_plan, num_consulta_actual, precio_bono_consulta FROM ELIMINAR_CAR.Afiliado a JOIN ELIMINAR_CAR.Planes p ON (a.id_plan=p.id_plan) WHERE usuario='{0}'", id_usuario), conexion);
             }
             else
             {
                 SeleccionarAfiliado form = new SeleccionarAfiliado();
                 form.ShowDialog();
-                SqlCommand afiliados = new SqlCommand(string.Format("SELECT id_afiliado, nombre, apellido, tipo_doc, numero_doc, fecha_nac, direccion, telefono, desc_plan, a.id_plan, num_consulta_actual, activo, fecha_baja FROM ELIMINAR_CAR.Afiliado a JOIN ELIMINAR_CAR.Planes p ON (a.id_plan=p.id_plan)"), conexion);
-                List<Afiliado> lista = Afiliado.listarAfiliadosCompraBonos(afiliados);
-                dtgAfiliados.DataSource = lista;
-                dtgAfiliados.MultiSelect = false;
-                chkFiltro.Checked = true;
+                if (form.fueCerradoPorUsuario)
+                {
+                    this.Close();
+                    return;
+                }
+                else
+                {
+                    Int64 id_afiliadoSeleccionado = ((Afiliado)((DataGridView)form.Controls["dgv_afiliado"]).CurrentRow.DataBoundItem).idAfiliado;
+                    datosAfiliado = new SqlCommand(string.Format("SELECT id_afiliado, tipo_doc, numero_doc, nombre, apellido, a.id_plan, desc_plan, num_consulta_actual, precio_bono_consulta FROM ELIMINAR_CAR.Afiliado a JOIN ELIMINAR_CAR.Planes p ON (a.id_plan=p.id_plan) WHERE id_afiliado={0}", id_afiliadoSeleccionado), conexion);
+
+                }
+            }
+            reader = datosAfiliado.ExecuteReader();
+
+            reader.Read();
+            txtAfiliado.Text = Convert.ToString(reader.GetInt64(0));
+            txtTipoDoc.Text = Convert.ToString(reader.GetInt32(1));
+            txtNroDoc.Text = Convert.ToString(reader.GetDecimal(2));
+            txtNombre.Text = reader.GetString(3);
+            txtApellido.Text = reader.GetString(4);
+            id_plan = reader.GetInt32(5);
+            txtPlan.Text = reader.GetString(6);
+            txtCantidad.Text = Convert.ToString(reader.GetInt64(7));
+            txtPrecioU.Text = Convert.ToString(reader.GetInt32(8));
+
+            reader.Close();
+            txtCantCompra.KeyPress += controlNumeros;
+        }
+        private void controlNumeros(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar >= '0' && e.KeyChar <= '9' || e.KeyChar == '\b') //Numeros o borrar
+            {
+                e.Handled = false; //Se deja que entre
+            }
+            else
+            {
+                e.Handled = true; //Se cancela
             }
         }
-        
         private void btnComprar_Click(object sender, EventArgs e)
         {
             long id_afiliado = Convert.ToInt64(txtAfiliado.Text);
@@ -83,27 +95,15 @@ namespace ClinicaFrba.Compra_Bono
 
             if (MessageBox.Show("¿Está seguro? \n" + txtCantCompra.Text + " bonos a $" + Convert.ToString(precioTotal), "Cofirmar operación", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
             {
-                SqlCommand estado = new SqlCommand(string.Format(
-                    "SELECT activo FROM ELIMINAR_CAR.Afiliado WHERE id_afiliado={0}", id_afiliado), conexion);
-                reader = estado.ExecuteReader();
-                reader.Read();
-                if (!reader.GetBoolean(0))
-                    return;
-                reader.Close();
-
-                string fecha_compra = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-
-                //Insertar en Compra_Bonos
-                SqlCommand insertarBono = new SqlCommand(string.Format(
-                    "INSERT INTO ELIMINAR_CAR.Compra_Bonos (id_afiliado_comprador, precio_total, fecha_compra, cantidad_bonos) VALUES ({0}, {1}, '{2}', {3})", id_afiliado, precioTotal, fecha_compra, cantidadComprada), conexion);
-                insertarBono.ExecuteNonQuery();
-                //Insertar en Bono
-                for (int j = 0; j < cantidadComprada; j++)
-                {
-                    insertarBono = new SqlCommand(string.Format(
-                    "INSERT INTO ELIMINAR_CAR.Bono (id_bono, id_afiliado_comprador, id_afiliado_consumidor, num_consulta, id_plan, utilizado, precio, fecha_compra, fecha_uso) VALUES ({4}, {0}, NULL, NULL , {1}, 0, (SELECT (precio_bono_consulta) FROM ELIMINAR_CAR.Planes WHERE id_plan={2}), '{3}', NULL)", id_afiliado, id_plan, id_plan, fecha_compra, j + 9999999), conexion);
-                    insertarBono.ExecuteNonQuery();
-                }
+                SqlCommand insertarBonos = new SqlCommand("ELIMINAR_CAR.comprar_bono", DBConnector.ObtenerConexion());
+                insertarBonos.CommandType = CommandType.StoredProcedure;
+                insertarBonos.Parameters.Add(new SqlParameter("@id_afiliado", id_afiliado));
+                insertarBonos.Parameters.Add(new SqlParameter("@cant_bonos",cantidadComprada));
+                insertarBonos.Parameters.Add(new SqlParameter("@fecha_compra", DateTime.Now));
+                insertarBonos.ExecuteNonQuery();
+                MessageBox.Show("Compra de Bonos Realizada","Clinica-FRBA", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                txtCantCompra.Text = "";
+                lblPrecioF.Text = "";
             }
             else
             {
@@ -114,96 +114,9 @@ namespace ClinicaFrba.Compra_Bono
 
 
 
-        private void dtgAfiliados_SelectionChanged(object sender, EventArgs e)
-        {
-            if (dtgAfiliados.SelectedRows.Count != 0)
-            {
-                Afiliado s = (Afiliado) dtgAfiliados.CurrentRow.DataBoundItem;
-                txtAfiliado.Text = s.idAfiliado.ToString();
-                txtNombre.Text = s.nombre;
-                txtApellido.Text = s.apellido;
-                txtPlan.Text = s.descPlan;
-                txtTipoDoc.Text = s.tipoDoc.ToString();
-                txtNroDoc.Text = s.nroDoc.ToString();
-                //txtCantidad.Text = Convert.ToString(dtgAfiliados.SelectedRows[0].Cells[17].Value);
-                id_plan = s.idPlan;
-                /*SqlCommand precioBono = new SqlCommand(string.Format(
-                "SELECT precio_bono_consulta FROM ELIMINAR_CAR.Planes WHERE id_plan={0}", Convert.ToString(dtgAfiliados.SelectedRows[0].Cells[11].Value)), conexion);
-                reader = precioBono.ExecuteReader();
-                reader.Read();
-                txtPrecioU.Text = Convert.ToString(reader.GetInt32(0));
-                reader.Close();*/
-            }
 
-            
-        }
 
-        private void btnFiltrar_Click(object sender, EventArgs e)
-        {
-            SqlCommand filtrar;
-            string condId = "id_afiliado={0}";
-            string condNroDoc = "numero_doc={1}";
-            string condNombre = "nombre LIKE '%{2}%'";
-            string condApellido = "apellido LIKE '%{3}%'";
-            string condPlan = "desc_plan LIKE '%{4}%'";
-            string filtro = " and ";
-            long id_afiliado;
-            Decimal nroDoc;
-            string plan = "";
-
-            if (!chkFiltro.Checked && ((txtFiltroId.Text != "") || (txtFiltroDoc.Text != "") || (txtFiltroPlan.Text != "") || (txtFiltroNombre.Text != "") || (txtFiltroApellido.Text != "")))
-            {
-                filtro = " or ";
-            }
-
-            if (txtFiltroId.Text == "")
-            {
-                if (filtro==" and ")
-                    condId = "{0}={0}";
-                else
-                    condId = "{0}!={0}";
-                id_afiliado = 1;
-            }
-            else
-                id_afiliado = Convert.ToInt64(txtFiltroId.Text);
-            if (txtFiltroDoc.Text == "")
-            {
-                if (filtro==" and ")
-                    condNroDoc = "{1}={1}";
-                else
-                    condNroDoc = "{1}!={1}";
-                nroDoc = 1;
-            }
-            else
-                nroDoc = Convert.ToDecimal(txtFiltroDoc.Text);
-            if (txtFiltroPlan.Text == "")
-            {
-                if (filtro==" and ")
-                    condPlan = "{4}={4}";
-                else
-                    condPlan = "{4}!={4}";
-                id_plan = 1;
-            }
-            else
-                plan = txtFiltroPlan.Text;
-            if (txtFiltroNombre.Text == "")
-                if (filtro==" and ")
-                    condNombre = "'{2}'='{2}'";
-                else
-                    condNombre = "'{2}'!='{2}'";
-            if (txtFiltroApellido.Text == "")
-                if (filtro==" and ")
-                    condApellido = "'{3}'='{3}'";
-                else
-                    condApellido = "'{3}'!='{3}'";
-
-           // string consulta = "SELECT id_afiliado, nombre, apellido, tipo_doc, numero_doc, fecha_nac, direccion, telefono, desc_plan, a.id_plan, num_consulta_actual, activo, fecha_baja FROM ELIMINAR_CAR.Afiliado a JOIN ELIMINAR_CAR.Planes p ON (a.id_plan=p.id_plan) WHERE " + condId + filtro + condNroDoc + filtro + condNombre + filtro + condApellido + filtro + condPlan;
-            string consulta = "SELECT id_afiliado, nombre, apellido, tipo_doc, numero_doc, fecha_nac, direccion, telefono, desc_plan, a.id_plan, num_consulta_actual, activo, fecha_baja FROM ELIMINAR_CAR.Afiliado a JOIN ELIMINAR_CAR.Planes p ON (a.id_plan=p.id_plan)";            
-            filtrar = new SqlCommand(string.Format(consulta, id_afiliado, nroDoc, txtFiltroNombre.Text, txtFiltroApellido.Text, plan), conexion);
-            List<Afiliado> lista = Afiliado.listarAfiliadosCompraBonos(filtrar);
-            dtgAfiliados.DataSource = lista;
-        }
-
+        
         private void txtCantCompra_TextChanged(object sender, EventArgs e)
         {
 
@@ -217,55 +130,7 @@ namespace ClinicaFrba.Compra_Bono
                 lblPrecioF.Text = "";
         }
 
-        private void txtFiltroId_MaskInputRejected(object sender, MaskInputRejectedEventArgs e)
-        {
 
-        }
-
-        private void lblFiltroId_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void txtFiltroDoc_MaskInputRejected(object sender, MaskInputRejectedEventArgs e)
-        {
-
-        }
-
-        private void blFiltroNroDoc_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void txtFiltroPlan_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void lblFiltroPlan_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void txtFiltroApellido_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void lblFiltroApellido_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void txtFiltroNombre_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void lblFiltroNombre_Click(object sender, EventArgs e)
-        {
-
-        }
 
     }
 }

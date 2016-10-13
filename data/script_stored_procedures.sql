@@ -92,11 +92,29 @@ SET activo=0
 WHERE matricula=@matricula AND CAST(fecha_estipulada AS DATE)>=@fecha_desde AND CAST(fecha_estipulada AS DATE)<=@fecha_hasta
 GO
 
-CREATE PROCEDURE eliminar_car.profesionales_mas_consultados (@id_plan INT)
+CREATE PROCEDURE ELIMINAR_CAR.profesionales_mas_consultados (@id_plan INT)
 AS
 SELECT TOP 5  pl.desc_plan 'Plan', p.nombre 'Nombre', p.apellido 'Apellido', e.desc_especialidad 'Especialidad', count(t.matricula) 'Cant. de consultas'
 FROM ELIMINAR_CAR.Turno t JOIN ELIMINAR_CAR.Profesional p ON (t.matricula = p.matricula) JOIN ELIMINAR_CAR.Afiliado a ON (a.id_afiliado = t.id_afiliado) JOIN ELIMINAR_CAR.Planes pl ON (a.id_plan = pl.id_plan) JOIN ELIMINAR_CAR.Especialidad e ON (e.id_especialidad = t.id_especialidad)
 WHERE a.id_plan = @id_plan
 GROUP BY p.nombre, p.apellido, pl.desc_plan, e.desc_especialidad
 ORDER BY count(t.matricula) desc
+GO
+
+CREATE PROCEDURE ELIMINAR_CAR.comprar_bono (@id_afiliado BIGINT,@cant_bonos INT,@fecha_compra DATETIME)
+AS
+DECLARE @id_plan INT,@precio INT,@id_bono_max BIGINT,@cnt INT = 0;
+
+BEGIN TRANSACTION
+SELECT @id_plan=p.id_plan,@precio=precio_bono_consulta FROM ELIMINAR_CAR.Afiliado a JOIN ELIMINAR_CAR.Planes p on (a.id_plan=p.id_plan) WHERE a.id_afiliado = @id_afiliado
+SELECT @id_bono_max=MAX(id_bono) FROM ELIMINAR_CAR.Bono
+
+INSERT INTO ELIMINAR_CAR.Compra_Bonos (id_afiliado_comprador,precio_total,fecha_compra,cantidad_bonos) VALUES (@id_afiliado,@precio*@cant_bonos,@fecha_compra,@cant_bonos)
+
+WHILE @cnt < @cant_bonos
+BEGIN
+	INSERT INTO ELIMINAR_CAR.Bono (id_bono,id_afiliado_comprador,id_plan,utilizado,precio,fecha_compra) VALUES (@id_bono_max+1+@cnt,@id_afiliado,@id_plan,0,@precio,@fecha_compra)
+   SET @cnt = @cnt + 1;
+END;
+COMMIT TRANSACTION
 GO
