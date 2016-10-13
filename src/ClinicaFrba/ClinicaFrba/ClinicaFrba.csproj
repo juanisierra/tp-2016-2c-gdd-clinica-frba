@@ -180,11 +180,11 @@
     <Compile Include="Login.Designer.cs">
       <DependentUpon>Login.cs</DependentUpon>
     </Compile>
-    <Compile Include="Listados\Form1.cs">
+    <Compile Include="Listados\ListadoConsultas.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Listados\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Listados\ListadoConsultas.Designer.cs">
+      <DependentUpon>ListadoConsultas.cs</DependentUpon>
     </Compile>
     <Compile Include="Pedir Turno\PedirTurno.cs">
       <SubType>Form</SubType>
@@ -250,6 +250,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ElementosLogin\Elegir_Rol.resx">
       <DependentUpon>Elegir_Rol.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Listados\ListadoConsultas.resx">
+      <DependentUpon>ListadoConsultas.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Login.resx">
       <DependentUpon>Login.cs</DependentUpon>

@@ -7,6 +7,7 @@ using System.Data.SqlClient;
 using ClinicaFrba.AbmRol;
  using ClinicaFrba.Registrar_Agenta_Medico;
 using ClinicaFrba.Compra_Bono;
+using ClinicaFrba.Listados;
 namespace ClinicaFrba
 {
     public class Funcionalidad
@@ -77,7 +78,9 @@ namespace ClinicaFrba
                     if(id_rol==1) return new Cancelar_Atencion.CancelacionAfiliado(id_usuario,id_rol);
                     else return new Cancelar_Atencion.CancelacionProfesional(id_usuario, id_rol);
                     break;
-
+                case 13:
+                    return new ListadoConsultas();
+                    break;
             }
             return null;
         }
