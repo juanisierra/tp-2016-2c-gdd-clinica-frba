@@ -79,7 +79,7 @@ namespace ClinicaFrba
                     else return new Cancelar_Atencion.CancelacionProfesional(id_usuario, id_rol);
                     break;
                 case 13:
-                    return new ListadoConsultas();
+                    return new Elegir_listado();
                     break;
             }
             return null;

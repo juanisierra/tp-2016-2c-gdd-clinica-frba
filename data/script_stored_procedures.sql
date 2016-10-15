@@ -94,9 +94,13 @@ GO
 
 CREATE PROCEDURE ELIMINAR_CAR.profesionales_mas_consultados (@id_plan INT)
 AS
-SELECT TOP 5  pl.desc_plan 'Plan', p.nombre 'Nombre', p.apellido 'Apellido', e.desc_especialidad 'Especialidad', count(t.matricula) 'Cant. de consultas'
+SELECT TOP 5  p.nombre 'Nombre', p.apellido 'Apellido', pl.desc_plan 'Plan', e.desc_especialidad 'Especialidad', count(t.matricula) 'Consultas'
 FROM ELIMINAR_CAR.Turno t JOIN ELIMINAR_CAR.Profesional p ON (t.matricula = p.matricula) JOIN ELIMINAR_CAR.Afiliado a ON (a.id_afiliado = t.id_afiliado) JOIN ELIMINAR_CAR.Planes pl ON (a.id_plan = pl.id_plan) JOIN ELIMINAR_CAR.Especialidad e ON (e.id_especialidad = t.id_especialidad)
-WHERE a.id_plan = @id_plan
+WHERE a.id_plan =
+	CASE @id_plan
+	WHEN -1 THEN a.id_plan
+	ELSE @id_plan
+	END
 GROUP BY p.nombre, p.apellido, pl.desc_plan, e.desc_especialidad
 ORDER BY count(t.matricula) desc
 GO

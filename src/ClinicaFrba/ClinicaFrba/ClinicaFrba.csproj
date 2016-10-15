@@ -140,6 +140,12 @@
     <Compile Include="Compra Bono\SeleccionarAfiliado.Designer.cs">
       <DependentUpon>SeleccionarAfiliado.cs</DependentUpon>
     </Compile>
+    <Compile Include="Listados\Elegir_listado.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Listados\Elegir_listado.Designer.cs">
+      <DependentUpon>Elegir_listado.cs</DependentUpon>
+    </Compile>
     <Compile Include="Registro Llegada\SeleccionarBono.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -250,6 +256,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ElementosLogin\Elegir_Rol.resx">
       <DependentUpon>Elegir_Rol.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Listados\Elegir_listado.resx">
+      <DependentUpon>Elegir_listado.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Listados\ListadoConsultas.resx">
       <DependentUpon>ListadoConsultas.cs</DependentUpon>
