@@ -31,9 +31,11 @@ namespace ClinicaFrba.Listados
             this.Visible = false;
             switch (cb_listado.SelectedIndex)
             {
+                case 0:
+                    new ListadoCancelaciones().ShowDialog();
+                    break;
                 case 1:
-                    ListadoConsultas listado = new ListadoConsultas();
-                    listado.ShowDialog();
+                    new ListadoConsultas().ShowDialog();
                     break;
             }
             this.Visible = true;

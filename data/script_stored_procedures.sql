@@ -122,3 +122,38 @@ BEGIN
 END;
 COMMIT TRANSACTION
 GO
+
+
+CREATE PROCEDURE ELIMINAR_CAR.cancelaciones_totales
+AS
+SELECT TOP 5 e.desc_especialidad Especialidad, count(t.id_especialidad) Cancelaciones
+FROM ELIMINAR_CAR.Turno t JOIN ELIMINAR_CAR.Especialidad e ON (t.id_especialidad = e.id_especialidad)
+WHERE activo = 0
+GROUP BY e.desc_especialidad
+ORDER BY Cancelaciones desc
+GO
+
+CREATE PROCEDURE ELIMINAR_CAR.cancelaciones_afiliado
+AS
+SELECT TOP 5 e.desc_especialidad Especialidad, count(t.id_especialidad) Cancelaciones
+FROM ELIMINAR_CAR.Turno t JOIN ELIMINAR_CAR.Especialidad e ON (t.id_especialidad = e.id_especialidad) JOIN ELIMINAR_CAR.Cancelacion_Afiliado c ON (t.id_turno = c.id_turno)
+WHERE activo = 0
+GROUP BY e.desc_especialidad
+ORDER BY Cancelaciones desc
+GO
+
+CREATE PROCEDURE ELIMINAR_CAR.cancelaciones_profesional
+AS
+SELECT TOP 5 e.desc_especialidad Especialidad, count(c.id_especialidad) Cancelaciones
+FROM (	SELECT *
+		FROM ELIMINAR_CAR.Turno t
+		WHERE activo = 0
+
+		EXCEPT
+
+		SELECT t.id_turno, t.fecha_estipulada, t.matricula, t.id_afiliado, t.id_bono, t.momento_llegada, t.id_especialidad, t.activo
+		FROM ELIMINAR_CAR.Turno t JOIN ELIMINAR_CAR.Cancelacion_Afiliado c ON (t.id_turno = c.id_turno)
+		WHERE activo = 0) c JOIN ELIMINAR_CAR.Especialidad e ON (c.id_especialidad = e.id_especialidad)
+GROUP BY e.desc_especialidad
+ORDER BY Cancelaciones desc
+GO
