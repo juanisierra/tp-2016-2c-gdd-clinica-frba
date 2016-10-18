@@ -46,12 +46,12 @@
             this.txtNombre = new System.Windows.Forms.TextBox();
             this.lblNombre = new System.Windows.Forms.Label();
             this.txtAfiliado = new System.Windows.Forms.TextBox();
-            this.afiliadoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.btnComprar = new System.Windows.Forms.Button();
             this.lblCantidadCompra = new System.Windows.Forms.Label();
             this.lblInfoPrecio = new System.Windows.Forms.Label();
             this.lblPrecioF = new System.Windows.Forms.Label();
             this.txtCantCompra = new System.Windows.Forms.TextBox();
+            this.afiliadoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.afiliadoBindingSource)).BeginInit();
             this.SuspendLayout();
@@ -59,20 +59,18 @@
             // lblAfiliado
             // 
             this.lblAfiliado.AutoSize = true;
-            this.lblAfiliado.Location = new System.Drawing.Point(21, 28);
-            this.lblAfiliado.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblAfiliado.Location = new System.Drawing.Point(16, 23);
             this.lblAfiliado.Name = "lblAfiliado";
-            this.lblAfiliado.Size = new System.Drawing.Size(85, 17);
+            this.lblAfiliado.Size = new System.Drawing.Size(64, 13);
             this.lblAfiliado.TabIndex = 1;
             this.lblAfiliado.Text = "Nro. Afiliado";
             // 
             // lblPlan
             // 
             this.lblPlan.AutoSize = true;
-            this.lblPlan.Location = new System.Drawing.Point(199, 28);
-            this.lblPlan.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblPlan.Location = new System.Drawing.Point(149, 23);
             this.lblPlan.Name = "lblPlan";
-            this.lblPlan.Size = new System.Drawing.Size(36, 17);
+            this.lblPlan.Size = new System.Drawing.Size(28, 13);
             this.lblPlan.TabIndex = 3;
             this.lblPlan.Text = "Plan";
             // 
@@ -94,11 +92,9 @@
             this.groupBox1.Controls.Add(this.lblNombre);
             this.groupBox1.Controls.Add(this.txtAfiliado);
             this.groupBox1.Controls.Add(this.lblAfiliado);
-            this.groupBox1.Location = new System.Drawing.Point(21, 15);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
+            this.groupBox1.Location = new System.Drawing.Point(16, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox1.Size = new System.Drawing.Size(524, 202);
+            this.groupBox1.Size = new System.Drawing.Size(393, 164);
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Datos de Afiliado";
@@ -106,146 +102,128 @@
             // lblPrecioU
             // 
             this.lblPrecioU.AutoSize = true;
-            this.lblPrecioU.Location = new System.Drawing.Point(380, 87);
-            this.lblPrecioU.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblPrecioU.Location = new System.Drawing.Point(285, 71);
             this.lblPrecioU.Name = "lblPrecioU";
-            this.lblPrecioU.Size = new System.Drawing.Size(101, 17);
+            this.lblPrecioU.Size = new System.Drawing.Size(76, 13);
             this.lblPrecioU.TabIndex = 15;
             this.lblPrecioU.Text = "Precio Unitario";
             // 
             // txtPrecioU
             // 
             this.txtPrecioU.Enabled = false;
-            this.txtPrecioU.Location = new System.Drawing.Point(376, 108);
-            this.txtPrecioU.Margin = new System.Windows.Forms.Padding(4);
+            this.txtPrecioU.Location = new System.Drawing.Point(282, 88);
             this.txtPrecioU.Name = "txtPrecioU";
             this.txtPrecioU.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.txtPrecioU.Size = new System.Drawing.Size(132, 22);
+            this.txtPrecioU.Size = new System.Drawing.Size(100, 20);
             this.txtPrecioU.TabIndex = 14;
             // 
             // txtCantidad
             // 
             this.txtCantidad.Enabled = false;
-            this.txtCantidad.Location = new System.Drawing.Point(376, 48);
-            this.txtCantidad.Margin = new System.Windows.Forms.Padding(4);
+            this.txtCantidad.Location = new System.Drawing.Point(282, 39);
             this.txtCantidad.Name = "txtCantidad";
-            this.txtCantidad.Size = new System.Drawing.Size(132, 22);
+            this.txtCantidad.Size = new System.Drawing.Size(100, 20);
             this.txtCantidad.TabIndex = 12;
             // 
             // lblBono
             // 
             this.lblBono.AutoSize = true;
-            this.lblBono.Location = new System.Drawing.Point(376, 28);
-            this.lblBono.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblBono.Location = new System.Drawing.Point(282, 23);
             this.lblBono.Name = "lblBono";
-            this.lblBono.Size = new System.Drawing.Size(118, 17);
+            this.lblBono.Size = new System.Drawing.Size(88, 13);
             this.lblBono.TabIndex = 13;
             this.lblBono.Text = "Bonos adquiridos";
             // 
             // txtNroDoc
             // 
             this.txtNroDoc.Enabled = false;
-            this.txtNroDoc.Location = new System.Drawing.Point(199, 170);
-            this.txtNroDoc.Margin = new System.Windows.Forms.Padding(4);
+            this.txtNroDoc.Location = new System.Drawing.Point(149, 138);
             this.txtNroDoc.Name = "txtNroDoc";
-            this.txtNroDoc.Size = new System.Drawing.Size(132, 22);
+            this.txtNroDoc.Size = new System.Drawing.Size(100, 20);
             this.txtNroDoc.TabIndex = 10;
             // 
             // lblNroDoc
             // 
             this.lblNroDoc.AutoSize = true;
-            this.lblNroDoc.Location = new System.Drawing.Point(200, 150);
-            this.lblNroDoc.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblNroDoc.Location = new System.Drawing.Point(150, 122);
             this.lblNroDoc.Name = "lblNroDoc";
-            this.lblNroDoc.Size = new System.Drawing.Size(111, 17);
+            this.lblNroDoc.Size = new System.Drawing.Size(85, 13);
             this.lblNroDoc.TabIndex = 11;
             this.lblNroDoc.Text = "Nro. Documento";
             // 
             // txtTipoDoc
             // 
             this.txtTipoDoc.Enabled = false;
-            this.txtTipoDoc.Location = new System.Drawing.Point(20, 170);
-            this.txtTipoDoc.Margin = new System.Windows.Forms.Padding(4);
+            this.txtTipoDoc.Location = new System.Drawing.Point(15, 138);
             this.txtTipoDoc.Name = "txtTipoDoc";
-            this.txtTipoDoc.Size = new System.Drawing.Size(132, 22);
+            this.txtTipoDoc.Size = new System.Drawing.Size(100, 20);
             this.txtTipoDoc.TabIndex = 8;
             // 
             // lblTipoDoc
             // 
             this.lblTipoDoc.AutoSize = true;
-            this.lblTipoDoc.Location = new System.Drawing.Point(21, 150);
-            this.lblTipoDoc.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblTipoDoc.Location = new System.Drawing.Point(16, 122);
             this.lblTipoDoc.Name = "lblTipoDoc";
-            this.lblTipoDoc.Size = new System.Drawing.Size(112, 17);
+            this.lblTipoDoc.Size = new System.Drawing.Size(86, 13);
             this.lblTipoDoc.TabIndex = 9;
             this.lblTipoDoc.Text = "Tipo Documento";
             // 
             // txtApellido
             // 
             this.txtApellido.Enabled = false;
-            this.txtApellido.Location = new System.Drawing.Point(199, 108);
-            this.txtApellido.Margin = new System.Windows.Forms.Padding(4);
+            this.txtApellido.Location = new System.Drawing.Point(149, 88);
             this.txtApellido.Name = "txtApellido";
-            this.txtApellido.Size = new System.Drawing.Size(132, 22);
+            this.txtApellido.Size = new System.Drawing.Size(100, 20);
             this.txtApellido.TabIndex = 6;
             // 
             // txtPlan
             // 
             this.txtPlan.Enabled = false;
-            this.txtPlan.Location = new System.Drawing.Point(199, 48);
-            this.txtPlan.Margin = new System.Windows.Forms.Padding(4);
+            this.txtPlan.Location = new System.Drawing.Point(149, 39);
             this.txtPlan.Name = "txtPlan";
-            this.txtPlan.Size = new System.Drawing.Size(132, 22);
+            this.txtPlan.Size = new System.Drawing.Size(100, 20);
             this.txtPlan.TabIndex = 2;
             // 
             // lblApellido
             // 
             this.lblApellido.AutoSize = true;
-            this.lblApellido.Location = new System.Drawing.Point(200, 89);
-            this.lblApellido.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblApellido.Location = new System.Drawing.Point(150, 72);
             this.lblApellido.Name = "lblApellido";
-            this.lblApellido.Size = new System.Drawing.Size(58, 17);
+            this.lblApellido.Size = new System.Drawing.Size(44, 13);
             this.lblApellido.TabIndex = 7;
             this.lblApellido.Text = "Apellido";
             // 
             // txtNombre
             // 
             this.txtNombre.Enabled = false;
-            this.txtNombre.Location = new System.Drawing.Point(20, 108);
-            this.txtNombre.Margin = new System.Windows.Forms.Padding(4);
+            this.txtNombre.Location = new System.Drawing.Point(15, 88);
             this.txtNombre.Name = "txtNombre";
-            this.txtNombre.Size = new System.Drawing.Size(132, 22);
+            this.txtNombre.Size = new System.Drawing.Size(100, 20);
             this.txtNombre.TabIndex = 4;
             // 
             // lblNombre
             // 
             this.lblNombre.AutoSize = true;
-            this.lblNombre.Location = new System.Drawing.Point(21, 89);
-            this.lblNombre.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblNombre.Location = new System.Drawing.Point(16, 72);
             this.lblNombre.Name = "lblNombre";
-            this.lblNombre.Size = new System.Drawing.Size(58, 17);
+            this.lblNombre.Size = new System.Drawing.Size(44, 13);
             this.lblNombre.TabIndex = 5;
             this.lblNombre.Text = "Nombre";
             // 
             // txtAfiliado
             // 
             this.txtAfiliado.Enabled = false;
-            this.txtAfiliado.Location = new System.Drawing.Point(20, 48);
-            this.txtAfiliado.Margin = new System.Windows.Forms.Padding(4);
+            this.txtAfiliado.Location = new System.Drawing.Point(15, 39);
             this.txtAfiliado.Name = "txtAfiliado";
-            this.txtAfiliado.Size = new System.Drawing.Size(132, 22);
+            this.txtAfiliado.Size = new System.Drawing.Size(100, 20);
             this.txtAfiliado.TabIndex = 0;
-            // 
-            // afiliadoBindingSource
-            // 
-            this.afiliadoBindingSource.DataSource = typeof(ClinicaFrba.Clases.Afiliado);
             // 
             // btnComprar
             // 
-            this.btnComprar.Location = new System.Drawing.Point(588, 105);
-            this.btnComprar.Margin = new System.Windows.Forms.Padding(4);
+            this.btnComprar.Enabled = false;
+            this.btnComprar.Location = new System.Drawing.Point(441, 85);
             this.btnComprar.Name = "btnComprar";
-            this.btnComprar.Size = new System.Drawing.Size(119, 59);
+            this.btnComprar.Size = new System.Drawing.Size(89, 48);
             this.btnComprar.TabIndex = 6;
             this.btnComprar.Text = "Comprar";
             this.btnComprar.UseVisualStyleBackColor = true;
@@ -254,52 +232,53 @@
             // lblCantidadCompra
             // 
             this.lblCantidadCompra.AutoSize = true;
-            this.lblCantidadCompra.Location = new System.Drawing.Point(584, 43);
-            this.lblCantidadCompra.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblCantidadCompra.Location = new System.Drawing.Point(438, 35);
             this.lblCantidadCompra.Name = "lblCantidadCompra";
-            this.lblCantidadCompra.Size = new System.Drawing.Size(132, 17);
+            this.lblCantidadCompra.Size = new System.Drawing.Size(99, 13);
             this.lblCantidadCompra.TabIndex = 8;
             this.lblCantidadCompra.Text = "Cantidad a comprar";
             // 
             // lblInfoPrecio
             // 
             this.lblInfoPrecio.AutoSize = true;
-            this.lblInfoPrecio.Location = new System.Drawing.Point(584, 185);
-            this.lblInfoPrecio.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblInfoPrecio.Location = new System.Drawing.Point(438, 150);
             this.lblInfoPrecio.Name = "lblInfoPrecio";
-            this.lblInfoPrecio.Size = new System.Drawing.Size(98, 17);
+            this.lblInfoPrecio.Size = new System.Drawing.Size(74, 13);
             this.lblInfoPrecio.TabIndex = 18;
             this.lblInfoPrecio.Text = "Precio Final: $";
             // 
             // lblPrecioF
             // 
             this.lblPrecioF.AutoSize = true;
-            this.lblPrecioF.Location = new System.Drawing.Point(683, 185);
-            this.lblPrecioF.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblPrecioF.Location = new System.Drawing.Point(512, 150);
             this.lblPrecioF.Name = "lblPrecioF";
-            this.lblPrecioF.Size = new System.Drawing.Size(0, 17);
+            this.lblPrecioF.Size = new System.Drawing.Size(0, 13);
             this.lblPrecioF.TabIndex = 19;
             // 
             // txtCantCompra
             // 
-            this.txtCantCompra.Location = new System.Drawing.Point(587, 65);
+            this.txtCantCompra.Location = new System.Drawing.Point(440, 53);
+            this.txtCantCompra.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.txtCantCompra.Name = "txtCantCompra";
-            this.txtCantCompra.Size = new System.Drawing.Size(129, 22);
+            this.txtCantCompra.Size = new System.Drawing.Size(98, 20);
             this.txtCantCompra.TabIndex = 20;
             this.txtCantCompra.TextChanged += new System.EventHandler(this.txtCantCompra_TextChanged);
             // 
+            // afiliadoBindingSource
+            // 
+            this.afiliadoBindingSource.DataSource = typeof(ClinicaFrba.Clases.Afiliado);
+            // 
             // CompraBonos
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(754, 246);
+            this.ClientSize = new System.Drawing.Size(566, 206);
             this.Controls.Add(this.txtCantCompra);
             this.Controls.Add(this.lblPrecioF);
             this.Controls.Add(this.lblInfoPrecio);
             this.Controls.Add(this.lblCantidadCompra);
             this.Controls.Add(this.btnComprar);
             this.Controls.Add(this.groupBox1);
-            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "CompraBonos";
             this.Text = "Compra de Bonos";
             this.Load += new System.EventHandler(this.CompraBonos_Load);
