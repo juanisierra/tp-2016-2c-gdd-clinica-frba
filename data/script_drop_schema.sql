@@ -1,6 +1,9 @@
 USE [GD2C2016]
 GO
 
+DROP PROCEDURE ELIMINAR_CAR.cancelaciones_afiliado;
+DROP PROCEDURE ELIMINAR_CAR.cancelaciones_totales;
+DROP PROCEDURE ELIMINAR_CAR.cancelaciones_profesional;
 DROP PROCEDURE ELIMINAR_CAR.comprar_bono;
 DROP PROCEDURE ELIMINAR_CAR.profesionales_mas_consultados;
 DROP PROCEDURE ELIMINAR_CAR.cancelarTurnoProfesional;
