@@ -92,15 +92,25 @@ SET activo=0
 WHERE matricula=@matricula AND CAST(fecha_estipulada AS DATE)>=@fecha_desde AND CAST(fecha_estipulada AS DATE)<=@fecha_hasta
 GO
 
-CREATE PROCEDURE ELIMINAR_CAR.profesionales_mas_consultados (@id_plan INT)
+CREATE PROCEDURE ELIMINAR_CAR.profesionales_mas_consultados (@id_plan INT, @fecha DATETIME, @semestre INT)
 AS
 SELECT TOP 5  p.nombre 'Nombre', p.apellido 'Apellido', pl.desc_plan 'Plan', e.desc_especialidad 'Especialidad', count(t.matricula) 'Consultas'
-FROM ELIMINAR_CAR.Turno t JOIN ELIMINAR_CAR.Profesional p ON (t.matricula = p.matricula) JOIN ELIMINAR_CAR.Afiliado a ON (a.id_afiliado = t.id_afiliado) JOIN ELIMINAR_CAR.Planes pl ON (a.id_plan = pl.id_plan) JOIN ELIMINAR_CAR.Especialidad e ON (e.id_especialidad = t.id_especialidad)
+FROM ELIMINAR_CAR.Turno t JOIN ELIMINAR_CAR.Consulta c ON (c.id_turno = t.id_turno) JOIN ELIMINAR_CAR.Profesional p ON (t.matricula = p.matricula) JOIN ELIMINAR_CAR.Afiliado a ON (a.id_afiliado = t.id_afiliado) JOIN ELIMINAR_CAR.Planes pl ON (a.id_plan = pl.id_plan) JOIN ELIMINAR_CAR.Especialidad e ON (e.id_especialidad = t.id_especialidad)
 WHERE a.id_plan =
 	CASE @id_plan
 	WHEN -1 THEN a.id_plan
 	ELSE @id_plan
 	END
+	and YEAR(c.fecha_consulta) = YEAR(@fecha) and MONTH(c.fecha_consulta) between
+																	CASE @semestre
+																		WHEN 0 THEN 1
+																		ELSE 7
+																		END
+																	AND
+																	CASE @semestre
+																		WHEN 0 THEN 6
+																		ELSE 12
+																		END
 GROUP BY p.nombre, p.apellido, pl.desc_plan, e.desc_especialidad
 ORDER BY count(t.matricula) desc
 GO
@@ -124,36 +134,72 @@ COMMIT TRANSACTION
 GO
 
 
-CREATE PROCEDURE ELIMINAR_CAR.cancelaciones_totales
+CREATE PROCEDURE ELIMINAR_CAR.cancelaciones_totales (@fecha DATETIME, @semestre INT)
 AS
 SELECT TOP 5 e.desc_especialidad Especialidad, count(t.id_especialidad) Cancelaciones
 FROM ELIMINAR_CAR.Turno t JOIN ELIMINAR_CAR.Especialidad e ON (t.id_especialidad = e.id_especialidad)
-WHERE activo = 0
+WHERE activo = 0 and YEAR(t.fecha_estipulada) = YEAR(@fecha) and MONTH(t.fecha_estipulada) between
+																	CASE @semestre
+																		WHEN 0 THEN 1
+																		ELSE 7
+																		END
+																	AND
+																	CASE @semestre
+																		WHEN 0 THEN 6
+																		ELSE 12
+																		END
 GROUP BY e.desc_especialidad
 ORDER BY Cancelaciones desc
 GO
 
-CREATE PROCEDURE ELIMINAR_CAR.cancelaciones_afiliado
+CREATE PROCEDURE ELIMINAR_CAR.cancelaciones_afiliado (@fecha DATETIME, @semestre INT)
 AS
 SELECT TOP 5 e.desc_especialidad Especialidad, count(t.id_especialidad) Cancelaciones
 FROM ELIMINAR_CAR.Turno t JOIN ELIMINAR_CAR.Especialidad e ON (t.id_especialidad = e.id_especialidad) JOIN ELIMINAR_CAR.Cancelacion_Afiliado c ON (t.id_turno = c.id_turno)
-WHERE activo = 0
+WHERE activo = 0 and YEAR(t.fecha_estipulada) = YEAR(@fecha) and MONTH(t.fecha_estipulada) between
+																	CASE @semestre
+																		WHEN 0 THEN 1
+																		ELSE 7
+																		END
+																	AND
+																	CASE @semestre
+																		WHEN 0 THEN 6
+																		ELSE 12
+																		END
 GROUP BY e.desc_especialidad
 ORDER BY Cancelaciones desc
 GO
 
-CREATE PROCEDURE ELIMINAR_CAR.cancelaciones_profesional
+CREATE PROCEDURE ELIMINAR_CAR.cancelaciones_profesional (@fecha DATETIME, @semestre INT)
 AS
 SELECT TOP 5 e.desc_especialidad Especialidad, count(c.id_especialidad) Cancelaciones
 FROM (	SELECT *
 		FROM ELIMINAR_CAR.Turno t
-		WHERE activo = 0
+		WHERE activo = 0 and YEAR(t.fecha_estipulada) = YEAR(@fecha) and MONTH(t.fecha_estipulada) between
+																	CASE @semestre
+																		WHEN 0 THEN 1
+																		ELSE 7
+																		END
+																	AND
+																	CASE @semestre
+																		WHEN 0 THEN 6
+																		ELSE 12
+																		END
 
 		EXCEPT
 
 		SELECT t.id_turno, t.fecha_estipulada, t.matricula, t.id_afiliado, t.id_bono, t.momento_llegada, t.id_especialidad, t.activo
 		FROM ELIMINAR_CAR.Turno t JOIN ELIMINAR_CAR.Cancelacion_Afiliado c ON (t.id_turno = c.id_turno)
-		WHERE activo = 0) c JOIN ELIMINAR_CAR.Especialidad e ON (c.id_especialidad = e.id_especialidad)
+		WHERE activo = 0 and YEAR(t.fecha_estipulada) = YEAR(@fecha) and MONTH(t.fecha_estipulada) between
+																	CASE @semestre
+																		WHEN 0 THEN 1
+																		ELSE 7
+																		END
+																	AND
+																	CASE @semestre
+																		WHEN 0 THEN 6
+																		ELSE 12
+																		END) c JOIN ELIMINAR_CAR.Especialidad e ON (c.id_especialidad = e.id_especialidad)
 GROUP BY e.desc_especialidad
 ORDER BY Cancelaciones desc
 GO

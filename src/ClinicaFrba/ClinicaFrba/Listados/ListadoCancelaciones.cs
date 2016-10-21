@@ -28,12 +28,29 @@ namespace ClinicaFrba.Listados
             lista.Add("Profesional");
             lista.Add("Afiliado");
             cb_cancelaciones.DataSource = lista;
+
+            List<String> lista1 = new List<String>();
+            int anio = 2015;
+            lista1.Add(anio.ToString());
+            while (anio < DateTime.Now.Year)
+            {
+                anio++;
+                lista1.Add(anio.ToString());
+            }
+            cb_anio.DataSource = lista1;
+
+            List<String> lista2 = new List<String>();
+            lista2.Add("Primero");
+            lista2.Add("Segundo");
+            cb_semestre.DataSource = lista2;
         }
 
         private DataTable runStoredProcedure(String SP)
         {
             SqlCommand storedP = new SqlCommand(SP, conexion);
             storedP.CommandType = CommandType.StoredProcedure;
+            storedP.Parameters.AddWithValue("@fecha", new DateTime(Int32.Parse(cb_anio.SelectedItem.ToString()),1,1).ToString());
+            storedP.Parameters.AddWithValue("@semestre", cb_semestre.SelectedIndex);
             DataTable dt = new DataTable();
             SqlDataAdapter adapter = new SqlDataAdapter(storedP);
             adapter.Fill(dt);

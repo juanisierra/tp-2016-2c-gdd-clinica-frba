@@ -33,6 +33,10 @@
             this.listaFun = new System.Windows.Forms.DataGridView();
             this.label1 = new System.Windows.Forms.Label();
             this.cb_cancelaciones = new System.Windows.Forms.ComboBox();
+            this.cb_anio = new System.Windows.Forms.ComboBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.cb_semestre = new System.Windows.Forms.ComboBox();
+            this.label3 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.listaFun)).BeginInit();
             this.SuspendLayout();
@@ -76,7 +80,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(32, 43);
+            this.label1.Location = new System.Drawing.Point(41, 26);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(104, 17);
             this.label1.TabIndex = 8;
@@ -85,10 +89,44 @@
             // cb_cancelaciones
             // 
             this.cb_cancelaciones.FormattingEnabled = true;
-            this.cb_cancelaciones.Location = new System.Drawing.Point(142, 40);
+            this.cb_cancelaciones.Location = new System.Drawing.Point(151, 23);
             this.cb_cancelaciones.Name = "cb_cancelaciones";
             this.cb_cancelaciones.Size = new System.Drawing.Size(182, 24);
             this.cb_cancelaciones.TabIndex = 7;
+            // 
+            // cb_anio
+            // 
+            this.cb_anio.FormattingEnabled = true;
+            this.cb_anio.Location = new System.Drawing.Point(460, 23);
+            this.cb_anio.Name = "cb_anio";
+            this.cb_anio.Size = new System.Drawing.Size(121, 24);
+            this.cb_anio.TabIndex = 9;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(417, 26);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(37, 17);
+            this.label2.TabIndex = 10;
+            this.label2.Text = "Año:";
+            // 
+            // cb_semestre
+            // 
+            this.cb_semestre.FormattingEnabled = true;
+            this.cb_semestre.Location = new System.Drawing.Point(460, 54);
+            this.cb_semestre.Name = "cb_semestre";
+            this.cb_semestre.Size = new System.Drawing.Size(121, 24);
+            this.cb_semestre.TabIndex = 11;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(382, 57);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(72, 17);
+            this.label3.TabIndex = 12;
+            this.label3.Text = "Semestre:";
             // 
             // ListadoCancelaciones
             // 
@@ -96,6 +134,10 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(652, 393);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.cb_semestre);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.cb_anio);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.cb_cancelaciones);
             this.Controls.Add(this.btn_aceptar);
@@ -117,5 +159,9 @@
         private System.Windows.Forms.DataGridView listaFun;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox cb_cancelaciones;
+        private System.Windows.Forms.ComboBox cb_anio;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.ComboBox cb_semestre;
+        private System.Windows.Forms.Label label3;
     }
 }

@@ -125,9 +125,13 @@ namespace ClinicaFrba.Compra_Bono
                 int cantidadComprada = Convert.ToInt32(txtCantCompra.Text);
                 int precioTotal = Convert.ToInt32(txtPrecioU.Text) * cantidadComprada;
                 lblPrecioF.Text = Convert.ToString(precioTotal);
+                btnComprar.Enabled = true;
             }
             else
+            {
                 lblPrecioF.Text = "";
+                btnComprar.Enabled = false;
+            }
         }
 
 
