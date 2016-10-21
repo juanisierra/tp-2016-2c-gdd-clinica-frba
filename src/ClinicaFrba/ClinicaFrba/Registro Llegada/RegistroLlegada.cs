@@ -27,20 +27,29 @@ namespace ClinicaFrba.Registro_Llegada
 
         private void RegistroLlegada_Load(object sender, EventArgs e)
         {
-            SeleccionarProfesionalPorEspecialidad formulario = new SeleccionarProfesionalPorEspecialidad();
-            formulario.ShowDialog();
-            if (formulario.fueCerradoPorUsuario) this.Close();
+            if (id_rol != 2 && id_rol != 4)
+            {
+                MessageBox.Show("Error: El usuario con el que ha ingresado no puede registrar llegadas a la clinica.", "Clinica-FRBA", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.Close();
+            }
             else
-            {   profesionalElegido=(Profesional)((DataGridView)formulario.Controls["dgv_profesional"]).CurrentRow.DataBoundItem;
-                List<Turno> turnosProfesional;
-                turnosProfesional = Turno.turnosDelDiaPorProfesional(profesionalElegido.matricula, DateTime.Today);
-                if(((Especialidad)((ComboBox)formulario.Controls["cb_especialidad"]).SelectedItem).id_especialidad!=-1) //Se selecciono una especialidad
+            {
+                SeleccionarProfesionalPorEspecialidad formulario = new SeleccionarProfesionalPorEspecialidad();
+                formulario.ShowDialog();
+                if (formulario.fueCerradoPorUsuario) this.Close();
+                else
                 {
-                    turnosProfesional.RemoveAll(turno => turno.id_especialidad != ((Especialidad)((ComboBox)formulario.Controls["cb_especialidad"]).SelectedItem).id_especialidad); //Sacamos los turnos de otras especialidades
+                    profesionalElegido = (Profesional)((DataGridView)formulario.Controls["dgv_profesional"]).CurrentRow.DataBoundItem;
+                    List<Turno> turnosProfesional;
+                    turnosProfesional = Turno.turnosDelDiaPorProfesional(profesionalElegido.matricula, DateTime.Today);
+                    if (((Especialidad)((ComboBox)formulario.Controls["cb_especialidad"]).SelectedItem).id_especialidad != -1) //Se selecciono una especialidad
+                    {
+                        turnosProfesional.RemoveAll(turno => turno.id_especialidad != ((Especialidad)((ComboBox)formulario.Controls["cb_especialidad"]).SelectedItem).id_especialidad); //Sacamos los turnos de otras especialidades
+                    }
+                    turnosProfesional.RemoveAll(turno => turno.activo == false);
+                    turnosProfesional.RemoveAll(turno => turno.momento_llegada != null);
+                    dgv_turno.DataSource = turnosProfesional;
                 }
-                turnosProfesional.RemoveAll(turno => turno.activo == false);
-                turnosProfesional.RemoveAll(turno => turno.momento_llegada != null);
-                dgv_turno.DataSource = turnosProfesional;
             }
         }
         private void btn_seleccionar_Click(object sender, EventArgs e)
