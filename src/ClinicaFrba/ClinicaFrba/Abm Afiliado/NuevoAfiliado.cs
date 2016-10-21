@@ -8,111 +8,118 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
+using ClinicaFrba.Clases;
 
 namespace ClinicaFrba.Abm_Afiliado
 {
     public partial class NuevoAfiliado : Form
     {
-        private string id_usuario { get; set; }
-        private SqlConnection conexion { get; set; }
+        public SqlConnection conexion { get; set; }
+        public int tipo { get; set; }
+        public Int64 numFam { get; set; }
 
-        public NuevoAfiliado(String id_usuario)
+        public NuevoAfiliado(int tipo, Int64 numeroFamilia) //raíz = 0, casado 1, concubinato 2,3 familia
         {
             InitializeComponent();
-            this.id_usuario = id_usuario;
             this.conexion = DBConnector.ObtenerConexion();
+            this.tipo = tipo;
+            this.numFam = numeroFamilia;
         }
 
         private void NuevoAfiliado_Load(object sender, EventArgs e)
         {
+            PlanMedAfi.DataSource = Plan.traerPlanes();
+            comboBox_EstadoCivilAfi.DataSource = Enum.GetValues(typeof(estado_civil));
+            comboBox_SexoAfi.DataSource = Enum.GetValues(typeof(sexo));
+            comboBox_TipoDoc.DataSource = Enum.GetValues(typeof(tipo_doc));
 
+            switch (tipo)
+            {//distintos tipos de formularios 
+                case 1:
+                    comboBox_EstadoCivilAfi.SelectedItem = estado_civil.Casado;
+                    comboBox_EstadoCivilAfi.Enabled = false;
+                    textBox_CantFami.Hide();
+                    label11.Hide();  //si no funciona probar visible
+                    break;
+                case 2:
+                    comboBox_EstadoCivilAfi.SelectedItem = estado_civil.Concubinato;
+                    comboBox_EstadoCivilAfi.Enabled = false;
+                    textBox_CantFami.Hide();
+                    label11.Hide();
+                    break;
+                case 3:
+                    textBox_CantFami.Hide();
+                    label11.Hide();
+                    break;
+            }
         }
 
-        private void label13_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label7_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label9_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label10_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label12_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox_MailAfi_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void comboBox_SexoAfi_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
         private void botonAceptar_Click(object sender, EventArgs e)
         {
-            Boolean hayError = false;
-            String mensajeAEnviar = "";
-            if (textBox_NombAfi.Text == "")
+            Errores errores = new Errores();
+            if (textBox_NombAfi.TextLength == 0) errores.agregarError("El nombre del afiliado no puede ser nulo");
+            if (textBox_ApAfi.TextLength == 0) errores.agregarError("El apellido del afiliado no puede ser nulo");
+            if (textBox_NumDoc.TextLength == 0) errores.agregarError("El número de documento del afiliado no puede ser nulo");
+            if (PlanMedAfi.SelectedItem == "") errores.agregarError("El plan médico del afiliado no puede ser nulo");
+
+            if (errores.huboError()) MessageBox.Show("Debe solucionar los siguientes errores:\n" + errores.stringErrores(), "Clinica-FRBA: ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            else //Coportamiento si esta todo ok
             {
-                mensajeAEnviar = mensajeAEnviar + "-Debe ingresar su nombre\n";
-                hayError = true;
-            }
-            else if (textBox_NombAfi.Text.Length > 40)
-            {
-                mensajeAEnviar = mensajeAEnviar + "- El nombre es demasiado largo\n";
-                hayError = true;
-            }
-            if (textBox_ApAfi.Text == "")
-            {
-                mensajeAEnviar = mensajeAEnviar + "-Debe ingresar su apellido\n";
-                hayError = true;
-            }
-            else if (textBox_ApAfi.Text.Length > 40)
-            {
-                mensajeAEnviar = mensajeAEnviar + "- El apellido es demasiado largo\n";
-                hayError = true;
-            }
-            if (textBox_NumDoc.Text == "")
-            {
-                mensajeAEnviar = mensajeAEnviar + "-Debe ingresar su número de documento\n";
-                hayError = true;
-            }
-            else if (textBox_NombAfi.Text.Length > 8)
-            {
-                mensajeAEnviar = mensajeAEnviar + "- sólo debe ingresar números\n";
-                hayError = true;
-            }
+                //Insertar Chabon
+
+                MessageBox.Show("el afiliado fue agregado corrrectamente\n", "Clinica-FRBA", MessageBoxButtons.OK);
+                //Casteo a tipo de dato, porque devuelve object 
             
-            if (textBox_DirecAfi.Text.Length > 100)
-            {
-                mensajeAEnviar = mensajeAEnviar + "- La dirección es demasiado larga\n";
-                hayError = true;
-            }
+                    if ((tipo == 0) && ((estado_civil)comboBox_EstadoCivilAfi.SelectedItem == estado_civil.Casado))
+                    {
+                        DialogResult res = MessageBox.Show("¿Desea agregar a su conyuge?", "Clinica-FRBA", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                        if (res == DialogResult.Yes)
+                        {
+                            NuevoAfiliado conyuge = new NuevoAfiliado(1, numFam);
+                            this.Visible = false;
+                            conyuge.ShowDialog();
+                            this.Visible = true;
 
+                        }
+                    }
 
-            if (hayError)
-            {
-                MessageBox.Show("Debe solucionar los siguientes errores:\n" + mensajeAEnviar, "Clinica-FRBA: ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            else
-            {
-               //agregar a la base de datos
-                //MessageBox.Show("El afiliado fue creado correctamente", "Clinica-FRBA", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    if ((tipo == 0) && ((estado_civil)comboBox_EstadoCivilAfi.SelectedItem == estado_civil.Concubinato))
+                    {
+                        DialogResult res = MessageBox.Show("¿Desea agregar a su conyuge?", "Clinica-FRBA", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                        if (res == DialogResult.Yes)
+                        {
+                            NuevoAfiliado conyuge = new NuevoAfiliado(2, numFam);
+                            this.Visible = false;
+                            conyuge.ShowDialog();
+                            this.Visible = true;
+
+                        }
+                      /*                        
+                      if ((tipo == 0) && (int.Parse(textBox_CantFami.SelectedText) > 0))
+                        {
+                            int cantFamiliares = int.Parse(textBox_CantFami.SelectedText);
+                            for (int i = 0; i < cantFamiliares; i++)
+                            {
+                                DialogResult resultado = MessageBox.Show("¿Desea agregar un nuevo familiar a cargo?", "Clinica-FRBA", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                                if (resultado == DialogResult.Yes)
+                                {
+                                    NuevoAfiliado familiar = new NuevoAfiliado(3, numFam);
+                                    this.Visible = false;
+                                    familiar.ShowDialog();
+                                    this.Visible = true;
+
+                                }
+                                else
+                                {
+                                    break;
+                                }
+                            }
+                        }*/
+                    }
+                    this.Close();
+                }
             }
         }
     }
-}
+

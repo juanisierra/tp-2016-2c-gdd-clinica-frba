@@ -14,20 +14,31 @@ namespace ClinicaFrba.Abm_Afiliado
 {
     public partial class ModificarAfiliado : Form
     {
-        private string id_usuario { get; set; }
-        private SqlConnection conexion { get; set; }
-        private Afiliado afiliadoAMod = new Afiliado();
+        public int tipo { get; set; }
+        public SqlConnection conexion { get; set; }
+        public Afiliado afiliadoAMod = new Afiliado();
 
-        public ModificarAfiliado(String id_usuario, Int64 id_Afiliado)
+        public ModificarAfiliado(int tipo, Int64 id_Afiliado)
         {
             InitializeComponent();
             this.afiliadoAMod.idAfiliado = id_Afiliado;
-            this.id_usuario = id_usuario;
+            this.tipo = tipo;
         }
 
         private void ModificarAfiliado_Load(object sender, EventArgs e)
         {
+            tbidAfiliado.Text = (this.afiliadoAMod.idAfiliado).ToString();
 
+        }
+
+        private void textBox6_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button_Aceptar_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("El afiliado se ha modificado correctamente", "Clinica-FRBA", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
         
 

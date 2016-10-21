@@ -224,6 +224,9 @@
     <Compile Include="Registro Resultado\RegistroResultado.Designer.cs">
       <DependentUpon>RegistroResultado.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Abm Afiliado\ABMAfiliado.resx">
+      <DependentUpon>ABMAfiliado.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Abm Afiliado\EliminarAfiliado.resx">
       <DependentUpon>EliminarAfiliado.cs</DependentUpon>
     </EmbeddedResource>

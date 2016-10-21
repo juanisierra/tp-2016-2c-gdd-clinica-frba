@@ -45,12 +45,14 @@
             this.textBox_TelAfi = new System.Windows.Forms.TextBox();
             this.textBox_DirecAfi = new System.Windows.Forms.TextBox();
             this.textBox_MailAfi = new System.Windows.Forms.TextBox();
-            this.textBox_PlanMedAfi = new System.Windows.Forms.TextBox();
             this.comboBox_TipoDoc = new System.Windows.Forms.ComboBox();
             this.comboBox_SexoAfi = new System.Windows.Forms.ComboBox();
             this.comboBox_EstadoCivilAfi = new System.Windows.Forms.ComboBox();
             this.monthCalendar1_FechNacAfi = new System.Windows.Forms.MonthCalendar();
             this.botonAceptar = new System.Windows.Forms.Button();
+            this.PlanMedAfi = new System.Windows.Forms.ComboBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.textBox_CantFami = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // label1
@@ -136,12 +138,11 @@
             this.label7.Size = new System.Drawing.Size(29, 13);
             this.label7.TabIndex = 9;
             this.label7.Text = "Mail:";
-            this.label7.Click += new System.EventHandler(this.label7_Click);
             // 
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(20, 343);
+            this.label8.Location = new System.Drawing.Point(20, 367);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(96, 13);
             this.label8.TabIndex = 10;
@@ -155,7 +156,6 @@
             this.label9.Size = new System.Drawing.Size(34, 13);
             this.label9.TabIndex = 11;
             this.label9.Text = "Sexo:";
-            this.label9.Click += new System.EventHandler(this.label9_Click);
             // 
             // label10
             // 
@@ -165,7 +165,6 @@
             this.label10.Size = new System.Drawing.Size(65, 13);
             this.label10.TabIndex = 12;
             this.label10.Text = "Estado Civil:";
-            this.label10.Click += new System.EventHandler(this.label10_Click);
             // 
             // label12
             // 
@@ -175,7 +174,6 @@
             this.label12.Size = new System.Drawing.Size(73, 13);
             this.label12.TabIndex = 14;
             this.label12.Text = "*Plan Médico:";
-            this.label12.Click += new System.EventHandler(this.label12_Click);
             // 
             // textBox_TelAfi
             // 
@@ -197,14 +195,6 @@
             this.textBox_MailAfi.Name = "textBox_MailAfi";
             this.textBox_MailAfi.Size = new System.Drawing.Size(229, 20);
             this.textBox_MailAfi.TabIndex = 17;
-            this.textBox_MailAfi.TextChanged += new System.EventHandler(this.textBox_MailAfi_TextChanged);
-            // 
-            // textBox_PlanMedAfi
-            // 
-            this.textBox_PlanMedAfi.Location = new System.Drawing.Point(92, 307);
-            this.textBox_PlanMedAfi.Name = "textBox_PlanMedAfi";
-            this.textBox_PlanMedAfi.Size = new System.Drawing.Size(218, 20);
-            this.textBox_PlanMedAfi.TabIndex = 18;
             // 
             // comboBox_TipoDoc
             // 
@@ -221,7 +211,6 @@
             this.comboBox_SexoAfi.Name = "comboBox_SexoAfi";
             this.comboBox_SexoAfi.Size = new System.Drawing.Size(226, 21);
             this.comboBox_SexoAfi.TabIndex = 20;
-            this.comboBox_SexoAfi.SelectedIndexChanged += new System.EventHandler(this.comboBox_SexoAfi_SelectedIndexChanged);
             // 
             // comboBox_EstadoCivilAfi
             // 
@@ -233,30 +222,58 @@
             // 
             // monthCalendar1_FechNacAfi
             // 
-            this.monthCalendar1_FechNacAfi.Location = new System.Drawing.Point(118, 333);
+            this.monthCalendar1_FechNacAfi.Location = new System.Drawing.Point(119, 367);
             this.monthCalendar1_FechNacAfi.Name = "monthCalendar1_FechNacAfi";
             this.monthCalendar1_FechNacAfi.TabIndex = 23;
             // 
             // botonAceptar
             // 
-            this.botonAceptar.Location = new System.Drawing.Point(215, 504);
+            this.botonAceptar.Location = new System.Drawing.Point(214, 541);
             this.botonAceptar.Name = "botonAceptar";
             this.botonAceptar.Size = new System.Drawing.Size(127, 34);
             this.botonAceptar.TabIndex = 24;
             this.botonAceptar.Text = "Aceptar";
             this.botonAceptar.UseVisualStyleBackColor = true;
+            this.botonAceptar.Click += new System.EventHandler(this.botonAceptar_Click);
+            // 
+            // PlanMedAfi
+            // 
+            this.PlanMedAfi.DisplayMember = "desc_plan";
+            this.PlanMedAfi.FormattingEnabled = true;
+            this.PlanMedAfi.Location = new System.Drawing.Point(99, 304);
+            this.PlanMedAfi.Name = "PlanMedAfi";
+            this.PlanMedAfi.Size = new System.Drawing.Size(212, 21);
+            this.PlanMedAfi.TabIndex = 25;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(20, 338);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(137, 13);
+            this.label11.TabIndex = 26;
+            this.label11.Text = "Cantidad familiares a cargo:";
+            // 
+            // textBox_CantFami
+            // 
+            this.textBox_CantFami.Location = new System.Drawing.Point(163, 335);
+            this.textBox_CantFami.Name = "textBox_CantFami";
+            this.textBox_CantFami.Size = new System.Drawing.Size(148, 20);
+            this.textBox_CantFami.TabIndex = 27;
             // 
             // NuevoAfiliado
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(369, 550);
+            this.ClientSize = new System.Drawing.Size(369, 587);
+            this.Controls.Add(this.textBox_CantFami);
+            this.Controls.Add(this.label11);
+            this.Controls.Add(this.PlanMedAfi);
             this.Controls.Add(this.botonAceptar);
             this.Controls.Add(this.monthCalendar1_FechNacAfi);
             this.Controls.Add(this.comboBox_EstadoCivilAfi);
             this.Controls.Add(this.comboBox_SexoAfi);
             this.Controls.Add(this.comboBox_TipoDoc);
-            this.Controls.Add(this.textBox_PlanMedAfi);
             this.Controls.Add(this.textBox_MailAfi);
             this.Controls.Add(this.textBox_DirecAfi);
             this.Controls.Add(this.textBox_TelAfi);
@@ -301,11 +318,13 @@
         private System.Windows.Forms.TextBox textBox_TelAfi;
         private System.Windows.Forms.TextBox textBox_DirecAfi;
         private System.Windows.Forms.TextBox textBox_MailAfi;
-        private System.Windows.Forms.TextBox textBox_PlanMedAfi;
         private System.Windows.Forms.ComboBox comboBox_TipoDoc;
         private System.Windows.Forms.ComboBox comboBox_SexoAfi;
         private System.Windows.Forms.ComboBox comboBox_EstadoCivilAfi;
         private System.Windows.Forms.MonthCalendar monthCalendar1_FechNacAfi;
         private System.Windows.Forms.Button botonAceptar;
+        private System.Windows.Forms.ComboBox PlanMedAfi;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.TextBox textBox_CantFami;
     }
 }

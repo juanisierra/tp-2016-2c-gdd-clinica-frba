@@ -34,13 +34,15 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.textBox5 = new System.Windows.Forms.TextBox();
-            this.textBox6 = new System.Windows.Forms.TextBox();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.tbidAfiliado = new System.Windows.Forms.TextBox();
+            this.direc = new System.Windows.Forms.TextBox();
+            this.tel = new System.Windows.Forms.TextBox();
+            this.mail = new System.Windows.Forms.TextBox();
+            this.estadoCiv = new System.Windows.Forms.ComboBox();
             this.button_Aceptar = new System.Windows.Forms.Button();
+            this.label7 = new System.Windows.Forms.Label();
+            this.cantFam = new System.Windows.Forms.TextBox();
+            this.planMed = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // label1
@@ -97,70 +99,92 @@
             this.label6.TabIndex = 5;
             this.label6.Text = "Plan Médico:";
             // 
-            // textBox1
+            // tbidAfiliado
             // 
-            this.textBox1.Location = new System.Drawing.Point(139, 28);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(113, 20);
-            this.textBox1.TabIndex = 6;
+            this.tbidAfiliado.Enabled = false;
+            this.tbidAfiliado.Location = new System.Drawing.Point(139, 28);
+            this.tbidAfiliado.Name = "tbidAfiliado";
+            this.tbidAfiliado.Size = new System.Drawing.Size(113, 20);
+            this.tbidAfiliado.TabIndex = 6;
             // 
-            // textBox2
+            // direc
             // 
-            this.textBox2.Location = new System.Drawing.Point(92, 80);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(147, 20);
-            this.textBox2.TabIndex = 7;
+            this.direc.Location = new System.Drawing.Point(92, 80);
+            this.direc.MaxLength = 100;
+            this.direc.Name = "direc";
+            this.direc.Size = new System.Drawing.Size(147, 20);
+            this.direc.TabIndex = 7;
             // 
-            // textBox3
+            // tel
             // 
-            this.textBox3.Location = new System.Drawing.Point(92, 107);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(147, 20);
-            this.textBox3.TabIndex = 8;
+            this.tel.Location = new System.Drawing.Point(92, 107);
+            this.tel.Name = "tel";
+            this.tel.Size = new System.Drawing.Size(147, 20);
+            this.tel.TabIndex = 8;
             // 
-            // textBox5
+            // mail
             // 
-            this.textBox5.Location = new System.Drawing.Point(66, 133);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(173, 20);
-            this.textBox5.TabIndex = 10;
+            this.mail.Location = new System.Drawing.Point(66, 133);
+            this.mail.Name = "mail";
+            this.mail.Size = new System.Drawing.Size(173, 20);
+            this.mail.TabIndex = 10;
             // 
-            // textBox6
+            // estadoCiv
             // 
-            this.textBox6.Location = new System.Drawing.Point(106, 191);
-            this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(133, 20);
-            this.textBox6.TabIndex = 11;
-            // 
-            // comboBox1
-            // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(104, 164);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(134, 21);
-            this.comboBox1.TabIndex = 12;
+            this.estadoCiv.FormattingEnabled = true;
+            this.estadoCiv.Location = new System.Drawing.Point(104, 164);
+            this.estadoCiv.Name = "estadoCiv";
+            this.estadoCiv.Size = new System.Drawing.Size(134, 21);
+            this.estadoCiv.TabIndex = 12;
             // 
             // button_Aceptar
             // 
-            this.button_Aceptar.Location = new System.Drawing.Point(66, 227);
+            this.button_Aceptar.Location = new System.Drawing.Point(67, 253);
             this.button_Aceptar.Name = "button_Aceptar";
             this.button_Aceptar.Size = new System.Drawing.Size(171, 27);
             this.button_Aceptar.TabIndex = 13;
             this.button_Aceptar.Text = "Aceptar";
             this.button_Aceptar.UseVisualStyleBackColor = true;
+            this.button_Aceptar.Click += new System.EventHandler(this.button_Aceptar_Click);
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(31, 221);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(101, 13);
+            this.label7.TabIndex = 14;
+            this.label7.Text = "Cantidad Familiares:";
+            // 
+            // cantFam
+            // 
+            this.cantFam.Location = new System.Drawing.Point(135, 217);
+            this.cantFam.Name = "cantFam";
+            this.cantFam.Size = new System.Drawing.Size(104, 20);
+            this.cantFam.TabIndex = 15;
+            // 
+            // planMed
+            // 
+            this.planMed.FormattingEnabled = true;
+            this.planMed.Location = new System.Drawing.Point(104, 190);
+            this.planMed.Name = "planMed";
+            this.planMed.Size = new System.Drawing.Size(134, 21);
+            this.planMed.TabIndex = 16;
             // 
             // ModificarAfiliado
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 275);
+            this.ClientSize = new System.Drawing.Size(284, 292);
+            this.Controls.Add(this.planMed);
+            this.Controls.Add(this.cantFam);
+            this.Controls.Add(this.label7);
             this.Controls.Add(this.button_Aceptar);
-            this.Controls.Add(this.comboBox1);
-            this.Controls.Add(this.textBox6);
-            this.Controls.Add(this.textBox5);
-            this.Controls.Add(this.textBox3);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.estadoCiv);
+            this.Controls.Add(this.mail);
+            this.Controls.Add(this.tel);
+            this.Controls.Add(this.direc);
+            this.Controls.Add(this.tbidAfiliado);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
@@ -183,12 +207,14 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.TextBox textBox5;
-        private System.Windows.Forms.TextBox textBox6;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.TextBox tbidAfiliado;
+        private System.Windows.Forms.TextBox direc;
+        private System.Windows.Forms.TextBox tel;
+        private System.Windows.Forms.TextBox mail;
+        private System.Windows.Forms.ComboBox estadoCiv;
         private System.Windows.Forms.Button button_Aceptar;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.TextBox cantFam;
+        private System.Windows.Forms.ComboBox planMed;
     }
 }

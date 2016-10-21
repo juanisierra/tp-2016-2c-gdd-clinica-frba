@@ -8,6 +8,7 @@ using ClinicaFrba.AbmRol;
  using ClinicaFrba.Registrar_Agenta_Medico;
 using ClinicaFrba.Compra_Bono;
 using ClinicaFrba.Listados;
+using ClinicaFrba.Abm_Afiliado;
 namespace ClinicaFrba
 {
     public class Funcionalidad
@@ -58,6 +59,9 @@ namespace ClinicaFrba
             {
                 case 1:
                     return new ABMRol(id_usuario);
+                break;
+                case 3:
+                return new ABMAfiliado(id_usuario,id_rol);
                 break;
                 case 7:
                  return new AltaAgenda(id_usuario,id_rol);
