@@ -108,17 +108,17 @@ GO
 
 CREATE PROCEDURE ELIMINAR_CAR.comprar_bono (@id_afiliado BIGINT,@cant_bonos INT,@fecha_compra DATETIME)
 AS
-DECLARE @id_plan INT,@precio INT,@id_bono_max BIGINT,@cnt INT = 0;
+DECLARE @id_plan INT,@precio INT,@id_bono_max BIGINT,@cnt INT = 0,@id_compra BIGINT;
 
 BEGIN TRANSACTION
 SELECT @id_plan=p.id_plan,@precio=precio_bono_consulta FROM ELIMINAR_CAR.Afiliado a JOIN ELIMINAR_CAR.Planes p on (a.id_plan=p.id_plan) WHERE a.id_afiliado = @id_afiliado
 SELECT @id_bono_max=MAX(id_bono) FROM ELIMINAR_CAR.Bono
 
 INSERT INTO ELIMINAR_CAR.Compra_Bonos (id_afiliado_comprador,precio_total,fecha_compra,cantidad_bonos) VALUES (@id_afiliado,@precio*@cant_bonos,@fecha_compra,@cant_bonos)
-
+SELECT TOP 1 @id_compra = id_compra FROM ELIMINAR_CAR.Compra_Bonos ORDER BY id_compra DESC
 WHILE @cnt < @cant_bonos
 BEGIN
-	INSERT INTO ELIMINAR_CAR.Bono (id_bono,id_afiliado_comprador,id_plan,utilizado,precio,fecha_compra) VALUES (@id_bono_max+1+@cnt,@id_afiliado,@id_plan,0,@precio,@fecha_compra)
+	INSERT INTO ELIMINAR_CAR.Bono (id_bono,id_afiliado_comprador,id_plan,utilizado,precio,fecha_compra,id_compra) VALUES (@id_bono_max+1+@cnt,@id_afiliado,@id_plan,0,@precio,@fecha_compra,@id_compra)
    SET @cnt = @cnt + 1;
 END;
 COMMIT TRANSACTION

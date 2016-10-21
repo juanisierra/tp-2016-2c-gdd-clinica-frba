@@ -129,7 +129,13 @@ INSERT INTO ELIMINAR_CAR.Compra_Bonos --Suponemos que las compras en un mismo di
 SELECT id_afiliado_comprador,sum(precio),fecha_compra,count(id_bono)
 FROM ELIMINAR_CAR.Bono
 GROUP BY id_afiliado_comprador,fecha_compra
-
+--Poner los ids de cada compra en los bonos
+MERGE INTO ELIMINAR_CAR.Bono b
+   USING ELIMINAR_CAR.Compra_Bonos c 
+      ON c.fecha_compra = b.fecha_compra AND c.id_afiliado_comprador=b.id_afiliado_comprador
+WHEN MATCHED THEN
+   UPDATE 
+      SET b.id_compra = c.id_compra;
 --Turnos atendidos
 INSERT INTO ELIMINAR_CAR.Turno
 (id_turno,fecha_estipulada,matricula,id_afiliado,id_bono,momento_llegada,id_especialidad,activo)

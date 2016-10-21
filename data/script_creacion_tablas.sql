@@ -107,6 +107,14 @@ FOREIGN KEY (usuario) REFERENCES ELIMINAR_CAR.Usuario(id_usuario),
 FOREIGN KEY (id_plan) REFERENCES ELIMINAR_CAR.Planes(id_plan),
 FOREIGN KEY (id_familia) REFERENCES ELIMINAR_CAR.Familia(id_familia));
 
+CREATE TABLE ELIMINAR_CAR.Compra_Bonos (
+id_compra BIGINT PRIMARY KEY IDENTITY(1,1),
+id_afiliado_comprador BIGINT,
+precio_total INT,
+fecha_compra DATETIME,
+cantidad_bonos INT,
+FOREIGN KEY (id_afiliado_comprador) REFERENCES ELIMINAR_CAR.Afiliado(id_afiliado));
+
 CREATE TABLE ELIMINAR_CAR.Bono (
 id_bono BIGINT PRIMARY KEY,
 id_afiliado_comprador BIGINT,
@@ -117,17 +125,14 @@ utilizado BIT,
 precio INT,
 fecha_compra DATETIME,
 fecha_uso DATETIME,
+id_compra BIGINT,
+FOREIGN KEY (id_compra) REFERENCES ELIMINAR_CAR.Compra_Bonos(id_compra),
 FOREIGN KEY (id_afiliado_comprador) REFERENCES ELIMINAR_CAR.Afiliado(id_afiliado),
 FOREIGN KEY (id_afiliado_consumidor) REFERENCES ELIMINAR_CAR.Afiliado(id_afiliado),
 FOREIGN KEY (id_plan) REFERENCES ELIMINAR_CAR.Planes(id_plan));
 
-CREATE TABLE ELIMINAR_CAR.Compra_Bonos (
-id_compra BIGINT PRIMARY KEY IDENTITY(1,1),
-id_afiliado_comprador BIGINT,
-precio_total INT,
-fecha_compra DATETIME,
-cantidad_bonos INT,
-FOREIGN KEY (id_afiliado_comprador) REFERENCES ELIMINAR_CAR.Afiliado(id_afiliado));
+
+
 
 CREATE TABLE ELIMINAR_CAR.Turno (
 id_turno BIGINT PRIMARY KEY,
