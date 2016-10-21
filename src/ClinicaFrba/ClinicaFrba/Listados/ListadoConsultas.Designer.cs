@@ -37,6 +37,8 @@
             this.cb_semestre = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.cb_anio = new System.Windows.Forms.ComboBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.cb_mes = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.listaFun)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -60,7 +62,7 @@
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.listaFun);
-            this.groupBox1.Location = new System.Drawing.Point(25, 98);
+            this.groupBox1.Location = new System.Drawing.Point(12, 118);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(595, 223);
             this.groupBox1.TabIndex = 1;
@@ -110,6 +112,7 @@
             this.cb_semestre.Name = "cb_semestre";
             this.cb_semestre.Size = new System.Drawing.Size(121, 24);
             this.cb_semestre.TabIndex = 15;
+            this.cb_semestre.SelectedIndexChanged += new System.EventHandler(this.cb_semestre_SelectedIndexChanged_1);
             // 
             // label2
             // 
@@ -128,12 +131,31 @@
             this.cb_anio.Size = new System.Drawing.Size(121, 24);
             this.cb_anio.TabIndex = 13;
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(418, 88);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(38, 17);
+            this.label4.TabIndex = 18;
+            this.label4.Text = "Mes:";
+            // 
+            // cb_mes
+            // 
+            this.cb_mes.FormattingEnabled = true;
+            this.cb_mes.Location = new System.Drawing.Point(462, 85);
+            this.cb_mes.Name = "cb_mes";
+            this.cb_mes.Size = new System.Drawing.Size(121, 24);
+            this.cb_mes.TabIndex = 17;
+            // 
             // ListadoConsultas
             // 
             this.AcceptButton = this.btn_aceptar;
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(652, 393);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.cb_mes);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.cb_semestre);
             this.Controls.Add(this.label2);
@@ -163,5 +185,7 @@
         private System.Windows.Forms.ComboBox cb_semestre;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox cb_anio;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.ComboBox cb_mes;
     }
 }

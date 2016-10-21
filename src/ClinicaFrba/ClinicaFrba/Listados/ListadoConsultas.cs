@@ -54,12 +54,17 @@ namespace ClinicaFrba.Listados
             SqlCommand storedP = new SqlCommand("ELIMINAR_CAR.profesionales_mas_consultados", conexion);
             storedP.CommandType = CommandType.StoredProcedure;
             storedP.Parameters.AddWithValue("@id_plan", ((Plan)cb_plan.SelectedItem).id_plan);
-            storedP.Parameters.AddWithValue("@fecha", new DateTime(Int32.Parse(cb_anio.SelectedItem.ToString()), 1, 1).ToString());
-            storedP.Parameters.AddWithValue("@semestre", cb_semestre.SelectedIndex);
+            storedP.Parameters.AddWithValue("@fecha", new DateTime(Int32.Parse(cb_anio.SelectedItem.ToString()), mesSeleccionado(), 1).ToString());
             DataTable dt = new DataTable();
             SqlDataAdapter adapter = new SqlDataAdapter(storedP);
             adapter.Fill(dt);
             return dt;
+        }
+
+        private int mesSeleccionado()
+        {
+            if (cb_semestre.SelectedIndex == 0) return cb_mes.SelectedIndex + 1;
+            else return cb_mes.SelectedIndex + 7;
         }
 
         private void btn_aceptar_Click(object sender, EventArgs e)
@@ -70,5 +75,33 @@ namespace ClinicaFrba.Listados
             listaFun.Columns.Cast<DataGridViewColumn>().ToList().ForEach(f => f.SortMode = DataGridViewColumnSortMode.NotSortable);
         }
 
+        private List<String> mesesAMostrar(int i)
+        {
+            List<String> primerosMeses = new List<String>();
+            if (i == 0)
+            {
+                primerosMeses.Add("Enero");
+                primerosMeses.Add("Febrero");
+                primerosMeses.Add("Marzo");
+                primerosMeses.Add("Abril");
+                primerosMeses.Add("Mayo");
+                primerosMeses.Add("Junio");
+            }
+            else if (i == 1)
+            {
+                primerosMeses.Add("Julio");
+                primerosMeses.Add("Agosto");
+                primerosMeses.Add("Septiembre");
+                primerosMeses.Add("Octubre");
+                primerosMeses.Add("Noviembre");
+                primerosMeses.Add("Diciembre");
+            }
+            return primerosMeses;
+        }
+
+        private void cb_semestre_SelectedIndexChanged_1(object sender, EventArgs e)
+        {
+            cb_mes.DataSource = mesesAMostrar(cb_semestre.SelectedIndex);
+        }
     }
 }
