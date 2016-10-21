@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.listaRoles = new System.Windows.Forms.DataGridView();
             this.label2 = new System.Windows.Forms.Label();
@@ -42,10 +43,12 @@
             this.btn_crear = new System.Windows.Forms.RadioButton();
             this.btn_modif = new System.Windows.Forms.RadioButton();
             this.btn_quitar = new System.Windows.Forms.RadioButton();
+            this.rolBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.listaRoles)).BeginInit();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.listaFun)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.rolBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -53,7 +56,7 @@
             this.groupBox1.Controls.Add(this.listaRoles);
             this.groupBox1.Location = new System.Drawing.Point(18, 101);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(307, 331);
+            this.groupBox1.Size = new System.Drawing.Size(363, 331);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Roles";
@@ -71,7 +74,7 @@
             this.listaRoles.RowHeadersVisible = false;
             this.listaRoles.RowTemplate.Height = 24;
             this.listaRoles.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.listaRoles.Size = new System.Drawing.Size(295, 304);
+            this.listaRoles.Size = new System.Drawing.Size(357, 304);
             this.listaRoles.TabIndex = 0;
             this.listaRoles.SelectionChanged += new System.EventHandler(this.listaRoles_SelectionChanged);
             // 
@@ -87,7 +90,9 @@
             // cb_habilitar
             // 
             this.cb_habilitar.AutoSize = true;
-            this.cb_habilitar.Location = new System.Drawing.Point(357, 364);
+            this.cb_habilitar.Checked = true;
+            this.cb_habilitar.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cb_habilitar.Location = new System.Drawing.Point(428, 364);
             this.cb_habilitar.Name = "cb_habilitar";
             this.cb_habilitar.Size = new System.Drawing.Size(93, 21);
             this.cb_habilitar.TabIndex = 10;
@@ -97,7 +102,7 @@
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.listaFun);
-            this.groupBox2.Location = new System.Drawing.Point(358, 101);
+            this.groupBox2.Location = new System.Drawing.Point(429, 101);
             this.groupBox2.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(4);
@@ -137,7 +142,7 @@
             this.tb_nombre.Margin = new System.Windows.Forms.Padding(4);
             this.tb_nombre.MaxLength = 20;
             this.tb_nombre.Name = "tb_nombre";
-            this.tb_nombre.Size = new System.Drawing.Size(228, 22);
+            this.tb_nombre.Size = new System.Drawing.Size(290, 22);
             this.tb_nombre.TabIndex = 12;
             // 
             // label1
@@ -152,7 +157,7 @@
             // 
             // btn_limpiar
             // 
-            this.btn_limpiar.Location = new System.Drawing.Point(357, 398);
+            this.btn_limpiar.Location = new System.Drawing.Point(428, 398);
             this.btn_limpiar.Margin = new System.Windows.Forms.Padding(4);
             this.btn_limpiar.Name = "btn_limpiar";
             this.btn_limpiar.Size = new System.Drawing.Size(110, 28);
@@ -163,7 +168,7 @@
             // 
             // btn_aceptar
             // 
-            this.btn_aceptar.Location = new System.Drawing.Point(580, 398);
+            this.btn_aceptar.Location = new System.Drawing.Point(651, 398);
             this.btn_aceptar.Margin = new System.Windows.Forms.Padding(4);
             this.btn_aceptar.Name = "btn_aceptar";
             this.btn_aceptar.Size = new System.Drawing.Size(110, 28);
@@ -175,7 +180,8 @@
             // btn_crear
             // 
             this.btn_crear.AutoSize = true;
-            this.btn_crear.Location = new System.Drawing.Point(365, 60);
+            this.btn_crear.Checked = true;
+            this.btn_crear.Location = new System.Drawing.Point(436, 60);
             this.btn_crear.Name = "btn_crear";
             this.btn_crear.Size = new System.Drawing.Size(64, 21);
             this.btn_crear.TabIndex = 15;
@@ -187,11 +193,10 @@
             // btn_modif
             // 
             this.btn_modif.AutoSize = true;
-            this.btn_modif.Location = new System.Drawing.Point(490, 60);
+            this.btn_modif.Location = new System.Drawing.Point(561, 60);
             this.btn_modif.Name = "btn_modif";
             this.btn_modif.Size = new System.Drawing.Size(86, 21);
             this.btn_modif.TabIndex = 16;
-            this.btn_modif.TabStop = true;
             this.btn_modif.Text = "Modificar";
             this.btn_modif.UseVisualStyleBackColor = true;
             this.btn_modif.CheckedChanged += new System.EventHandler(this.btn_modif_CheckedChanged);
@@ -199,20 +204,23 @@
             // btn_quitar
             // 
             this.btn_quitar.AutoSize = true;
-            this.btn_quitar.Location = new System.Drawing.Point(622, 60);
+            this.btn_quitar.Location = new System.Drawing.Point(693, 60);
             this.btn_quitar.Name = "btn_quitar";
             this.btn_quitar.Size = new System.Drawing.Size(68, 21);
             this.btn_quitar.TabIndex = 17;
-            this.btn_quitar.TabStop = true;
             this.btn_quitar.Text = "Quitar";
             this.btn_quitar.UseVisualStyleBackColor = true;
             this.btn_quitar.CheckedChanged += new System.EventHandler(this.btn_quitar_CheckedChanged);
+            // 
+            // rolBindingSource
+            // 
+            this.rolBindingSource.DataSource = typeof(ClinicaFrba.Clases.Rol);
             // 
             // ABMRol
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(716, 451);
+            this.ClientSize = new System.Drawing.Size(796, 451);
             this.Controls.Add(this.btn_quitar);
             this.Controls.Add(this.btn_modif);
             this.Controls.Add(this.btn_crear);
@@ -231,6 +239,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.listaRoles)).EndInit();
             this.groupBox2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.listaFun)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.rolBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -252,6 +261,7 @@
         private System.Windows.Forms.RadioButton btn_crear;
         private System.Windows.Forms.RadioButton btn_modif;
         private System.Windows.Forms.RadioButton btn_quitar;
+        private System.Windows.Forms.BindingSource rolBindingSource;
 
     }
 }

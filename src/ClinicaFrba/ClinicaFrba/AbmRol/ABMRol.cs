@@ -16,7 +16,6 @@ namespace ClinicaFrba.AbmRol
     {
         public String id_usuario { get; set; }
         SqlConnection conexion { get; set; }
-
         public ABMRol(String id_usuario)
         {
             InitializeComponent();
@@ -26,13 +25,20 @@ namespace ClinicaFrba.AbmRol
 
         private void tildarFuncionalidadesDelRol()
         {
-            int j = 0;            
-            foreach (Funcionalidad f in Funcionalidad.funcionalidadesPorRol((int)listaRoles.SelectedRows[0].Cells[0].Value))
-            {
-                DataGridViewCheckBoxCell cell = listaFun.Rows[j].Cells[0] as DataGridViewCheckBoxCell;
-                if (f.id_funcionalidad == (int)listaFun.Rows[j].Cells[1].Value) cell.Value = cell.TrueValue;
-                j++;
-            }
+            int j = 0;
+            
+                List<Funcionalidad> funcionalidadesDelRol = Funcionalidad.funcionalidadesPorRol((int)listaRoles.SelectedRows[0].Cells[0].Value);
+                foreach (Funcionalidad f in funcionalidadesDelRol)
+                {
+
+                    for (j = 0; j < listaFun.RowCount; j++)
+                    {
+                        DataGridViewCheckBoxCell cell = listaFun.Rows[j].Cells[0] as DataGridViewCheckBoxCell;
+                        if (f.id_funcionalidad == (int)listaFun.Rows[j].Cells[1].Value) cell.Value = cell.TrueValue;
+                    }
+
+                }
+            
         }
 
         private void destildarTodasFun()
@@ -164,7 +170,7 @@ namespace ClinicaFrba.AbmRol
             listaRoles.DataSource = roles;
             listaRoles.Columns[0].Visible = false;
             listaRoles.Columns[2].HeaderText = "Habilitado";
-            listaRoles.Columns[1].Width = 190;
+            listaRoles.Columns[1].Width = 150;
             listaFun.DataSource = Funcionalidad.todasLasFuncionalidades();
             listaFun.Columns[1].Visible = false;
             listaFun.Columns[2].Width = 250;
@@ -173,11 +179,17 @@ namespace ClinicaFrba.AbmRol
             listaFun.ReadOnly = true;
             cb_habilitar.Enabled = false;
             btn_limpiar.Enabled = false;
+            btn_crear_CheckedChanged(sender, e); //Por defecto esta apretado crear
         }
 
         private void btn_modif_CheckedChanged(object sender, EventArgs e)
         {
+            listaFun.Enabled = true;
+            listaFun.ForeColor = Color.Black;
+            listaRoles.Enabled = true;
+            listaRoles.ForeColor = Color.Black;
             btn_limpiar.Enabled = true;
+            btn_limpiar.Text = "Restaurar";
             tb_nombre.ReadOnly = false;
             listaFun.ReadOnly = false;
             listaFun.Columns[2].ReadOnly = true;
@@ -192,25 +204,38 @@ namespace ClinicaFrba.AbmRol
 
         private void btn_crear_CheckedChanged(object sender, EventArgs e)
         {
+            listaFun.Enabled = true;
+            listaFun.ForeColor = Color.Black;
             btn_limpiar.Enabled = true;
+            btn_limpiar.Text = "Limpiar";
             tb_nombre.ReadOnly = false;
+            listaRoles.Enabled = false;
+            listaRoles.ForeColor = Color.Gray;
             listaFun.ReadOnly = false;
             listaFun.Columns[2].ReadOnly = true;
             cb_habilitar.Enabled = true;
+            cb_habilitar.Checked = true;
             tb_nombre.Enabled = true;
             tb_nombre.Clear();
             this.destildarTodasFun();
-            cb_habilitar.Checked = false;
         }
 
         private void btn_quitar_CheckedChanged(object sender, EventArgs e)
         {
+            
             btn_modif_CheckedChanged(sender, e);
+            listaRoles.Enabled = true;
+            listaRoles.ForeColor = Color.Black;
             tb_nombre.Text = listaRoles.SelectedRows[0].Cells[1].Value.ToString();
             tb_nombre.ReadOnly = true;
             listaFun.ReadOnly = true;
             cb_habilitar.Enabled = false;
             btn_limpiar.Enabled = false;
+            destildarTodasFun();
+            listaFun.ClearSelection();
+            listaFun.Enabled = false;
+            listaFun.ForeColor = Color.Gray;
+           
         }
 
         private void listaRoles_SelectionChanged(object sender, EventArgs e)
