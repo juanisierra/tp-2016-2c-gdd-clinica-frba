@@ -261,27 +261,3 @@ Values (3,11);
 INSERT INTO ELIMINAR_CAR.Funcionalidades_por_rol
 (id_rol,id_funcionalidad)
 Values (3,12);
-
-
---Darle funcionalidades al Administrador
---ABM ROL
-INSERT INTO ELIMINAR_CAR.Funcionalidades_por_rol
-(id_rol,id_funcionalidad) values (4,1);
---ABM Afiliado
-INSERT INTO ELIMINAR_CAR.Funcionalidades_por_rol
-(id_rol,id_funcionalidad) values (4,3);
---Registar Agenda
-INSERT INTO ELIMINAR_CAR.Funcionalidades_por_rol
-(id_rol,id_funcionalidad) values (4,7);
---Comprar bono
-INSERT INTO ELIMINAR_CAR.Funcionalidades_por_rol
-(id_rol,id_funcionalidad) values (4,8);
---Pedir turno
-INSERT INTO ELIMINAR_CAR.Funcionalidades_por_rol
-(id_rol,id_funcionalidad) values (4,9);
---Registar Llegada
-INSERT INTO ELIMINAR_CAR.Funcionalidades_por_rol
-(id_rol,id_funcionalidad) values (4,10);
---Listado Estadistico
-INSERT INTO ELIMINAR_CAR.Funcionalidades_por_rol
-(id_rol,id_funcionalidad) values (4,13);
