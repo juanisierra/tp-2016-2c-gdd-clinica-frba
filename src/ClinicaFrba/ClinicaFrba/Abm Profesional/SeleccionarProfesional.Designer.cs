@@ -194,7 +194,7 @@
             this.Controls.Add(this.dgv_profesional);
             this.Controls.Add(this.flowLayoutPanel1);
             this.Name = "SeleccionarProfesional";
-            this.Text = "Form2";
+            this.Text = "Seleccionar Profesional";
             this.Load += new System.EventHandler(this.SeleccionarProfesional_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgv_profesional)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.profesionalBindingSource)).EndInit();
