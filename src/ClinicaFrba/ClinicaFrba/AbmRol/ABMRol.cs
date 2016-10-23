@@ -28,25 +28,25 @@ namespace ClinicaFrba.AbmRol
         {
             int j = 0;
             
-                List<Funcionalidad> funcionalidadesDelRol = Funcionalidad.funcionalidadesPorRol((int)listaRoles.SelectedRows[0].Cells[0].Value);
-                foreach (Funcionalidad f in funcionalidadesDelRol)
-                {
+            List<Funcionalidad> funcionalidadesDelRol = Funcionalidad.funcionalidadesPorRol((int)listaRoles.SelectedRows[0].Cells[0].Value);
+            foreach (Funcionalidad f in funcionalidadesDelRol)
+            {
 
-                    for (j = 0; j < listaFun.RowCount; j++)
-                    {
-                        DataGridViewCheckBoxCell cell = listaFun.Rows[j].Cells[0] as DataGridViewCheckBoxCell;
-                        if (f.id_funcionalidad == (int)listaFun.Rows[j].Cells[1].Value) cell.Value = cell.TrueValue;
-                    }
+                for (j = 0; j < listaFun.RowCount; j++)
+                {
+                    DataGridViewCheckBoxCell cell = listaFun.Rows[j].Cells[0] as DataGridViewCheckBoxCell;
+                    if (f.id_funcionalidad == (int)listaFun.Rows[j].Cells[1].Value) cell.Value = cell.TrueValue;
+                }
 
-                }
-                if (btn_modif.Checked && estaHabilitadoRol(Int16.Parse(listaRoles.SelectedRows[0].Cells[0].Value.ToString())))
-                {
-                    cb_habilitar.Visible = false;
-                }
-                else if(btn_modif.Checked)
-                {
-                    cb_habilitar.Visible = true;
-                }
+            }
+            if (btn_modif.Checked && estaHabilitadoRol(Int16.Parse(listaRoles.SelectedRows[0].Cells[0].Value.ToString())))
+            {
+                cb_habilitar.Visible = false;
+            }
+            else if(btn_modif.Checked)
+            {
+                cb_habilitar.Visible = true;
+            }
             
         }
 

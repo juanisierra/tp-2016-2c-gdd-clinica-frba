@@ -178,12 +178,40 @@ BEGIN
 END
 GO
 
-CREATE PROCEDURE ELIMINAR_CAR.ProfesionalesConMasHoras
+CREATE FUNCTION ELIMINAR_CAR.horas_prof (@matricula BIGINT, @id_especialidad INT, @fecha DATETIME) RETURNS INT
 AS
 BEGIN
-	SELECT TOP 5 nombre Nombre, apellido Apellido, A.matricula Matricula, sum(ELIMINAR_CAR.SumarHoras(A.matricula, dia)) Horas
-	FROM ELIMINAR_CAR.Agenda_Diaria a JOIN ELIMINAR_CAR.Profesional p ON (a.matricula = p.matricula)
-	GROUP BY Nombre, Apellido, A.Matricula
-	ORDER BY Horas desc
+	DECLARE @desde DATETIME, @hasta DATETIME, @horas INT
+	SET @horas=0
+	SET @desde = @fecha
+	SELECT DISTINCT @hasta = fecha_hasta FROM ELIMINAR_CAR.Agenda_Diaria a JOIN ELIMINAR_CAR.Rango_Atencion r ON (r.matricula = a.matricula) WHERE @matricula = a.matricula 
+	and a.id_especialidad =
+		CASE @id_especialidad
+			WHEN -1 THEN a.id_especialidad
+			ELSE @id_especialidad
+		END
+	WHILE (@desde <= @hasta and MONTH(@fecha) = MONTH(@desde))
+	BEGIN
+		SET @horas =
+		CASE datepart(weekday, @desde)
+			WHEN 1 THEN @horas + ELIMINAR_CAR.SumarHoras(@matricula, 1)
+			WHEN 2 THEN @horas + ELIMINAR_CAR.SumarHoras(@matricula, 2)
+			WHEN 3 THEN @horas + ELIMINAR_CAR.SumarHoras(@matricula, 3)
+			WHEN 4 THEN @horas + ELIMINAR_CAR.SumarHoras(@matricula, 4)
+			WHEN 5 THEN @horas + ELIMINAR_CAR.SumarHoras(@matricula, 5)
+			WHEN 6 THEN @horas + ELIMINAR_CAR.SumarHoras(@matricula, 6)
+			ELSE @horas
+		END
+		SELECT @desde = DATEADD(day, 1, @desde)
+	END
+
+	RETURN @horas
 END
+GO
+
+CREATE PROCEDURE ELIMINAR_CAR.profesionales_con_mas_horas (@id_especialidad INT, @fecha DATETIME)
+AS
+	SELECT TOP 5 p.nombre Nombre, p.apellido Apellido, p.matricula 'Matrícula', ELIMINAR_CAR.horas_prof(p.matricula, @id_especialidad, @fecha) Horas
+	FROM ELIMINAR_CAR.Profesional p
+	ORDER BY Horas desc
 GO
