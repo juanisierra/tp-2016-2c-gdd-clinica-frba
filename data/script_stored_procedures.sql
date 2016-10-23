@@ -159,3 +159,31 @@ FROM (	SELECT *
 GROUP BY e.desc_especialidad
 ORDER BY Cancelaciones desc
 GO
+
+CREATE FUNCTION ELIMINAR_CAR.SumarHoras(@MATRICULA BIGINT, @DIA INT) RETURNS INT
+AS
+BEGIN
+	DECLARE @TIEMPO_TRABAJADO INT, @HORA_DESDE TIME, @HORA_HASTA TIME
+	SELECT @HORA_DESDE=A.hora_desde, @HORA_HASTA = A.hora_hasta FROM ELIMINAR_CAR.Agenda_Diaria A WHERE matricula=@MATRICULA and dia = @DIA
+	IF @@ROWCOUNT>0
+		BEGIN
+		SET @TIEMPO_TRABAJADO = datediff(hour, @HORA_DESDE, @HORA_HASTA)
+		END
+	ELSE
+		BEGIN
+		SET @TIEMPO_TRABAJADO = 0
+		END
+
+		RETURN @TIEMPO_TRABAJADO
+END
+GO
+
+CREATE PROCEDURE ELIMINAR_CAR.ProfesionalesConMasHoras
+AS
+BEGIN
+	SELECT TOP 5 nombre Nombre, apellido Apellido, A.matricula Matricula, sum(ELIMINAR_CAR.SumarHoras(A.matricula, dia)) Horas
+	FROM ELIMINAR_CAR.Agenda_Diaria a JOIN ELIMINAR_CAR.Profesional p ON (a.matricula = p.matricula)
+	GROUP BY Nombre, Apellido, A.Matricula
+	ORDER BY Horas desc
+END
+GO
