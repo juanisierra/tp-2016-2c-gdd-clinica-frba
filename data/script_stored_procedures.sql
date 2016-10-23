@@ -160,6 +160,110 @@ GROUP BY e.desc_especialidad
 ORDER BY Cancelaciones desc
 GO
 
+
+CREATE FUNCTION ELIMINAR_CAR.proximoIdAfiliado(@id_familia BIGINT) RETURNS BIGINT
+AS
+BEGIN
+DECLARE @id BIGINT
+SELECT @id=n_familiares_a_cargo+2 FROM ELIMINAR_CAR.Familia WHERE id_familia=@id_familia
+RETURN @id
+END
+GO
+
+CREATE PROCEDURE ELIMINAR_CAR.insertarAfiliadoRaiz(@tipo_doc INT,@n_doc DECIMAL(8,0),@nombre VARCHAR(40),@apellido VARCHAR(40),@direccion VARCHAR(100),@telefono BIGINT,@mail VARCHAR(60),
+@fecha_nac DATE,@estado_civil INT,@sexo INT,@id_plan INT,@familiares_a_cargo INT,@id_familia_out BIGINT OUTPUT,@id_afiliado_out BIGINT OUTPUT)
+AS
+BEGIN
+INSERT INTO ELIMINAR_CAR.Familia (n_familiares_a_cargo) VALUES (@familiares_a_cargo);
+SELECT @id_familia_out=MAX(id_familia) FROM ELIMINAR_CAR.Familia;
+SET @id_afiliado_out = cast((cast( @id_familia_out as VARCHAR(10)) + '01') as BIGINT);
+INSERT INTO ELIMINAR_CAR.Afiliado (id_afiliado,tipo_doc,numero_doc,nombre,apellido,direccion,telefono,mail,fecha_nac,estado_civil,sexo,id_plan,id_familia,familiares_a_cargo,activo,num_consulta_actual)
+						Values (@id_afiliado_out,@tipo_doc,@n_doc,@nombre,@apellido,@direccion,@telefono,@mail,@fecha_nac,@estado_civil,@sexo,@id_plan,@id_familia_out,@familiares_a_cargo,1,0);
+END
+GO
+
+CREATE PROCEDURE ELIMINAR_CAR.insertarConyuge(@id_familia BIGINT,@tipo_doc INT,@n_doc DECIMAL(8,0),@nombre VARCHAR(40),@apellido VARCHAR(40),@direccion VARCHAR(100),@telefono BIGINT,@mail VARCHAR(60),
+@fecha_nac DATE,@estado_civil INT,@sexo INT,@id_plan INT,@id_afiliado_out BIGINT OUTPUT)
+AS
+DECLARE @hayConyuge INT;
+BEGIN
+SELECT @hayConyuge=COUNT(*) FROM ELIMINAR_CAR.Afiliado WHERE id_afiliado=cast((cast( @id_familia as VARCHAR(10)) + '02') as BIGINT)
+if @hayConyuge=0
+BEGIN
+SET @id_afiliado_out = cast((cast( @id_familia as VARCHAR(10)) + '02') as BIGINT);
+END
+ELSE 
+BEGIN
+SET @id_afiliado_out = ELIMINAR_CAR.proximoIdAfiliado(@id_familia);
+UPDATE ELIMINAR_CAR.Familia SET n_familiares_a_cargo=n_familiares_a_cargo+1 WHERE id_familia=@id_familia; --Si es el 2do conyuge se cuenta como familiar a cargo
+UPDATE ELIMINAR_CAR.AFiliado SET familiares_a_cargo=familiares_a_cargo+1 WHERE id_afiliado=cast((cast( @id_familia as VARCHAR(10)) + '01') as BIGINT)
+END
+INSERT INTO ELIMINAR_CAR.Afiliado (id_afiliado,tipo_doc,numero_doc,nombre,apellido,direccion,telefono,mail,fecha_nac,estado_civil,sexo,id_plan,id_familia,familiares_a_cargo,activo,num_consulta_actual)
+						Values (@id_afiliado_out,@tipo_doc,@n_doc,@nombre,@apellido,@direccion,@telefono,@mail,@fecha_nac,@estado_civil,@sexo,@id_plan,@id_familia,0,1,0);
+END
+GO
+
+CREATE PROCEDURE ELIMINAR_CAR.insertarDependiente(@id_familia BIGINT,@tipo_doc INT,@n_doc DECIMAL(8,0),@nombre VARCHAR(40),@apellido VARCHAR(40),@direccion VARCHAR(100),@telefono BIGINT,@mail VARCHAR(60),
+@fecha_nac DATE,@estado_civil INT,@sexo INT,@id_plan INT,@id_afiliado_out BIGINT OUTPUT)
+AS
+BEGIN
+UPDATE ELIMINAR_CAR.Familia SET n_familiares_a_cargo=n_familiares_a_cargo+1 WHERE id_familia=@id_familia; --Agregamos otro familiar
+UPDATE ELIMINAR_CAR.AFiliado SET familiares_a_cargo=familiares_a_cargo+1 WHERE id_afiliado=cast((cast( @id_familia as VARCHAR(10)) + '01') as BIGINT)
+SET @id_afiliado_out = ELIMINAR_CAR.proximoIdAfiliado(@id_familia);
+INSERT INTO ELIMINAR_CAR.Afiliado (id_afiliado,tipo_doc,numero_doc,nombre,apellido,direccion,telefono,mail,fecha_nac,estado_civil,sexo,id_plan,id_familia,familiares_a_cargo,activo,num_consulta_actual)
+						Values (@id_afiliado_out,@tipo_doc,@n_doc,@nombre,@apellido,@direccion,@telefono,@mail,@fecha_nac,@estado_civil,@sexo,@id_plan,@id_familia,0,1,0);
+END
+GO
+--direccion telefono estado civi mail plan medico cant fam sexo
+CREATE PROCEDURE ELIMINAR_CAR.modificarAfiliado(@id_afiliado BIGINT,@direccion VARCHAR(100),@estado_civil INT, @mail VARCHAR(60),@sexo INT, @id_plan INT,@fecha_cambio DATETIME,@motivo_cambio_plan VARCHAR(100))
+AS
+BEGIN
+IF @direccion IS NOT NULL
+BEGIN
+UPDATE ELIMINAR_CAR.Afiliado SET direccion=@direccion WHERE id_afiliado=@id_afiliado
+END
+IF @estado_civil IS NOT NULL
+BEGIN
+UPDATE ELIMINAR_CAR.Afiliado SET estado_civil=@estado_civil WHERE id_afiliado=@id_afiliado
+END
+IF @mail IS NOT NULL
+BEGIN
+UPDATE ELIMINAR_CAR.Afiliado SET mail=@mail WHERE id_afiliado=@id_afiliado
+END
+IF @sexo IS NOT NULL
+BEGIN
+UPDATE ELIMINAR_CAR.Afiliado SET sexo=@sexo WHERE id_afiliado=@id_afiliado
+END
+IF @id_plan IS NOT NULL
+BEGIN
+INSERT INTO ELIMINAR_CAR.Cambio_de_Plan (id_afiliado,id_plan_anterior,id_plan_nuevo,fecha_cambio,motivo_cambio)
+VALUES (@id_afiliado,(SELECT id_plan FROM ELIMINAR_CAR.Afiliado where id_afiliado=@id_afiliado),@id_plan,@fecha_cambio,@motivo_cambio_plan)
+UPDATE ELIMINAR_CAR.Afiliado SET id_plan=@id_plan WHERE id_afiliado=@id_afiliado
+END
+END
+GO
+
+CREATE PROCEDURE ELIMINAR_CAR.eliminarAfiliadoRaiz(@id_afiliado BIGINT,@id_familia BIGINT)
+AS
+BEGIN --Si es el raiz damos de baja a toda la familia
+UPDATE ELIMINAR_CAR.Afiliado SET activo=0 WHERE id_familia=@id_familia;
+UPDATE ELIMINAR_CAR.TURNO SET activo=0 WHERE id_afiliado IN (SELECT id_afiliado FROM ELIMINAR_CAR.Afiliado WHERE id_familia=@id_familia) AND fecha_estipulada>=GETDATE()
+UPDATE ELIMINAR_CAR.Familia SET n_familiares_a_cargo=0 WHERE id_familia=@id_familia;
+END
+GO
+
+CREATE PROCEDURE ELIMINAR_CAR.eliminarAfiliadoNoRaiz(@id_afiliado BIGINT,@id_familia BIGINT)
+AS
+BEGIN
+UPDATE ELIMINAR_CAR.Afiliado SET activo=0 WHERE id_afiliado=@id_afiliado;
+UPDATE ELIMINAR_CAR.TURNO SET activo=0 WHERE id_afiliado=@id_afiliado AND fecha_estipulada>=GETDATE();
+if @id_afiliado NOT LIKE '%02' --Si no es el conyuge original
+BEGIN
+ UPDATE ELIMINAR_CAR.Familia SET n_familiares_a_cargo=n_familiares_a_cargo-1 WHERE id_familia=@id_familia;
+ END
+END
+GO
+
 CREATE FUNCTION ELIMINAR_CAR.SumarHoras(@MATRICULA BIGINT, @DIA INT) RETURNS INT
 AS
 BEGIN

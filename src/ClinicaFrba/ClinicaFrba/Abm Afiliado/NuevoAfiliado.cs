@@ -95,10 +95,11 @@ namespace ClinicaFrba.Abm_Afiliado
                             this.Visible = true;
 
                         }
-                      /*                        
-                      if ((tipo == 0) && (int.Parse(textBox_CantFami.SelectedText) > 0))
+                    }        
+                
+                      if ((tipo == 0) && textBox_CantFami.TextLength >0 && (int.Parse(textBox_CantFami.Text) > 0))
                         {
-                            int cantFamiliares = int.Parse(textBox_CantFami.SelectedText);
+                            int cantFamiliares = int.Parse(textBox_CantFami.Text);
                             for (int i = 0; i < cantFamiliares; i++)
                             {
                                 DialogResult resultado = MessageBox.Show("¿Desea agregar un nuevo familiar a cargo?", "Clinica-FRBA", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
@@ -115,8 +116,8 @@ namespace ClinicaFrba.Abm_Afiliado
                                     break;
                                 }
                             }
-                        }*/
-                    }
+                        }
+                    
                     this.Close();
                 }
             }

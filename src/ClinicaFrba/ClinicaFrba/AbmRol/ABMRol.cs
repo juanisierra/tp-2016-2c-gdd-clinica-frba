@@ -181,7 +181,7 @@ namespace ClinicaFrba.AbmRol
             listaRoles.DataSource = todosLosRoles;
             listaRoles.Columns[0].Visible = false;
             listaRoles.Columns[2].HeaderText = "Habilitado";
-            listaRoles.Columns[1].Width = 150;
+            //listaRoles.Columns[1].Width = 150;
             listaFun.DataSource = Funcionalidad.todasLasFuncionalidades();
             listaFun.Columns[1].Visible = false;
             listaFun.Columns[2].Width = 250;
@@ -196,6 +196,7 @@ namespace ClinicaFrba.AbmRol
         private void btn_modif_CheckedChanged(object sender, EventArgs e)
         {
             listaRoles.DataSource = todosLosRoles;
+            listaRoles.Columns[0].Visible = false;
             if(btn_modif.Checked) cb_habilitar.Visible = true;
             listaFun.Enabled = true;
             listaFun.ForeColor = Color.Black;
@@ -216,6 +217,7 @@ namespace ClinicaFrba.AbmRol
         private void btn_crear_CheckedChanged(object sender, EventArgs e)
         {
             listaRoles.DataSource = todosLosRoles;
+            listaRoles.Columns[0].Visible = false;
             cb_habilitar.Visible = false;
             listaFun.Enabled = true;
             listaFun.ForeColor = Color.Black;
@@ -248,6 +250,7 @@ namespace ClinicaFrba.AbmRol
                 List<Rol> rolesHabilitados = todosLosRoles.FindAll(rol => rol.habilitado);
                 listaRoles.DataSource = null;
                 listaRoles.DataSource = rolesHabilitados;
+                listaRoles.Columns[0].Visible = false;
                 if (listaRoles.SelectedRows.Count!=0) tb_nombre.Text = listaRoles.SelectedRows[0].Cells[1].Value.ToString();
             }
         }

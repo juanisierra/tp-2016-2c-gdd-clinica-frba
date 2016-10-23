@@ -85,6 +85,7 @@
             // textBox_NombAfi
             // 
             this.textBox_NombAfi.Location = new System.Drawing.Point(81, 28);
+            this.textBox_NombAfi.MaxLength = 40;
             this.textBox_NombAfi.Name = "textBox_NombAfi";
             this.textBox_NombAfi.Size = new System.Drawing.Size(229, 20);
             this.textBox_NombAfi.TabIndex = 3;
@@ -92,6 +93,7 @@
             // textBox_ApAfi
             // 
             this.textBox_ApAfi.Location = new System.Drawing.Point(81, 62);
+            this.textBox_ApAfi.MaxLength = 40;
             this.textBox_ApAfi.Name = "textBox_ApAfi";
             this.textBox_ApAfi.Size = new System.Drawing.Size(229, 20);
             this.textBox_ApAfi.TabIndex = 4;
@@ -108,6 +110,7 @@
             // textBox_NumDoc
             // 
             this.textBox_NumDoc.Location = new System.Drawing.Point(131, 125);
+            this.textBox_NumDoc.MaxLength = 8;
             this.textBox_NumDoc.Name = "textBox_NumDoc";
             this.textBox_NumDoc.Size = new System.Drawing.Size(179, 20);
             this.textBox_NumDoc.TabIndex = 6;
@@ -185,6 +188,7 @@
             // textBox_DirecAfi
             // 
             this.textBox_DirecAfi.Location = new System.Drawing.Point(81, 158);
+            this.textBox_DirecAfi.MaxLength = 100;
             this.textBox_DirecAfi.Name = "textBox_DirecAfi";
             this.textBox_DirecAfi.Size = new System.Drawing.Size(229, 20);
             this.textBox_DirecAfi.TabIndex = 16;
@@ -192,6 +196,7 @@
             // textBox_MailAfi
             // 
             this.textBox_MailAfi.Location = new System.Drawing.Point(81, 219);
+            this.textBox_MailAfi.MaxLength = 60;
             this.textBox_MailAfi.Name = "textBox_MailAfi";
             this.textBox_MailAfi.Size = new System.Drawing.Size(229, 20);
             this.textBox_MailAfi.TabIndex = 17;
