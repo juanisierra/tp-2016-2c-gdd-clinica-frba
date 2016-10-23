@@ -20,6 +20,7 @@ namespace ClinicaFrba.Abm_Afiliado
         private SqlConnection conexion { get; set; }
         SqlCommand datosAfiliado = new SqlCommand();
         private long id_afiliadoSeleccionado;
+        private Afiliado afiliadoSeleccionado;
         public int id_rol { set; get; }
 
         public List<String> abm { set; get; }
@@ -72,15 +73,18 @@ namespace ClinicaFrba.Abm_Afiliado
                     }
                     else
                     {
-                        Int64 id_afiliadoSeleccionado = ((Afiliado)((DataGridView)selecB.Controls["dgv_afiliado"]).CurrentRow.DataBoundItem).idAfiliado;
-                        datosAfiliado = new SqlCommand(string.Format("SELECT id_afiliado, tipo_doc, numero_doc, nombre, apellido, a.id_plan, desc_plan, num_consulta_actual, precio_bono_consulta FROM ELIMINAR_CAR.Afiliado a JOIN ELIMINAR_CAR.Planes p ON (a.id_plan=p.id_plan) WHERE id_afiliado={0}", id_afiliadoSeleccionado), conexion);
-
+                        afiliadoSeleccionado = ((Afiliado)((DataGridView)selecB.Controls["dgv_afiliado"]).CurrentRow.DataBoundItem);
+                       
                     }
 
-                    EliminarAfiliado ventana = new EliminarAfiliado(this.id_usuario, this.id_afiliadoSeleccionado);
-                    this.Visible = false;
-                    ventana.ShowDialog();
-                    this.Visible = true;
+                    DialogResult resultado = MessageBox.Show("¿Desea eliminar a este afiliado?", "Clinica-FRBA", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+                    if (resultado == DialogResult.OK)
+                    {
+                        afiliado.activo = false;
+                        MessageBox.Show("El afiliado fue eliminado correctamente", "Clinica-FRBA", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                
+                    }
 
                     break;
 
@@ -96,12 +100,11 @@ namespace ClinicaFrba.Abm_Afiliado
                     }
                     else
                     {
-                        Int64 id_afiliadoSeleccionado = ((Afiliado)((DataGridView)selecM.Controls["dgv_afiliado"]).CurrentRow.DataBoundItem).idAfiliado;
-                        datosAfiliado = new SqlCommand(string.Format("SELECT id_afiliado, tipo_doc, numero_doc, nombre, apellido, a.id_plan, desc_plan, num_consulta_actual, precio_bono_consulta FROM ELIMINAR_CAR.Afiliado a JOIN ELIMINAR_CAR.Planes p ON (a.id_plan=p.id_plan) WHERE id_afiliado={0}", id_afiliadoSeleccionado), conexion);
-
+                        afiliadoSeleccionado = ((Afiliado)((DataGridView)selecM.Controls["dgv_afiliado"]).CurrentRow.DataBoundItem);
+                        
                     }
 
-                    ModificarAfiliado modif = new ModificarAfiliado(0, this.id_afiliadoSeleccionado);
+                    ModificarAfiliado modif = new ModificarAfiliado(this.afiliadoSeleccionado);
                     this.Visible = false;
                     modif.ShowDialog();
                     this.Visible = true;
