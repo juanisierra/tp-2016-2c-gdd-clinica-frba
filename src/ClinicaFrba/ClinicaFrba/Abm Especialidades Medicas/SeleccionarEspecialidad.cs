@@ -41,5 +41,16 @@ namespace ClinicaFrba.Abm_Especialidades_Medicas
                 fueCerradoPorUsuario = false;
             }
         }
+
+        private void SeleccionarEspecialidad_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btn_cancelar_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            this.fueCerradoPorUsuario = true;
+        }
     }
 }

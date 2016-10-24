@@ -47,7 +47,11 @@ namespace ClinicaFrba.Compra_Bono
             txt_apellido.KeyPress += controlLetras;
             this.FormClosing += closing;
             fueCerradoPorUsuario = false;
-            if(soloListar==true) btn_seleccionar.Hide();
+            if (soloListar == true)
+            {
+                btn_seleccionar.Hide();
+                btn_cancelar.Hide();
+            }
         }
 
         private void btn_filtrar_Click(object sender, EventArgs e)
@@ -119,6 +123,12 @@ namespace ClinicaFrba.Compra_Bono
             txt_nDoc.Text = "";
             txt_nombre.Text = "";
             ActualizarFiltro();
+        }
+
+        private void btn_cancelar_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            this.fueCerradoPorUsuario = true;
         }
     }
 }

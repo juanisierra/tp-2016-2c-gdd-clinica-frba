@@ -44,6 +44,7 @@
             this.btn_quitar = new System.Windows.Forms.RadioButton();
             this.rolBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.cb_habilitar = new System.Windows.Forms.CheckBox();
+            this.btn_cancelar = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.listaRoles)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -145,7 +146,7 @@
             // 
             // btn_limpiar
             // 
-            this.btn_limpiar.Location = new System.Drawing.Point(428, 398);
+            this.btn_limpiar.Location = new System.Drawing.Point(651, 360);
             this.btn_limpiar.Margin = new System.Windows.Forms.Padding(4);
             this.btn_limpiar.Name = "btn_limpiar";
             this.btn_limpiar.Size = new System.Drawing.Size(110, 28);
@@ -207,12 +208,23 @@
             // cb_habilitar
             // 
             this.cb_habilitar.AutoSize = true;
-            this.cb_habilitar.Location = new System.Drawing.Point(436, 365);
+            this.cb_habilitar.Location = new System.Drawing.Point(456, 360);
             this.cb_habilitar.Name = "cb_habilitar";
             this.cb_habilitar.Size = new System.Drawing.Size(107, 21);
             this.cb_habilitar.TabIndex = 18;
             this.cb_habilitar.Text = "Habilitar Rol";
             this.cb_habilitar.UseVisualStyleBackColor = true;
+            // 
+            // btn_cancelar
+            // 
+            this.btn_cancelar.Location = new System.Drawing.Point(453, 398);
+            this.btn_cancelar.Margin = new System.Windows.Forms.Padding(4);
+            this.btn_cancelar.Name = "btn_cancelar";
+            this.btn_cancelar.Size = new System.Drawing.Size(110, 28);
+            this.btn_cancelar.TabIndex = 13;
+            this.btn_cancelar.Text = "Cancelar";
+            this.btn_cancelar.UseVisualStyleBackColor = true;
+            this.btn_cancelar.Click += new System.EventHandler(this.btn_cancelar_Click);
             // 
             // ABMRol
             // 
@@ -224,6 +236,7 @@
             this.Controls.Add(this.btn_modif);
             this.Controls.Add(this.btn_crear);
             this.Controls.Add(this.btn_limpiar);
+            this.Controls.Add(this.btn_cancelar);
             this.Controls.Add(this.btn_aceptar);
             this.Controls.Add(this.tb_nombre);
             this.Controls.Add(this.label1);
@@ -260,6 +273,7 @@
         private System.Windows.Forms.RadioButton btn_quitar;
         private System.Windows.Forms.BindingSource rolBindingSource;
         private System.Windows.Forms.CheckBox cb_habilitar;
+        private System.Windows.Forms.Button btn_cancelar;
 
     }
 }

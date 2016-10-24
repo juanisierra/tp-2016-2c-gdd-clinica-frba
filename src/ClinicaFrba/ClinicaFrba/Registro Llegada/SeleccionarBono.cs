@@ -51,5 +51,11 @@ namespace ClinicaFrba.Registro_Llegada
                 this.fueCerradoPorUsuario = false;
             }
         }
+
+        private void btn_cancelar_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            this.fueCerradoPorUsuario = true;
+        }
     }
 }

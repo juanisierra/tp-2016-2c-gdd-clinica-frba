@@ -56,6 +56,7 @@
             this.label12 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.Sexo = new System.Windows.Forms.ComboBox();
+            this.btn_cancelar = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // idAfi
@@ -122,7 +123,7 @@
             // 
             this.tbidAfiliado.Enabled = false;
             this.tbidAfiliado.Location = new System.Drawing.Point(185, 34);
-            this.tbidAfiliado.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tbidAfiliado.Margin = new System.Windows.Forms.Padding(4);
             this.tbidAfiliado.Name = "tbidAfiliado";
             this.tbidAfiliado.Size = new System.Drawing.Size(499, 22);
             this.tbidAfiliado.TabIndex = 6;
@@ -130,7 +131,7 @@
             // direc
             // 
             this.direc.Location = new System.Drawing.Point(109, 145);
-            this.direc.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.direc.Margin = new System.Windows.Forms.Padding(4);
             this.direc.MaxLength = 100;
             this.direc.Name = "direc";
             this.direc.Size = new System.Drawing.Size(320, 22);
@@ -139,7 +140,7 @@
             // tel
             // 
             this.tel.Location = new System.Drawing.Point(109, 194);
-            this.tel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tel.Margin = new System.Windows.Forms.Padding(4);
             this.tel.Name = "tel";
             this.tel.Size = new System.Drawing.Size(320, 22);
             this.tel.TabIndex = 8;
@@ -147,7 +148,7 @@
             // mail
             // 
             this.mail.Location = new System.Drawing.Point(88, 230);
-            this.mail.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.mail.Margin = new System.Windows.Forms.Padding(4);
             this.mail.MaxLength = 60;
             this.mail.Name = "mail";
             this.mail.Size = new System.Drawing.Size(341, 22);
@@ -157,7 +158,7 @@
             // 
             this.estadoCiv.FormattingEnabled = true;
             this.estadoCiv.Location = new System.Drawing.Point(529, 185);
-            this.estadoCiv.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.estadoCiv.Margin = new System.Windows.Forms.Padding(4);
             this.estadoCiv.Name = "estadoCiv";
             this.estadoCiv.Size = new System.Drawing.Size(300, 24);
             this.estadoCiv.TabIndex = 12;
@@ -165,8 +166,8 @@
             // button_Aceptar
             // 
             this.button_Aceptar.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.button_Aceptar.Location = new System.Drawing.Point(529, 325);
-            this.button_Aceptar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button_Aceptar.Location = new System.Drawing.Point(442, 373);
+            this.button_Aceptar.Margin = new System.Windows.Forms.Padding(4);
             this.button_Aceptar.Name = "button_Aceptar";
             this.button_Aceptar.Size = new System.Drawing.Size(244, 39);
             this.button_Aceptar.TabIndex = 13;
@@ -188,7 +189,7 @@
             // 
             this.cantFam.Enabled = false;
             this.cantFam.Location = new System.Drawing.Point(581, 230);
-            this.cantFam.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cantFam.Margin = new System.Windows.Forms.Padding(4);
             this.cantFam.Name = "cantFam";
             this.cantFam.Size = new System.Drawing.Size(248, 22);
             this.cantFam.TabIndex = 15;
@@ -198,7 +199,7 @@
             this.planMed.DisplayMember = "desc_plan";
             this.planMed.FormattingEnabled = true;
             this.planMed.Location = new System.Drawing.Point(140, 274);
-            this.planMed.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.planMed.Margin = new System.Windows.Forms.Padding(4);
             this.planMed.Name = "planMed";
             this.planMed.Size = new System.Drawing.Size(289, 24);
             this.planMed.TabIndex = 16;
@@ -207,7 +208,7 @@
             // 
             this.btAgregarFamiliar.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
             this.btAgregarFamiliar.Location = new System.Drawing.Point(624, 268);
-            this.btAgregarFamiliar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btAgregarFamiliar.Margin = new System.Windows.Forms.Padding(4);
             this.btAgregarFamiliar.Name = "btAgregarFamiliar";
             this.btAgregarFamiliar.Size = new System.Drawing.Size(207, 26);
             this.btAgregarFamiliar.TabIndex = 17;
@@ -259,7 +260,7 @@
             // 
             this.tbNom.Enabled = false;
             this.tbNom.Location = new System.Drawing.Point(109, 69);
-            this.tbNom.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tbNom.Margin = new System.Windows.Forms.Padding(4);
             this.tbNom.MaxLength = 40;
             this.tbNom.Name = "tbNom";
             this.tbNom.Size = new System.Drawing.Size(320, 22);
@@ -269,7 +270,7 @@
             // 
             this.tbTDoc.Enabled = false;
             this.tbTDoc.Location = new System.Drawing.Point(168, 106);
-            this.tbTDoc.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tbTDoc.Margin = new System.Windows.Forms.Padding(4);
             this.tbTDoc.Name = "tbTDoc";
             this.tbTDoc.Size = new System.Drawing.Size(261, 22);
             this.tbTDoc.TabIndex = 23;
@@ -278,7 +279,7 @@
             // 
             this.tbNDoc.Enabled = false;
             this.tbNDoc.Location = new System.Drawing.Point(548, 102);
-            this.tbNDoc.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tbNDoc.Margin = new System.Windows.Forms.Padding(4);
             this.tbNDoc.MaxLength = 8;
             this.tbNDoc.Name = "tbNDoc";
             this.tbNDoc.Size = new System.Drawing.Size(281, 22);
@@ -288,7 +289,7 @@
             // 
             this.tbAp.Enabled = false;
             this.tbAp.Location = new System.Drawing.Point(505, 69);
-            this.tbAp.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tbAp.Margin = new System.Windows.Forms.Padding(4);
             this.tbAp.MaxLength = 40;
             this.tbAp.Name = "tbAp";
             this.tbAp.Size = new System.Drawing.Size(324, 22);
@@ -298,7 +299,7 @@
             // 
             this.tbFech.Enabled = false;
             this.tbFech.Location = new System.Drawing.Point(571, 138);
-            this.tbFech.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tbFech.Margin = new System.Windows.Forms.Padding(4);
             this.tbFech.Name = "tbFech";
             this.tbFech.Size = new System.Drawing.Size(259, 22);
             this.tbFech.TabIndex = 26;
@@ -327,10 +328,22 @@
             // 
             this.Sexo.FormattingEnabled = true;
             this.Sexo.Location = new System.Drawing.Point(101, 313);
-            this.Sexo.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Sexo.Margin = new System.Windows.Forms.Padding(4);
             this.Sexo.Name = "Sexo";
             this.Sexo.Size = new System.Drawing.Size(327, 24);
             this.Sexo.TabIndex = 29;
+            // 
+            // btn_cancelar
+            // 
+            this.btn_cancelar.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.btn_cancelar.Location = new System.Drawing.Point(166, 373);
+            this.btn_cancelar.Margin = new System.Windows.Forms.Padding(4);
+            this.btn_cancelar.Name = "btn_cancelar";
+            this.btn_cancelar.Size = new System.Drawing.Size(244, 39);
+            this.btn_cancelar.TabIndex = 13;
+            this.btn_cancelar.Text = "Cancelar";
+            this.btn_cancelar.UseVisualStyleBackColor = true;
+            this.btn_cancelar.Click += new System.EventHandler(this.btn_cancelar_Click);
             // 
             // ModificarAfiliado
             // 
@@ -353,6 +366,7 @@
             this.Controls.Add(this.planMed);
             this.Controls.Add(this.cantFam);
             this.Controls.Add(this.label7);
+            this.Controls.Add(this.btn_cancelar);
             this.Controls.Add(this.button_Aceptar);
             this.Controls.Add(this.estadoCiv);
             this.Controls.Add(this.mail);
@@ -365,7 +379,7 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.idAfi);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "ModificarAfiliado";
             this.Text = "ModificarAfiliado";
             this.Load += new System.EventHandler(this.ModificarAfiliado_Load);
@@ -404,5 +418,6 @@
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox Sexo;
+        private System.Windows.Forms.Button btn_cancelar;
     }
 }

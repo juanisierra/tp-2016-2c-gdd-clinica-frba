@@ -47,6 +47,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.tb_diagnostico = new System.Windows.Forms.TextBox();
+            this.btn_cancelar = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_turno)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.turnoBindingSource)).BeginInit();
             this.SuspendLayout();
@@ -193,7 +194,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(425, 449);
+            this.button1.Location = new System.Drawing.Point(525, 446);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(121, 31);
             this.button1.TabIndex = 7;
@@ -210,11 +211,22 @@
             this.tb_diagnostico.Size = new System.Drawing.Size(947, 51);
             this.tb_diagnostico.TabIndex = 4;
             // 
+            // btn_cancelar
+            // 
+            this.btn_cancelar.Location = new System.Drawing.Point(386, 446);
+            this.btn_cancelar.Name = "btn_cancelar";
+            this.btn_cancelar.Size = new System.Drawing.Size(121, 31);
+            this.btn_cancelar.TabIndex = 7;
+            this.btn_cancelar.Text = "Cancelar";
+            this.btn_cancelar.UseVisualStyleBackColor = true;
+            this.btn_cancelar.Click += new System.EventHandler(this.btn_cancelar_Click);
+            // 
             // RegistroResultado
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1000, 489);
+            this.Controls.Add(this.btn_cancelar);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
@@ -255,5 +267,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn descespecialidadDataGridViewTextBoxColumn;
         private System.Windows.Forms.BindingSource turnoBindingSource;
         private System.Windows.Forms.TextBox tb_diagnostico;
+        private System.Windows.Forms.Button btn_cancelar;
     }
 }

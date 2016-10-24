@@ -164,6 +164,11 @@ namespace ClinicaFrba.Pedir_Turno
             if (filasAfectadas == 1) return true;
             else return false;
         }
+
+        private void btn_cancelar_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
         
     }
 }

@@ -31,6 +31,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.tb_motivo = new System.Windows.Forms.RichTextBox();
             this.button1 = new System.Windows.Forms.Button();
+            this.btn_cancelar = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -46,7 +47,7 @@
             // tb_motivo
             // 
             this.tb_motivo.Location = new System.Drawing.Point(41, 57);
-            this.tb_motivo.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tb_motivo.Margin = new System.Windows.Forms.Padding(4);
             this.tb_motivo.MaxLength = 100;
             this.tb_motivo.Name = "tb_motivo";
             this.tb_motivo.Size = new System.Drawing.Size(523, 184);
@@ -56,7 +57,7 @@
             // button1
             // 
             this.button1.Location = new System.Drawing.Point(329, 276);
-            this.button1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button1.Margin = new System.Windows.Forms.Padding(4);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(235, 33);
             this.button1.TabIndex = 2;
@@ -64,15 +65,27 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // btn_cancelar
+            // 
+            this.btn_cancelar.Location = new System.Drawing.Point(41, 276);
+            this.btn_cancelar.Margin = new System.Windows.Forms.Padding(4);
+            this.btn_cancelar.Name = "btn_cancelar";
+            this.btn_cancelar.Size = new System.Drawing.Size(235, 33);
+            this.btn_cancelar.TabIndex = 2;
+            this.btn_cancelar.Text = "Cancelar";
+            this.btn_cancelar.UseVisualStyleBackColor = true;
+            this.btn_cancelar.Click += new System.EventHandler(this.btn_cancelar_Click);
+            // 
             // MotivoCambioPlan
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(591, 321);
+            this.Controls.Add(this.btn_cancelar);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.tb_motivo);
             this.Controls.Add(this.label1);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "MotivoCambioPlan";
             this.Text = "MotivoCambioPlan";
             this.Load += new System.EventHandler(this.MotivoCambioPlan_Load);
@@ -86,5 +99,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.RichTextBox tb_motivo;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btn_cancelar;
     }
 }

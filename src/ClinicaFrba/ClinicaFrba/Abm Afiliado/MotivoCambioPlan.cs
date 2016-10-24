@@ -34,5 +34,12 @@ namespace ClinicaFrba.Abm_Afiliado
             if (e.CloseReason == CloseReason.UserClosing) fueCerradoPorusuario = true;
 
         }
+
+        private void btn_cancelar_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            this.fueCerradoPorusuario = true;
+            
+        }
     }
 }

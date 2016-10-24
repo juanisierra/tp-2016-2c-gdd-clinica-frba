@@ -192,5 +192,10 @@ namespace ClinicaFrba.Abm_Afiliado
         {
             seCambioTelefono = true;
         }
+
+        private void btn_cancelar_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }

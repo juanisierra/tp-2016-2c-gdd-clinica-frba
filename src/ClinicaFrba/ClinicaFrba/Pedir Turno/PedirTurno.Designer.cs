@@ -35,6 +35,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.btn_aceptar = new System.Windows.Forms.Button();
             this.label_especialidad = new System.Windows.Forms.Label();
+            this.btn_cancelar = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // cb_dia
@@ -83,7 +84,7 @@
             // 
             // btn_aceptar
             // 
-            this.btn_aceptar.Location = new System.Drawing.Point(259, 189);
+            this.btn_aceptar.Location = new System.Drawing.Point(370, 188);
             this.btn_aceptar.Name = "btn_aceptar";
             this.btn_aceptar.Size = new System.Drawing.Size(165, 23);
             this.btn_aceptar.TabIndex = 3;
@@ -100,12 +101,23 @@
             this.label_especialidad.TabIndex = 4;
             this.label_especialidad.Text = "Especialidad: ";
             // 
+            // btn_cancelar
+            // 
+            this.btn_cancelar.Location = new System.Drawing.Point(154, 188);
+            this.btn_cancelar.Name = "btn_cancelar";
+            this.btn_cancelar.Size = new System.Drawing.Size(165, 23);
+            this.btn_cancelar.TabIndex = 3;
+            this.btn_cancelar.Text = "Cancelar";
+            this.btn_cancelar.UseVisualStyleBackColor = true;
+            this.btn_cancelar.Click += new System.EventHandler(this.btn_cancelar_Click);
+            // 
             // PedirTurno
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(672, 264);
             this.Controls.Add(this.label_especialidad);
+            this.Controls.Add(this.btn_cancelar);
             this.Controls.Add(this.btn_aceptar);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -129,5 +141,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button btn_aceptar;
         private System.Windows.Forms.Label label_especialidad;
+        private System.Windows.Forms.Button btn_cancelar;
     }
 }
