@@ -173,6 +173,8 @@
             // 
             // dgv_afiliado
             // 
+            this.dgv_afiliado.AllowUserToAddRows = false;
+            this.dgv_afiliado.AllowUserToDeleteRows = false;
             this.dgv_afiliado.AutoGenerateColumns = false;
             this.dgv_afiliado.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgv_afiliado.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -190,6 +192,7 @@
             this.descPlanDataGridViewTextBoxColumn});
             this.dgv_afiliado.DataSource = this.afiliadoBindingSource;
             this.dgv_afiliado.Location = new System.Drawing.Point(28, 171);
+            this.dgv_afiliado.MultiSelect = false;
             this.dgv_afiliado.Name = "dgv_afiliado";
             this.dgv_afiliado.ReadOnly = true;
             this.dgv_afiliado.RowTemplate.Height = 24;

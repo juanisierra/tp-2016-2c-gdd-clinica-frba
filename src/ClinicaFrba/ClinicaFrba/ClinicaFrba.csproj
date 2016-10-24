@@ -128,6 +128,7 @@
     <Compile Include="Clases\Enums.cs" />
     <Compile Include="Clases\Plan.cs" />
     <Compile Include="Clases\Turno.cs" />
+    <Compile Include="Clases\Validaciones.cs" />
     <Compile Include="Compra Bono\SeleccionarAfiliado.cs">
       <SubType>Form</SubType>
     </Compile>

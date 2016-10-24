@@ -40,7 +40,8 @@ namespace ClinicaFrba.Abm_Afiliado
 
 
         private void ModificarAfiliado_Load(object sender, EventArgs e)
-        {   
+        {
+            tel.KeyPress += Validaciones.controlNumeros;
             tbidAfiliado.Text = afiliadoAMod.idAfiliado.ToString();
             tbNom.Text = afiliadoAMod.nombre.ToString();
             tbAp.Text = afiliadoAMod.apellido.ToString();

@@ -29,6 +29,11 @@ namespace ClinicaFrba.Abm_Afiliado
 
         private void NuevoAfiliado_Load(object sender, EventArgs e)
         {
+            textBox_ApAfi.KeyPress += Validaciones.controlLetras;
+            textBox_NombAfi.KeyPress += Validaciones.controlLetras;
+            textBox_NumDoc.KeyPress += Validaciones.controlNumeros;
+           textBox_TelAfi.KeyPress += Validaciones.controlNumeros;
+           textBox_CantFami.KeyPress += Validaciones.controlNumeros;
             dtp_fecha_nac.MaxDate = DateTime.Now;
             PlanMedAfi.DataSource = Plan.traerPlanes();
             comboBox_EstadoCivilAfi.DataSource = Enum.GetValues(typeof(estado_civil));
