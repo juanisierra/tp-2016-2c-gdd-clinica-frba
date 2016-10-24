@@ -80,7 +80,13 @@ namespace ClinicaFrba.Abm_Afiliado
                     DialogResult resultado = MessageBox.Show("¿Desea eliminar a este afiliado?", "Clinica-FRBA", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
                     if (resultado == DialogResult.OK)
                     {
-                        afiliado.activo = false;
+                        SqlCommand eliminar;
+                        if (afiliadoSeleccionado.idAfiliado.ToString().EndsWith("01")) eliminar = new SqlCommand("ELIMINAR_CAR.eliminarAfiliadoRaiz", DBConnector.ObtenerConexion());
+                        else eliminar = new SqlCommand("ELIMINAR_CAR.eliminarAfiliadoNoRaiz", DBConnector.ObtenerConexion());
+                        eliminar.CommandType = CommandType.StoredProcedure;
+                        eliminar.Parameters.Add(new SqlParameter("@id_afiliado",(Int64) afiliadoSeleccionado.idAfiliado));
+                        eliminar.Parameters.Add(new SqlParameter("@id_familia", (Int64)afiliadoSeleccionado.idFamilia));
+                        eliminar.ExecuteNonQuery();
                         MessageBox.Show("El afiliado fue eliminado correctamente", "Clinica-FRBA", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 
