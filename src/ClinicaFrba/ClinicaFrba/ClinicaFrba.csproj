@@ -128,7 +128,13 @@
     <Compile Include="Clases\Enums.cs" />
     <Compile Include="Clases\Plan.cs" />
     <Compile Include="Clases\Turno.cs" />
-    <Compile Include="Clases\Validaciones.cs" />
+    <Compile Include="Utils\FormularioNoImplementado.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Utils\FormularioNoImplementado.Designer.cs">
+      <DependentUpon>FormularioNoImplementado.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Utils\Validaciones.cs" />
     <Compile Include="Compra Bono\SeleccionarAfiliado.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -234,6 +240,9 @@
     <EmbeddedResource Include="Abm Afiliado\MotivoCambioPlan.resx">
       <DependentUpon>MotivoCambioPlan.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Abm Especialidades Medicas\Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Abm Especialidades Medicas\SeleccionarEspecialidad.resx">
       <DependentUpon>SeleccionarEspecialidad.cs</DependentUpon>
     </EmbeddedResource>
@@ -305,6 +314,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Registro Resultado\RegistroResultado.resx">
       <DependentUpon>RegistroResultado.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Utils\FormularioNoImplementado.resx">
+      <DependentUpon>FormularioNoImplementado.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\DataSources\ClinicaFrba.Abm_Profesional.SeleccionarProfesional.datasource" />
     <None Include="Properties\DataSources\ClinicaFrba.Clases.Afiliado.datasource" />

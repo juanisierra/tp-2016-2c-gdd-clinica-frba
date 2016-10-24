@@ -85,6 +85,9 @@ namespace ClinicaFrba
                 case 13:
                     return new Elegir_listado();
                     break;
+                default:
+                    return new Utils.FormularioNoImplementado();
+                    break;
             }
             return null;
         }

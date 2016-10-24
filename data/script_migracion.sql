@@ -184,7 +184,7 @@ WHEN MATCHED THEN
 INSERT INTO ELIMINAR_CAR.Rol (nombre_rol,habilitado) VALUES ('Afiliado',1)
 INSERT INTO ELIMINAR_CAR.Rol (nombre_rol,habilitado) VALUES ('Administrativo',1)
 INSERT INTO ELIMINAR_CAR.Rol (nombre_rol,habilitado) VALUES ('Profesional',1)
---Le damos a admin rol de administrador
+--Le damos a admin rol de administrativo
 INSERT INTO ELIMINAR_CAR.Roles_por_usuarios(id_rol,id_usuario) VALUES (2,'admin')
 
 --Dar a los usuarios de afiliados el rol de afiliado y a los profesionales de profesional

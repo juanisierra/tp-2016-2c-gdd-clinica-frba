@@ -1,6 +1,6 @@
-﻿namespace ClinicaFrba.Abm_Especialidades_Medicas
+﻿namespace ClinicaFrba.Utils
 {
-    partial class Form1
+    partial class FormularioNoImplementado
     {
         /// <summary>
         /// Required designer variable.
@@ -28,20 +28,34 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // Form1
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(94, 83);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(357, 25);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Este fomulario no ha sido implementado";
+            // 
+            // FormularioNoImplementado
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(282, 253);
-            this.Name = "Form1";
-            this.Text = "Form1";
-            this.Load += new System.EventHandler(this.Form1_Load);
+            this.ClientSize = new System.Drawing.Size(551, 226);
+            this.Controls.Add(this.label1);
+            this.Name = "FormularioNoImplementado";
+            this.Text = "FormularioNoImplementado";
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
+
+        private System.Windows.Forms.Label label1;
     }
 }

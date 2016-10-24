@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
 using ClinicaFrba.Clases;
+using ClinicaFrba.Utils;
 
 namespace ClinicaFrba.Abm_Afiliado
 {

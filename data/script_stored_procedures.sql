@@ -216,7 +216,7 @@ INSERT INTO ELIMINAR_CAR.Afiliado (id_afiliado,tipo_doc,numero_doc,nombre,apelli
 END
 GO
 --direccion telefono estado civi mail plan medico cant fam sexo
-CREATE PROCEDURE ELIMINAR_CAR.modificarAfiliado(@id_afiliado BIGINT,@direccion VARCHAR(100),@estado_civil INT, @mail VARCHAR(60),@sexo INT, @id_plan INT,@fecha_cambio DATETIME,@motivo_cambio_plan VARCHAR(100))
+CREATE PROCEDURE ELIMINAR_CAR.modificarAfiliado(@id_afiliado BIGINT,@telefono BIGINT,@direccion VARCHAR(100),@estado_civil INT, @mail VARCHAR(60),@sexo INT, @id_plan INT,@fecha_cambio DATETIME,@motivo_cambio_plan VARCHAR(100))
 AS
 BEGIN
 IF @direccion IS NOT NULL
@@ -234,6 +234,10 @@ END
 IF @sexo IS NOT NULL
 BEGIN
 UPDATE ELIMINAR_CAR.Afiliado SET sexo=@sexo WHERE id_afiliado=@id_afiliado
+END
+IF @telefono IS NOT NULL
+BEGIN
+UPDATE ELIMINAR_CAR.Afiliado SET telefono=@telefono WHERE id_afiliado=@id_afiliado
 END
 IF @id_plan IS NOT NULL
 BEGIN
