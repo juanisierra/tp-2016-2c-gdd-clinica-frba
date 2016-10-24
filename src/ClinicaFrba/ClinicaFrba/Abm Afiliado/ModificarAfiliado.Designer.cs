@@ -143,7 +143,6 @@
             this.tel.Name = "tel";
             this.tel.Size = new System.Drawing.Size(320, 22);
             this.tel.TabIndex = 8;
-            this.tel.TextChanged += new System.EventHandler(this.tel_TextChanged);
             // 
             // mail
             // 
