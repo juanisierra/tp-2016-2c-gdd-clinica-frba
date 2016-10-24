@@ -327,18 +327,18 @@ GO
 
 CREATE PROCEDURE ELIMINAR_CAR.afiliados_con_mas_bonos (@fecha DATETIME)
 AS
-	SELECT TOP 5 id_afiliado, count(id_afiliado_comprador) bonos_comprados, (case familiares_a_cargo when 0 then 'No pertenece a grupo familiar' else 'Pertenece a grupo familiar' end) pertenece_a_grupo
+	SELECT TOP 5 a.nombre Nombre, a.apellido Apellido, count(id_afiliado_comprador) Bonos, (case familiares_a_cargo when 0 then 'No pertenece' else 'Pertenece' end) 'Grupo familiar'
 	FROM ELIMINAR_CAR.Afiliado A JOIN ELIMINAR_CAR.Compra_Bonos CB ON (A.id_afiliado=CB.id_afiliado_comprador)
 	WHERE MONTH(@fecha) = MONTH(fecha_compra) and YEAR(@fecha)=YEAR(fecha_compra)
-	GROUP BY id_afiliado, (case familiares_a_cargo when 0 then 'No pertenece a grupo familiar' else 'Pertenece a grupo familiar' end)
-	ORDER BY count(id_afiliado_comprador) desc, id_afiliado
+	GROUP BY a.nombre, a.apellido, (case familiares_a_cargo when 0 then 'No pertenece' else 'Pertenece' end)
+	ORDER BY count(id_afiliado_comprador) desc
 GO
 
 CREATE PROCEDURE ELIMINAR_CAR.especialidades_con_mas_bonos (@fecha DATETIME)
 AS
-	SELECT TOP 5 T.id_especialidad, E.desc_especialidad, count(T.id_especialidad) bonos_utilizados
+	SELECT TOP 5 E.desc_especialidad Especialidad, count(T.id_especialidad) Bonos
 	FROM ELIMINAR_CAR.Consulta C JOIN ELIMINAR_CAR.Turno T ON (C.id_turno=T.id_turno) JOIN ELIMINAR_CAR.Especialidad E ON (T.id_especialidad=E.id_especialidad)
 	WHERE id_bono IS NOT NULL and MONTH(@fecha) = MONTH(fecha_consulta) and YEAR(@fecha)=YEAR(fecha_consulta)
-	GROUP BY T.id_especialidad, E.desc_especialidad
+	GROUP BY E.desc_especialidad
 	ORDER BY count(T.id_especialidad) desc
 GO

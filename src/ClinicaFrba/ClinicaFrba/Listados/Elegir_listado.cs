@@ -40,6 +40,12 @@ namespace ClinicaFrba.Listados
                 case 2:
                     new ListadoHoras().ShowDialog();
                     break;
+                case 3:
+                    new ListadoBonosAf().ShowDialog();
+                    break;
+                case 4:
+                    new ListadoBonosEsp().ShowDialog();
+                    break;
             }
             this.Visible = true;
         }

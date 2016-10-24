@@ -82,7 +82,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(41, 26);
+            this.label1.Location = new System.Drawing.Point(28, 23);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(104, 17);
             this.label1.TabIndex = 8;
@@ -91,7 +91,7 @@
             // cb_cancelaciones
             // 
             this.cb_cancelaciones.FormattingEnabled = true;
-            this.cb_cancelaciones.Location = new System.Drawing.Point(151, 23);
+            this.cb_cancelaciones.Location = new System.Drawing.Point(138, 20);
             this.cb_cancelaciones.Name = "cb_cancelaciones";
             this.cb_cancelaciones.Size = new System.Drawing.Size(182, 24);
             this.cb_cancelaciones.TabIndex = 7;
@@ -165,7 +165,7 @@
             this.Controls.Add(this.btn_aceptar);
             this.Controls.Add(this.groupBox1);
             this.Name = "ListadoCancelaciones";
-            this.Text = "Listado cancelaciones";
+            this.Text = "Listados estadísticos";
             this.Load += new System.EventHandler(this.ListadoCancelaciones_Load);
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.listaFun)).EndInit();
