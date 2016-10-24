@@ -40,7 +40,7 @@ namespace ClinicaFrba.Abm_Afiliado
 
 
         private void ModificarAfiliado_Load(object sender, EventArgs e)
-        {
+        {   
             tbidAfiliado.Text = afiliadoAMod.idAfiliado.ToString();
             tbNom.Text = afiliadoAMod.nombre.ToString();
             tbAp.Text = afiliadoAMod.apellido.ToString();
@@ -48,15 +48,16 @@ namespace ClinicaFrba.Abm_Afiliado
             tbNDoc.Text = afiliadoAMod.nroDoc.ToString();
             tbFech.Text = afiliadoAMod.fechaNac.ToString("dd/M/yyyy");
             estadoCiv.DataSource = Enum.GetValues(typeof(estado_civil));
-            estadoCiv.SelectedItem = afiliadoAMod.estadoCivil.ToString();
+            estadoCiv.SelectedItem = afiliadoAMod.estadoCivil;
             direc.Text = afiliadoAMod.direccion.ToString();
             tel.Text = afiliadoAMod.telefono.ToString();
             mail.Text = afiliadoAMod.mail.ToString();
-            planMed.DataSource = Plan.traerPlanes();
-            planMed.SelectedItem = afiliadoAMod.descPlan.ToString(); 
+            List<Plan> planes = Plan.traerPlanes();
+            planMed.DataSource = planes;
+            planMed.SelectedItem = planes.Find(plan => plan.id_plan==afiliadoAMod.idPlan); 
             Sexo.DataSource = Enum.GetValues(typeof(sexo));
             Sexo.Text = afiliadoAMod.sexo.ToString();
-
+            tipoAfi();
             switch (tipo)
             {
                 case 0:
@@ -81,36 +82,35 @@ namespace ClinicaFrba.Abm_Afiliado
             
             if (resultado == DialogResult.OK)
             {
-                String planMedAct = planMed.Text.ToString();
-                if (planMed.ToString() != planMedAct)
+                if (afiliadoAMod.idPlan!= ((Plan)planMed.SelectedItem).id_plan)
                 {
                     MotivoCambioPlan motivo = new MotivoCambioPlan();
                     this.Visible = false;
                     motivo.ShowDialog();
                     this.Visible = true;
                 }
-            
+
                 //hacer modificacion
                 MessageBox.Show("El afiliado fue modificado correctamente", "Clinica-FRBA", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                if ((tipo == 0) && ((estado_civil)estadoCiv.SelectedItem == estado_civil.Casado))
+                
+                if ((tipo == 0) && ((estado_civil)estadoCiv.SelectedItem == estado_civil.Casado) && afiliadoAMod.estadoCivil!=estado_civil.Casado)
                 {
                     DialogResult res = MessageBox.Show("¿Desea agregar a su conyuge?", "Clinica-FRBA", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                     if (res == DialogResult.Yes)
                     {
-                        NuevoAfiliado conyuge = new NuevoAfiliado(1, -1);
+                        NuevoAfiliado conyuge = new NuevoAfiliado(1, afiliadoAMod.idFamilia);
                         this.Visible = false;
                         conyuge.ShowDialog();
                         this.Visible = true;
                     }
                 }
 
-                if ((tipo == 0) && ((estado_civil)estadoCiv.SelectedItem == estado_civil.Concubinato))
+                if ((tipo == 0) && ((estado_civil)estadoCiv.SelectedItem == estado_civil.Concubinato) && afiliadoAMod.estadoCivil != estado_civil.Concubinato)
                 {
                     DialogResult res = MessageBox.Show("¿Desea agregar a su conyuge?", "Clinica-FRBA", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                     if (res == DialogResult.Yes)
                     {
-                        NuevoAfiliado conyuge = new NuevoAfiliado(2, -1);
+                        NuevoAfiliado conyuge = new NuevoAfiliado(2, afiliadoAMod.idFamilia);
                         this.Visible = false;
                         conyuge.ShowDialog();
                         this.Visible = true;
@@ -121,7 +121,7 @@ namespace ClinicaFrba.Abm_Afiliado
 
         private void btAgregarFamiliar_Click(object sender, EventArgs e)
         {
-            NuevoAfiliado form = new NuevoAfiliado(3, afiliadoAMod.idAfiliado);
+            NuevoAfiliado form = new NuevoAfiliado(3, afiliadoAMod.idFamilia);
             this.Visible = false;
             form.ShowDialog();
             this.Visible = true;

@@ -48,11 +48,11 @@
             this.comboBox_TipoDoc = new System.Windows.Forms.ComboBox();
             this.comboBox_SexoAfi = new System.Windows.Forms.ComboBox();
             this.comboBox_EstadoCivilAfi = new System.Windows.Forms.ComboBox();
-            this.monthCalendar1_FechNacAfi = new System.Windows.Forms.MonthCalendar();
             this.botonAceptar = new System.Windows.Forms.Button();
             this.PlanMedAfi = new System.Windows.Forms.ComboBox();
             this.label11 = new System.Windows.Forms.Label();
             this.textBox_CantFami = new System.Windows.Forms.TextBox();
+            this.dtp_fecha_nac = new System.Windows.Forms.DateTimePicker();
             this.SuspendLayout();
             // 
             // label1
@@ -225,12 +225,6 @@
             this.comboBox_EstadoCivilAfi.Size = new System.Drawing.Size(220, 21);
             this.comboBox_EstadoCivilAfi.TabIndex = 21;
             // 
-            // monthCalendar1_FechNacAfi
-            // 
-            this.monthCalendar1_FechNacAfi.Location = new System.Drawing.Point(119, 367);
-            this.monthCalendar1_FechNacAfi.Name = "monthCalendar1_FechNacAfi";
-            this.monthCalendar1_FechNacAfi.TabIndex = 23;
-            // 
             // botonAceptar
             // 
             this.botonAceptar.Location = new System.Drawing.Point(214, 541);
@@ -266,16 +260,24 @@
             this.textBox_CantFami.Size = new System.Drawing.Size(148, 20);
             this.textBox_CantFami.TabIndex = 27;
             // 
+            // dtp_fecha_nac
+            // 
+            this.dtp_fecha_nac.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtp_fecha_nac.Location = new System.Drawing.Point(131, 364);
+            this.dtp_fecha_nac.Name = "dtp_fecha_nac";
+            this.dtp_fecha_nac.Size = new System.Drawing.Size(179, 20);
+            this.dtp_fecha_nac.TabIndex = 28;
+            // 
             // NuevoAfiliado
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(369, 587);
+            this.Controls.Add(this.dtp_fecha_nac);
             this.Controls.Add(this.textBox_CantFami);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.PlanMedAfi);
             this.Controls.Add(this.botonAceptar);
-            this.Controls.Add(this.monthCalendar1_FechNacAfi);
             this.Controls.Add(this.comboBox_EstadoCivilAfi);
             this.Controls.Add(this.comboBox_SexoAfi);
             this.Controls.Add(this.comboBox_TipoDoc);
@@ -326,10 +328,10 @@
         private System.Windows.Forms.ComboBox comboBox_TipoDoc;
         private System.Windows.Forms.ComboBox comboBox_SexoAfi;
         private System.Windows.Forms.ComboBox comboBox_EstadoCivilAfi;
-        private System.Windows.Forms.MonthCalendar monthCalendar1_FechNacAfi;
         private System.Windows.Forms.Button botonAceptar;
         private System.Windows.Forms.ComboBox PlanMedAfi;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.TextBox textBox_CantFami;
+        private System.Windows.Forms.DateTimePicker dtp_fecha_nac;
     }
 }

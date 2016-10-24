@@ -24,10 +24,12 @@ namespace ClinicaFrba.Abm_Afiliado
             this.conexion = DBConnector.ObtenerConexion();
             this.tipo = tipo;
             this.numFam = numeroFamilia;
+            
         }
 
         private void NuevoAfiliado_Load(object sender, EventArgs e)
         {
+            dtp_fecha_nac.MaxDate = DateTime.Now;
             PlanMedAfi.DataSource = Plan.traerPlanes();
             comboBox_EstadoCivilAfi.DataSource = Enum.GetValues(typeof(estado_civil));
             comboBox_SexoAfi.DataSource = Enum.GetValues(typeof(sexo));
@@ -67,8 +69,94 @@ namespace ClinicaFrba.Abm_Afiliado
             else //Coportamiento si esta todo ok
             {
                 //Insertar Chabon
+                if (tipo == 0)
+                {
+                    SqlCommand insertar = new SqlCommand("ELIMINAR_CAR.insertarAfiliadoRaiz", DBConnector.ObtenerConexion());
+                    insertar.CommandType = CommandType.StoredProcedure;
+                    insertar.Parameters.Add(new SqlParameter("@tipo_doc",(Int32)comboBox_TipoDoc.SelectedValue));
+                    insertar.Parameters.Add(new SqlParameter("@n_doc", Decimal.Parse(textBox_NumDoc.Text)));
+                    insertar.Parameters.Add(new SqlParameter("@nombre", textBox_NombAfi.Text));
+                    insertar.Parameters.Add(new SqlParameter("@apellido", textBox_ApAfi.Text));
+                    insertar.Parameters.Add(new SqlParameter("@direccion", textBox_DirecAfi.Text));
+                    int telefono;
+                    if (Int32.TryParse(textBox_TelAfi.Text, out telefono)) insertar.Parameters.Add(new SqlParameter("@telefono", Int64.Parse(textBox_TelAfi.Text)));
+                    else insertar.Parameters.Add(new SqlParameter("@telefono", DBNull.Value));
+                    insertar.Parameters.Add(new SqlParameter("@mail", textBox_MailAfi.Text));
+                    insertar.Parameters.Add(new SqlParameter("@fecha_nac", dtp_fecha_nac.Value));
+                    insertar.Parameters.Add(new SqlParameter("@estado_civil",(Int32) comboBox_EstadoCivilAfi.SelectedItem));
+                    insertar.Parameters.Add(new SqlParameter("@sexo", (Int32)comboBox_SexoAfi.SelectedItem));
+                    insertar.Parameters.Add(new SqlParameter("@id_plan", ((Plan)PlanMedAfi.SelectedItem).id_plan));
+                    int familiares = 0;
+                    //Le ponemos 0 a cargo porque no cuenta el conyuge y al agregar los demas se suman
+                   // if (Int32.TryParse(textBox_CantFami.Text, out familiares)) ;
+                    //else familiares = 0;
+                    insertar.Parameters.Add(new SqlParameter("@familiares_a_cargo", familiares));
+                    
+                    insertar.Parameters.Add(new SqlParameter("@id_familia_out", numFam));
+                    Int64 id_afiliado = 0;
+                    insertar.Parameters.Add(new SqlParameter("@id_afiliado_out", id_afiliado));
+                    insertar.Parameters["@id_familia_out"].Direction = ParameterDirection.Output;
+                    insertar.Parameters["@id_afiliado_out"].Direction = ParameterDirection.Output;
+                    insertar.ExecuteNonQuery();
+                    numFam = (Int64) insertar.Parameters["@id_familia_out"].Value;
 
-                MessageBox.Show("el afiliado fue agregado corrrectamente\n", "Clinica-FRBA", MessageBoxButtons.OK);
+                    id_afiliado = (Int64)insertar.Parameters["@id_afiliado_out"].Value;
+                }
+                else if (tipo == 1 || tipo == 2)
+                {
+                    SqlCommand insertar = new SqlCommand("ELIMINAR_CAR.insertarConyuge", DBConnector.ObtenerConexion());
+                    insertar.CommandType = CommandType.StoredProcedure;
+                    insertar.Parameters.Add(new SqlParameter("@id_familia", numFam));
+                    insertar.Parameters.Add(new SqlParameter("@tipo_doc", (Int32)comboBox_TipoDoc.SelectedValue));
+                    insertar.Parameters.Add(new SqlParameter("@n_doc", Decimal.Parse(textBox_NumDoc.Text)));
+                    insertar.Parameters.Add(new SqlParameter("@nombre", textBox_NombAfi.Text));
+                    insertar.Parameters.Add(new SqlParameter("@apellido", textBox_ApAfi.Text));
+                    insertar.Parameters.Add(new SqlParameter("@direccion", textBox_DirecAfi.Text));
+                    int telefono;
+                    if (Int32.TryParse(textBox_TelAfi.Text, out telefono)) insertar.Parameters.Add(new SqlParameter("@telefono", Int64.Parse(textBox_TelAfi.Text)));
+                    else insertar.Parameters.Add(new SqlParameter("@telefono", DBNull.Value));
+                    insertar.Parameters.Add(new SqlParameter("@mail", textBox_MailAfi.Text));
+                    insertar.Parameters.Add(new SqlParameter("@fecha_nac", dtp_fecha_nac.Value));
+                    insertar.Parameters.Add(new SqlParameter("@estado_civil", (Int32)comboBox_EstadoCivilAfi.SelectedItem));
+                    insertar.Parameters.Add(new SqlParameter("@sexo", (Int32)comboBox_SexoAfi.SelectedItem));
+                    insertar.Parameters.Add(new SqlParameter("@id_plan", ((Plan)PlanMedAfi.SelectedItem).id_plan));
+
+                    Int64 id_afiliado = 0;
+                    insertar.Parameters.Add(new SqlParameter("@id_afiliado_out", id_afiliado));
+                    insertar.Parameters["@id_afiliado_out"].Direction = ParameterDirection.Output;
+                    insertar.ExecuteNonQuery();
+
+                    id_afiliado = (Int64)insertar.Parameters["@id_afiliado_out"].Value;
+                }
+                else
+                {
+                    SqlCommand insertar = new SqlCommand("ELIMINAR_CAR.insertarDependiente", DBConnector.ObtenerConexion());
+                    insertar.CommandType = CommandType.StoredProcedure;
+                    insertar.Parameters.Add(new SqlParameter("@id_familia", numFam));
+                    insertar.Parameters.Add(new SqlParameter("@tipo_doc", (Int32)comboBox_TipoDoc.SelectedValue));
+                    insertar.Parameters.Add(new SqlParameter("@n_doc", Decimal.Parse(textBox_NumDoc.Text)));
+                    insertar.Parameters.Add(new SqlParameter("@nombre", textBox_NombAfi.Text));
+                    insertar.Parameters.Add(new SqlParameter("@apellido", textBox_ApAfi.Text));
+                    insertar.Parameters.Add(new SqlParameter("@direccion", textBox_DirecAfi.Text));
+                    int telefono;
+                    if (Int32.TryParse(textBox_TelAfi.Text, out telefono)) insertar.Parameters.Add(new SqlParameter("@telefono", Int64.Parse(textBox_TelAfi.Text)));
+                    else insertar.Parameters.Add(new SqlParameter("@telefono", DBNull.Value));
+                    insertar.Parameters.Add(new SqlParameter("@mail", textBox_MailAfi.Text));
+                    insertar.Parameters.Add(new SqlParameter("@fecha_nac", dtp_fecha_nac.Value));
+                    insertar.Parameters.Add(new SqlParameter("@estado_civil", (Int32)comboBox_EstadoCivilAfi.SelectedItem));
+                    insertar.Parameters.Add(new SqlParameter("@sexo", (Int32)comboBox_SexoAfi.SelectedItem));
+                    insertar.Parameters.Add(new SqlParameter("@id_plan", ((Plan)PlanMedAfi.SelectedItem).id_plan));
+
+                    Int64 id_afiliado = 0;
+                    insertar.Parameters.Add(new SqlParameter("@id_afiliado_out", id_afiliado));
+                    insertar.Parameters["@id_afiliado_out"].Direction = ParameterDirection.Output;
+                    insertar.ExecuteNonQuery();
+
+                    id_afiliado = (Int64)insertar.Parameters["@id_afiliado_out"].Value;
+                }
+
+
+                MessageBox.Show("El afiliado fue agregado corrrectamente\n", "Clinica-FRBA", MessageBoxButtons.OK);
                 //Casteo a tipo de dato, porque devuelve object 
             
                     if ((tipo == 0) && ((estado_civil)comboBox_EstadoCivilAfi.SelectedItem == estado_civil.Casado))

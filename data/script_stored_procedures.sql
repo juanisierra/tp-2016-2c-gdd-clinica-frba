@@ -165,8 +165,8 @@ CREATE FUNCTION ELIMINAR_CAR.proximoIdAfiliado(@id_familia BIGINT) RETURNS BIGIN
 AS
 BEGIN
 DECLARE @id BIGINT
-SELECT @id=n_familiares_a_cargo+2 FROM ELIMINAR_CAR.Familia WHERE id_familia=@id_familia
-RETURN @id
+SELECT @id=n_familiares_a_cargo+3 FROM ELIMINAR_CAR.Familia WHERE id_familia=@id_familia
+RETURN @id_familia*100 + @id
 END
 GO
 
@@ -176,7 +176,7 @@ AS
 BEGIN
 INSERT INTO ELIMINAR_CAR.Familia (n_familiares_a_cargo) VALUES (@familiares_a_cargo);
 SELECT @id_familia_out=MAX(id_familia) FROM ELIMINAR_CAR.Familia;
-SET @id_afiliado_out = cast((cast( @id_familia_out as VARCHAR(10)) + '01') as BIGINT);
+SET @id_afiliado_out = @id_familia_out*100 + 1;
 INSERT INTO ELIMINAR_CAR.Afiliado (id_afiliado,tipo_doc,numero_doc,nombre,apellido,direccion,telefono,mail,fecha_nac,estado_civil,sexo,id_plan,id_familia,familiares_a_cargo,activo,num_consulta_actual)
 						Values (@id_afiliado_out,@tipo_doc,@n_doc,@nombre,@apellido,@direccion,@telefono,@mail,@fecha_nac,@estado_civil,@sexo,@id_plan,@id_familia_out,@familiares_a_cargo,1,0);
 END
@@ -187,16 +187,16 @@ CREATE PROCEDURE ELIMINAR_CAR.insertarConyuge(@id_familia BIGINT,@tipo_doc INT,@
 AS
 DECLARE @hayConyuge INT;
 BEGIN
-SELECT @hayConyuge=COUNT(*) FROM ELIMINAR_CAR.Afiliado WHERE id_afiliado=cast((cast( @id_familia as VARCHAR(10)) + '02') as BIGINT)
+SELECT @hayConyuge=COUNT(*) FROM ELIMINAR_CAR.Afiliado WHERE id_afiliado=@id_familia*100 +2;
 if @hayConyuge=0
 BEGIN
-SET @id_afiliado_out = cast((cast( @id_familia as VARCHAR(10)) + '02') as BIGINT);
+SET @id_afiliado_out=@id_familia*100+ 2;
 END
 ELSE 
 BEGIN
 SET @id_afiliado_out = ELIMINAR_CAR.proximoIdAfiliado(@id_familia);
 UPDATE ELIMINAR_CAR.Familia SET n_familiares_a_cargo=n_familiares_a_cargo+1 WHERE id_familia=@id_familia; --Si es el 2do conyuge se cuenta como familiar a cargo
-UPDATE ELIMINAR_CAR.AFiliado SET familiares_a_cargo=familiares_a_cargo+1 WHERE id_afiliado=cast((cast( @id_familia as VARCHAR(10)) + '01') as BIGINT)
+UPDATE ELIMINAR_CAR.AFiliado SET familiares_a_cargo=familiares_a_cargo+1 WHERE id_afiliado=@id_familia*100+1;
 END
 INSERT INTO ELIMINAR_CAR.Afiliado (id_afiliado,tipo_doc,numero_doc,nombre,apellido,direccion,telefono,mail,fecha_nac,estado_civil,sexo,id_plan,id_familia,familiares_a_cargo,activo,num_consulta_actual)
 						Values (@id_afiliado_out,@tipo_doc,@n_doc,@nombre,@apellido,@direccion,@telefono,@mail,@fecha_nac,@estado_civil,@sexo,@id_plan,@id_familia,0,1,0);
@@ -207,9 +207,10 @@ CREATE PROCEDURE ELIMINAR_CAR.insertarDependiente(@id_familia BIGINT,@tipo_doc I
 @fecha_nac DATE,@estado_civil INT,@sexo INT,@id_plan INT,@id_afiliado_out BIGINT OUTPUT)
 AS
 BEGIN
-UPDATE ELIMINAR_CAR.Familia SET n_familiares_a_cargo=n_familiares_a_cargo+1 WHERE id_familia=@id_familia; --Agregamos otro familiar
-UPDATE ELIMINAR_CAR.AFiliado SET familiares_a_cargo=familiares_a_cargo+1 WHERE id_afiliado=cast((cast( @id_familia as VARCHAR(10)) + '01') as BIGINT)
 SET @id_afiliado_out = ELIMINAR_CAR.proximoIdAfiliado(@id_familia);
+UPDATE ELIMINAR_CAR.Familia SET n_familiares_a_cargo=n_familiares_a_cargo+1 WHERE id_familia=@id_familia; --Agregamos otro familiar
+UPDATE ELIMINAR_CAR.AFiliado SET familiares_a_cargo=familiares_a_cargo+1 WHERE id_afiliado=@id_familia*100+1
+
 INSERT INTO ELIMINAR_CAR.Afiliado (id_afiliado,tipo_doc,numero_doc,nombre,apellido,direccion,telefono,mail,fecha_nac,estado_civil,sexo,id_plan,id_familia,familiares_a_cargo,activo,num_consulta_actual)
 						Values (@id_afiliado_out,@tipo_doc,@n_doc,@nombre,@apellido,@direccion,@telefono,@mail,@fecha_nac,@estado_civil,@sexo,@id_plan,@id_familia,0,1,0);
 END
