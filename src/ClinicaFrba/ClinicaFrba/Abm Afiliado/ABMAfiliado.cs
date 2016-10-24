@@ -120,7 +120,10 @@ namespace ClinicaFrba.Abm_Afiliado
                     break;
 
                 case 3:
-                    //listar;
+                    SeleccionarAfiliado listar = new SeleccionarAfiliado(1);
+                    this.Visible = false;
+                    listar.ShowDialog();
+                    this.Visible = true;
                     break;
             }
 
