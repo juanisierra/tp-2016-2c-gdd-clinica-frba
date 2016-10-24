@@ -43,7 +43,6 @@ namespace ClinicaFrba.Abm_Afiliado
         private void ModificarAfiliado_Load(object sender, EventArgs e)
         {
             seCambioTelefono = false;
-            huboCambios = false;
             tel.KeyPress += Validaciones.controlNumeros;
             tbidAfiliado.Text = afiliadoAMod.idAfiliado.ToString();
             tbNom.Text = afiliadoAMod.nombre.ToString();
@@ -136,9 +135,12 @@ namespace ClinicaFrba.Abm_Afiliado
                         this.Visible = false;
                         motivo.ShowDialog();
                         this.Visible = true;
+                        modificarAfi.Parameters.AddWithValue("@fecha_cambio",DateTime.Today);
+                        if( motivo.fueCerradoPorusuario) modificarAfi.Parameters.AddWithValue("@motivo_cambio_plan", "No especificado");
+                        else modificarAfi.Parameters.AddWithValue("@motivo_cambio_plan", ((RichTextBox)motivo.Controls["tb_motivo"]).Text);
                     }
 
-                    //hacer modificacion
+                    modificarAfi.ExecuteNonQuery();
                     MessageBox.Show("El afiliado fue modificado correctamente", "Clinica-FRBA", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                     if ((tipo == 0) && ((estado_civil)estadoCiv.SelectedItem == estado_civil.Casado) && afiliadoAMod.estadoCivil != estado_civil.Casado)
