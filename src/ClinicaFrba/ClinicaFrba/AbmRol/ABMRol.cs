@@ -104,9 +104,13 @@ namespace ClinicaFrba.AbmRol
             }
             if (btn_modif.Checked)
             {
-                int habilitar = 0;
-                if (cb_habilitar.Checked) habilitar = 1;
-                agregarRol = new SqlCommand(string.Format("UPDATE ELIMINAR_CAR.rol SET nombre_rol='{0}', habilitado='{2}' WHERE id_rol='{1}'", tb_nombre.Text, (int)listaRoles.SelectedRows[0].Cells[0].Value,habilitar), conexion);
+                if (cb_habilitar.Visible)
+                {
+                    int habilitar = 0;
+                    if (cb_habilitar.Checked) habilitar = 1;
+                    agregarRol = new SqlCommand(string.Format("UPDATE ELIMINAR_CAR.rol SET nombre_rol='{0}', habilitado='{2}' WHERE id_rol='{1}'", tb_nombre.Text, (int)listaRoles.SelectedRows[0].Cells[0].Value, habilitar), conexion);
+                }
+                else agregarRol = new SqlCommand(string.Format("UPDATE ELIMINAR_CAR.rol SET nombre_rol='{0}' WHERE id_rol='{1}'", tb_nombre.Text, (int)listaRoles.SelectedRows[0].Cells[0].Value), conexion);
             }
             if (btn_quitar.Checked) agregarRol = new SqlCommand(string.Format("UPDATE ELIMINAR_CAR.rol SET habilitado=0 WHERE id_rol='{0}'", (int)listaRoles.SelectedRows[0].Cells[0].Value), conexion);
             agregarRol.ExecuteNonQuery();
