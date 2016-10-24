@@ -46,7 +46,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(408, 85);
+            this.label4.Location = new System.Drawing.Point(436, 69);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(38, 17);
             this.label4.TabIndex = 28;
@@ -55,7 +55,7 @@
             // cb_mes
             // 
             this.cb_mes.FormattingEnabled = true;
-            this.cb_mes.Location = new System.Drawing.Point(452, 82);
+            this.cb_mes.Location = new System.Drawing.Point(480, 66);
             this.cb_mes.Name = "cb_mes";
             this.cb_mes.Size = new System.Drawing.Size(121, 24);
             this.cb_mes.TabIndex = 27;
@@ -63,7 +63,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(373, 56);
+            this.label3.Location = new System.Drawing.Point(219, 69);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(72, 17);
             this.label3.TabIndex = 26;
@@ -72,7 +72,7 @@
             // cb_semestre
             // 
             this.cb_semestre.FormattingEnabled = true;
-            this.cb_semestre.Location = new System.Drawing.Point(451, 53);
+            this.cb_semestre.Location = new System.Drawing.Point(297, 66);
             this.cb_semestre.Name = "cb_semestre";
             this.cb_semestre.Size = new System.Drawing.Size(121, 24);
             this.cb_semestre.TabIndex = 25;
@@ -81,7 +81,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(408, 25);
+            this.label2.Location = new System.Drawing.Point(26, 69);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(37, 17);
             this.label2.TabIndex = 24;
@@ -90,25 +90,25 @@
             // cb_anio
             // 
             this.cb_anio.FormattingEnabled = true;
-            this.cb_anio.Location = new System.Drawing.Point(451, 22);
+            this.cb_anio.Location = new System.Drawing.Point(69, 66);
             this.cb_anio.Name = "cb_anio";
             this.cb_anio.Size = new System.Drawing.Size(121, 24);
             this.cb_anio.TabIndex = 23;
             // 
             // btn_aceptar
             // 
-            this.btn_aceptar.Location = new System.Drawing.Point(489, 350);
+            this.btn_aceptar.Location = new System.Drawing.Point(518, 101);
             this.btn_aceptar.Name = "btn_aceptar";
             this.btn_aceptar.Size = new System.Drawing.Size(83, 31);
             this.btn_aceptar.TabIndex = 22;
-            this.btn_aceptar.Text = "Aceptar";
+            this.btn_aceptar.Text = "Filtrar";
             this.btn_aceptar.UseVisualStyleBackColor = true;
             this.btn_aceptar.Click += new System.EventHandler(this.btn_aceptar_Click);
             // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.listaFun);
-            this.groupBox1.Location = new System.Drawing.Point(12, 121);
+            this.groupBox1.Location = new System.Drawing.Point(12, 138);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(595, 223);
             this.groupBox1.TabIndex = 21;
@@ -152,7 +152,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(631, 395);
+            this.ClientSize = new System.Drawing.Size(631, 379);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.cb_especialidad);
             this.Controls.Add(this.label4);
@@ -164,7 +164,7 @@
             this.Controls.Add(this.btn_aceptar);
             this.Controls.Add(this.groupBox1);
             this.Name = "ListadoHoras";
-            this.Text = "Listados estadísticos";
+            this.Text = "Profesionales con menos horas trabajadas";
             this.Load += new System.EventHandler(this.ListadoHoras_Load);
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.listaFun)).EndInit();

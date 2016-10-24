@@ -45,18 +45,18 @@
             // 
             // btn_aceptar
             // 
-            this.btn_aceptar.Location = new System.Drawing.Point(498, 351);
+            this.btn_aceptar.Location = new System.Drawing.Point(516, 95);
             this.btn_aceptar.Name = "btn_aceptar";
             this.btn_aceptar.Size = new System.Drawing.Size(83, 31);
             this.btn_aceptar.TabIndex = 6;
-            this.btn_aceptar.Text = "Aceptar";
+            this.btn_aceptar.Text = "Filtrar";
             this.btn_aceptar.UseVisualStyleBackColor = true;
             this.btn_aceptar.Click += new System.EventHandler(this.btn_aceptar_Click);
             // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.listaFun);
-            this.groupBox1.Location = new System.Drawing.Point(21, 122);
+            this.groupBox1.Location = new System.Drawing.Point(21, 141);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(595, 223);
             this.groupBox1.TabIndex = 5;
@@ -99,7 +99,7 @@
             // cb_anio
             // 
             this.cb_anio.FormattingEnabled = true;
-            this.cb_anio.Location = new System.Drawing.Point(460, 23);
+            this.cb_anio.Location = new System.Drawing.Point(73, 57);
             this.cb_anio.Name = "cb_anio";
             this.cb_anio.Size = new System.Drawing.Size(121, 24);
             this.cb_anio.TabIndex = 9;
@@ -107,7 +107,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(417, 26);
+            this.label2.Location = new System.Drawing.Point(30, 60);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(37, 17);
             this.label2.TabIndex = 10;
@@ -116,7 +116,7 @@
             // cb_semestre
             // 
             this.cb_semestre.FormattingEnabled = true;
-            this.cb_semestre.Location = new System.Drawing.Point(460, 54);
+            this.cb_semestre.Location = new System.Drawing.Point(297, 57);
             this.cb_semestre.Name = "cb_semestre";
             this.cb_semestre.Size = new System.Drawing.Size(121, 24);
             this.cb_semestre.TabIndex = 11;
@@ -125,7 +125,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(382, 57);
+            this.label3.Location = new System.Drawing.Point(219, 60);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(72, 17);
             this.label3.TabIndex = 12;
@@ -134,7 +134,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(417, 86);
+            this.label4.Location = new System.Drawing.Point(445, 60);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(38, 17);
             this.label4.TabIndex = 20;
@@ -143,7 +143,7 @@
             // cb_mes
             // 
             this.cb_mes.FormattingEnabled = true;
-            this.cb_mes.Location = new System.Drawing.Point(461, 83);
+            this.cb_mes.Location = new System.Drawing.Point(489, 57);
             this.cb_mes.Name = "cb_mes";
             this.cb_mes.Size = new System.Drawing.Size(121, 24);
             this.cb_mes.TabIndex = 19;
@@ -165,7 +165,7 @@
             this.Controls.Add(this.btn_aceptar);
             this.Controls.Add(this.groupBox1);
             this.Name = "ListadoCancelaciones";
-            this.Text = "Listados estadísticos";
+            this.Text = "Especialidades con mas Cancelaciones";
             this.Load += new System.EventHandler(this.ListadoCancelaciones_Load);
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.listaFun)).EndInit();

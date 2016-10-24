@@ -62,7 +62,7 @@
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.listaFun);
-            this.groupBox1.Location = new System.Drawing.Point(12, 118);
+            this.groupBox1.Location = new System.Drawing.Point(12, 144);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(595, 223);
             this.groupBox1.TabIndex = 1;
@@ -88,18 +88,18 @@
             // 
             // btn_aceptar
             // 
-            this.btn_aceptar.Location = new System.Drawing.Point(498, 347);
+            this.btn_aceptar.Location = new System.Drawing.Point(536, 107);
             this.btn_aceptar.Name = "btn_aceptar";
             this.btn_aceptar.Size = new System.Drawing.Size(83, 31);
             this.btn_aceptar.TabIndex = 4;
-            this.btn_aceptar.Text = "Aceptar";
+            this.btn_aceptar.Text = "Filtrar";
             this.btn_aceptar.UseVisualStyleBackColor = true;
             this.btn_aceptar.Click += new System.EventHandler(this.btn_aceptar_Click);
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(384, 60);
+            this.label3.Location = new System.Drawing.Point(223, 72);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(72, 17);
             this.label3.TabIndex = 16;
@@ -108,7 +108,7 @@
             // cb_semestre
             // 
             this.cb_semestre.FormattingEnabled = true;
-            this.cb_semestre.Location = new System.Drawing.Point(462, 57);
+            this.cb_semestre.Location = new System.Drawing.Point(301, 69);
             this.cb_semestre.Name = "cb_semestre";
             this.cb_semestre.Size = new System.Drawing.Size(121, 24);
             this.cb_semestre.TabIndex = 15;
@@ -117,7 +117,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(419, 29);
+            this.label2.Location = new System.Drawing.Point(35, 72);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(37, 17);
             this.label2.TabIndex = 14;
@@ -126,7 +126,7 @@
             // cb_anio
             // 
             this.cb_anio.FormattingEnabled = true;
-            this.cb_anio.Location = new System.Drawing.Point(462, 26);
+            this.cb_anio.Location = new System.Drawing.Point(78, 69);
             this.cb_anio.Name = "cb_anio";
             this.cb_anio.Size = new System.Drawing.Size(121, 24);
             this.cb_anio.TabIndex = 13;
@@ -134,7 +134,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(418, 88);
+            this.label4.Location = new System.Drawing.Point(454, 72);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(38, 17);
             this.label4.TabIndex = 18;
@@ -143,7 +143,7 @@
             // cb_mes
             // 
             this.cb_mes.FormattingEnabled = true;
-            this.cb_mes.Location = new System.Drawing.Point(462, 85);
+            this.cb_mes.Location = new System.Drawing.Point(498, 69);
             this.cb_mes.Name = "cb_mes";
             this.cb_mes.Size = new System.Drawing.Size(121, 24);
             this.cb_mes.TabIndex = 17;
@@ -165,7 +165,7 @@
             this.Controls.Add(this.cb_plan);
             this.Controls.Add(this.groupBox1);
             this.Name = "ListadoConsultas";
-            this.Text = "Listados estadísticos";
+            this.Text = "Profesionales más consultados";
             this.Load += new System.EventHandler(this.ListadoConsultas_Load);
             ((System.ComponentModel.ISupportInitialize)(this.listaFun)).EndInit();
             this.groupBox1.ResumeLayout(false);
