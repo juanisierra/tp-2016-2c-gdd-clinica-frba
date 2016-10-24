@@ -327,11 +327,11 @@ GO
 
 CREATE PROCEDURE ELIMINAR_CAR.afiliados_con_mas_bonos (@fecha DATETIME)
 AS
-	SELECT TOP 5 a.nombre Nombre, a.apellido Apellido, count(id_afiliado_comprador) Bonos, (case familiares_a_cargo when 0 then 'No pertenece' else 'Pertenece' end) 'Grupo familiar'
+	SELECT TOP 5 a.nombre Nombre, a.apellido Apellido, sum(cantidad_bonos) Bonos, (case familiares_a_cargo when 0 then 'No pertenece' else 'Pertenece' end) 'Grupo familiar'
 	FROM ELIMINAR_CAR.Afiliado A JOIN ELIMINAR_CAR.Compra_Bonos CB ON (A.id_afiliado=CB.id_afiliado_comprador)
 	WHERE MONTH(@fecha) = MONTH(fecha_compra) and YEAR(@fecha)=YEAR(fecha_compra)
-	GROUP BY a.nombre, a.apellido, (case familiares_a_cargo when 0 then 'No pertenece' else 'Pertenece' end)
-	ORDER BY count(id_afiliado_comprador) desc
+	GROUP BY a.id_afiliado,a.nombre, a.apellido, (case familiares_a_cargo when 0 then 'No pertenece' else 'Pertenece' end)
+	ORDER BY sum(cantidad_bonos) desc
 GO
 
 CREATE PROCEDURE ELIMINAR_CAR.especialidades_con_mas_bonos (@fecha DATETIME)
