@@ -5,7 +5,7 @@ DROP FUNCTION ELIMINAR_CAR.SumarHoras;
 DROP FUNCTION ELIMINAR_CAR.horas_prof;
 DROP PROCEDURE ELIMINAR_CAR.especialidades_con_mas_bonos;
 DROP PROCEDURE ELIMINAR_CAR.afiliados_con_mas_bonos;
-DROP PROCEDURE ELIMINAR_CAR.profesionales_con_mas_horas;
+DROP PROCEDURE ELIMINAR_CAR.profesionales_con_menos_horas;
 DROP PROCEDURE ELIMINAR_CAR.cancelaciones_afiliado;
 DROP PROCEDURE ELIMINAR_CAR.cancelaciones_totales;
 DROP PROCEDURE ELIMINAR_CAR.cancelaciones_profesional;

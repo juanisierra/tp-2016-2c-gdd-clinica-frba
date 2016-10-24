@@ -269,14 +269,14 @@ BEGIN
 END
 GO
 
-CREATE FUNCTION ELIMINAR_CAR.SumarHoras(@MATRICULA BIGINT, @DIA INT) RETURNS INT
+CREATE FUNCTION ELIMINAR_CAR.SumarHoras(@MATRICULA BIGINT, @DIA INT) RETURNS DECIMAL(6,2)
 AS
 BEGIN
-	DECLARE @TIEMPO_TRABAJADO INT, @HORA_DESDE TIME, @HORA_HASTA TIME
+	DECLARE @TIEMPO_TRABAJADO DECIMAL(6,2), @HORA_DESDE TIME, @HORA_HASTA TIME
 	SELECT @HORA_DESDE=A.hora_desde, @HORA_HASTA = A.hora_hasta FROM ELIMINAR_CAR.Agenda_Diaria A WHERE matricula=@MATRICULA and dia = @DIA
 	IF @@ROWCOUNT>0
 		BEGIN
-		SET @TIEMPO_TRABAJADO = datediff(hour, @HORA_DESDE, @HORA_HASTA)
+		SET @TIEMPO_TRABAJADO = (convert(DECIMAL(6,2),datediff(minute, @HORA_DESDE, @HORA_HASTA))/60.00)
 		END
 	ELSE
 		BEGIN
@@ -287,10 +287,10 @@ BEGIN
 END
 GO
 
-CREATE FUNCTION ELIMINAR_CAR.horas_prof (@matricula BIGINT, @id_especialidad INT, @fecha DATETIME) RETURNS INT
+CREATE FUNCTION ELIMINAR_CAR.horas_prof (@matricula BIGINT, @id_especialidad INT, @fecha DATETIME) RETURNS DECIMAL(6,2)
 AS
 BEGIN
-	DECLARE @desde DATETIME, @hasta DATETIME, @horas INT
+	DECLARE @desde DATETIME, @hasta DATETIME, @horas DECIMAL(6,2)
 	SET @horas=0
 	SET @desde = @fecha
 	SELECT DISTINCT @hasta = fecha_hasta FROM ELIMINAR_CAR.Agenda_Diaria a JOIN ELIMINAR_CAR.Rango_Atencion r ON (r.matricula = a.matricula) WHERE @matricula = a.matricula 
@@ -318,11 +318,11 @@ BEGIN
 END
 GO
 
-CREATE PROCEDURE ELIMINAR_CAR.profesionales_con_mas_horas (@id_especialidad INT, @fecha DATETIME)
+CREATE PROCEDURE ELIMINAR_CAR.profesionales_con_menos_horas (@id_especialidad INT, @fecha DATETIME)
 AS
 	SELECT TOP 5 p.nombre Nombre, p.apellido Apellido, p.matricula 'Matrícula', ELIMINAR_CAR.horas_prof(p.matricula, @id_especialidad, @fecha) Horas
 	FROM ELIMINAR_CAR.Profesional p
-	ORDER BY Horas desc
+	ORDER BY Horas asc
 GO
 
 CREATE PROCEDURE ELIMINAR_CAR.afiliados_con_mas_bonos (@fecha DATETIME)

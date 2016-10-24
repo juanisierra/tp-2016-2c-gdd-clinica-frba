@@ -80,7 +80,7 @@ namespace ClinicaFrba.Listados
 
         private DataTable runStoredProcedure()
         {
-            SqlCommand storedP = new SqlCommand("ELIMINAR_CAR.profesionales_con_mas_horas", conexion);
+            SqlCommand storedP = new SqlCommand("ELIMINAR_CAR.profesionales_con_menos_horas", conexion);
             storedP.CommandType = CommandType.StoredProcedure;
             storedP.Parameters.AddWithValue("@id_especialidad", ((Especialidad)cb_especialidad.SelectedItem).id_especialidad);
             storedP.Parameters.AddWithValue("@fecha", new DateTime(Int32.Parse(cb_anio.SelectedItem.ToString()), mesSeleccionado(), 1).ToString());
