@@ -134,9 +134,9 @@
             // 
             // btn_aceptar
             // 
-            this.btn_aceptar.Location = new System.Drawing.Point(596, 354);
+            this.btn_aceptar.Location = new System.Drawing.Point(588, 354);
             this.btn_aceptar.Name = "btn_aceptar";
-            this.btn_aceptar.Size = new System.Drawing.Size(75, 23);
+            this.btn_aceptar.Size = new System.Drawing.Size(83, 34);
             this.btn_aceptar.TabIndex = 1;
             this.btn_aceptar.Text = "Aceptar";
             this.btn_aceptar.UseVisualStyleBackColor = true;
@@ -1093,7 +1093,7 @@
             // 
             this.btn_cancelar.Location = new System.Drawing.Point(58, 354);
             this.btn_cancelar.Name = "btn_cancelar";
-            this.btn_cancelar.Size = new System.Drawing.Size(75, 23);
+            this.btn_cancelar.Size = new System.Drawing.Size(86, 34);
             this.btn_cancelar.TabIndex = 1;
             this.btn_cancelar.Text = "Cancelar";
             this.btn_cancelar.UseVisualStyleBackColor = true;
