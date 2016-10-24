@@ -248,19 +248,19 @@ END
 END
 GO
 
-CREATE PROCEDURE ELIMINAR_CAR.eliminarAfiliadoRaiz(@id_afiliado BIGINT,@id_familia BIGINT)
+CREATE PROCEDURE ELIMINAR_CAR.eliminarAfiliadoRaiz(@id_afiliado BIGINT,@id_familia BIGINT,@fecha_baja DATETIME)
 AS
 BEGIN --Si es el raiz damos de baja a toda la familia
-UPDATE ELIMINAR_CAR.Afiliado SET activo=0 WHERE id_familia=@id_familia;
+UPDATE ELIMINAR_CAR.Afiliado SET activo=0,fecha_baja=@fecha_baja WHERE id_familia=@id_familia;
 UPDATE ELIMINAR_CAR.TURNO SET activo=0 WHERE id_afiliado IN (SELECT id_afiliado FROM ELIMINAR_CAR.Afiliado WHERE id_familia=@id_familia) AND fecha_estipulada>=GETDATE()
 UPDATE ELIMINAR_CAR.Familia SET n_familiares_a_cargo=0 WHERE id_familia=@id_familia;
 END
 GO
 
-CREATE PROCEDURE ELIMINAR_CAR.eliminarAfiliadoNoRaiz(@id_afiliado BIGINT,@id_familia BIGINT)
+CREATE PROCEDURE ELIMINAR_CAR.eliminarAfiliadoNoRaiz(@id_afiliado BIGINT,@id_familia BIGINT,@fecha_baja DATETIME)
 AS
 BEGIN
-UPDATE ELIMINAR_CAR.Afiliado SET activo=0 WHERE id_afiliado=@id_afiliado;
+UPDATE ELIMINAR_CAR.Afiliado SET activo=0,fecha_baja=@fecha_baja WHERE id_afiliado=@id_afiliado;
 UPDATE ELIMINAR_CAR.TURNO SET activo=0 WHERE id_afiliado=@id_afiliado AND fecha_estipulada>=GETDATE();
 if @id_afiliado NOT LIKE '%02' --Si no es el conyuge original
 BEGIN

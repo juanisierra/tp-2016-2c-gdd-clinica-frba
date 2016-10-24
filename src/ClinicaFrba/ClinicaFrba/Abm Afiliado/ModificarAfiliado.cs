@@ -72,6 +72,8 @@ namespace ClinicaFrba.Abm_Afiliado
                     btAgregarFamiliar.Hide();
                     break;
             }
+
+            this.tel.TextChanged += new System.EventHandler(this.tel_TextChanged);
         }
 
         private void textBox6_TextChanged(object sender, EventArgs e)
@@ -135,14 +137,21 @@ namespace ClinicaFrba.Abm_Afiliado
                         this.Visible = false;
                         motivo.ShowDialog();
                         this.Visible = true;
-                        modificarAfi.Parameters.AddWithValue("@fecha_cambio",DateTime.Today);
-                        if( motivo.fueCerradoPorusuario) modificarAfi.Parameters.AddWithValue("@motivo_cambio_plan", "No especificado");
+                        modificarAfi.Parameters.AddWithValue("@fecha_cambio", DateTime.Today);
+                        if (motivo.fueCerradoPorusuario) modificarAfi.Parameters.AddWithValue("@motivo_cambio_plan", "No especificado");
                         else modificarAfi.Parameters.AddWithValue("@motivo_cambio_plan", ((RichTextBox)motivo.Controls["tb_motivo"]).Text);
+                    }
+                    else
+                    {
+                        modificarAfi.Parameters.AddWithValue("@fecha_cambio",DBNull.Value);
+                        modificarAfi.Parameters.AddWithValue("@motivo_cambio_plan", DBNull.Value);
                     }
 
                     modificarAfi.ExecuteNonQuery();
                     MessageBox.Show("El afiliado fue modificado correctamente", "Clinica-FRBA", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
+                    huboCambios = false;
+                    seCambioTelefono = false;
+                    
                     if ((tipo == 0) && ((estado_civil)estadoCiv.SelectedItem == estado_civil.Casado) && afiliadoAMod.estadoCivil != estado_civil.Casado)
                     {
                         DialogResult res = MessageBox.Show("¿Desea agregar a su conyuge?", "Clinica-FRBA", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
@@ -166,6 +175,7 @@ namespace ClinicaFrba.Abm_Afiliado
                             this.Visible = true;
                         }
                     }
+                    afiliadoAMod = Afiliado.getAfiliadoPorID(afiliadoAMod.idAfiliado); // Lo recargamos
                 }
             }
         }
