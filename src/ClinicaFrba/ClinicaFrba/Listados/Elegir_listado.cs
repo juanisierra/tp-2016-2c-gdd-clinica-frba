@@ -37,6 +37,9 @@ namespace ClinicaFrba.Listados
                 case 1:
                     new ListadoConsultas().ShowDialog();
                     break;
+                case 2:
+                    new ListadoHoras().ShowDialog();
+                    break;
             }
             this.Visible = true;
         }

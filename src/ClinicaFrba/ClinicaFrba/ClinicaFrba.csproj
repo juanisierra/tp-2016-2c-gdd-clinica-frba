@@ -158,6 +158,12 @@
     <Compile Include="Listados\ListadoCancelaciones.Designer.cs">
       <DependentUpon>ListadoCancelaciones.cs</DependentUpon>
     </Compile>
+    <Compile Include="Listados\ListadoHoras.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Listados\ListadoHoras.Designer.cs">
+      <DependentUpon>ListadoHoras.cs</DependentUpon>
+    </Compile>
     <Compile Include="Registro Llegada\SeleccionarBono.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -283,6 +289,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Listados\ListadoConsultas.resx">
       <DependentUpon>ListadoConsultas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Listados\ListadoHoras.resx">
+      <DependentUpon>ListadoHoras.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Login.resx">
       <DependentUpon>Login.cs</DependentUpon>
