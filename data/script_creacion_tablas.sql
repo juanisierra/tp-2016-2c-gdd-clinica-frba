@@ -56,7 +56,7 @@ FOREIGN KEY (id_tipo_especialidad) REFERENCES ELIMINAR_CAR.Tipo_Especialidad(id_
 
 CREATE TABLE ELIMINAR_CAR.Profesional (
 matricula BIGINT PRIMARY KEY,
-tipo_doc INT DEFAULT 1,  --Cambiar
+tipo_doc INT DEFAULT 1,  
 numero_doc DECIMAL(8,0),
 nombre VARCHAR(40),
 apellido VARCHAR(40),
@@ -65,7 +65,8 @@ telefono BIGINT,
 mail VARCHAR(60),
 fecha_nac DATE,
 usuario VARCHAR(20),
-FOREIGN KEY (usuario) REFERENCES ELIMINAR_CAR.Usuario(id_usuario));
+FOREIGN KEY (usuario) REFERENCES ELIMINAR_CAR.Usuario(id_usuario),
+CONSTRAINT doc_unico_profesional UNIQUE(tipo_doc,numero_doc));
 
 CREATE TABLE ELIMINAR_CAR.Especialidad_por_profesional (
 id_especialidad INT,
@@ -105,7 +106,8 @@ num_consulta_actual BIGINT,
 usuario VARCHAR(20),
 FOREIGN KEY (usuario) REFERENCES ELIMINAR_CAR.Usuario(id_usuario),
 FOREIGN KEY (id_plan) REFERENCES ELIMINAR_CAR.Planes(id_plan),
-FOREIGN KEY (id_familia) REFERENCES ELIMINAR_CAR.Familia(id_familia));
+FOREIGN KEY (id_familia) REFERENCES ELIMINAR_CAR.Familia(id_familia),
+CONSTRAINT doc_unico UNIQUE(tipo_doc,numero_doc));
 
 CREATE TABLE ELIMINAR_CAR.Compra_Bonos (
 id_compra BIGINT PRIMARY KEY IDENTITY(1,1),

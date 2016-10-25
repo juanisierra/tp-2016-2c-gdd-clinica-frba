@@ -122,7 +122,7 @@ WHERE m2.Medico_DNI is NULL
 WHERE m.Bono_Consulta_Numero is not null AND m.Medico_Dni IS NOT NULL and m.Compra_Bono_Fecha is   null
 )
 EXEC ELIMINAR_CAR.Migrar_Bonos
-
+DROP PROCEDURE ELIMINAR_CAR.Migrar_Bonos;
 --Compras bonos
 INSERT INTO ELIMINAR_CAR.Compra_Bonos --Suponemos que las compras en un mismo dia son la misma
 (id_afiliado_comprador,precio_total,fecha_compra,cantidad_bonos)
