@@ -342,3 +342,8 @@ AS
 	GROUP BY E.desc_especialidad
 	ORDER BY count(T.id_especialidad) desc
 GO
+--Devuelve la cantidad de personas con ese dni
+CREATE PROCEDURE ELIMINAR_CAR.verificar_doc_afiliado(@tipo INT,@dni BIGINT,@resultado INT OUTPUT)
+AS
+	SELECT @resultado=count(*) FROM ELIMINAR_CAR.Afiliado where tipo_doc=@tipo AND numero_doc=@dni 
+GO

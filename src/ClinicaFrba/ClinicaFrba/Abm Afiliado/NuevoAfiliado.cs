@@ -68,9 +68,18 @@ namespace ClinicaFrba.Abm_Afiliado
             if (textBox_NombAfi.TextLength == 0) errores.agregarError("El nombre del afiliado no puede ser nulo");
             if (textBox_ApAfi.TextLength == 0) errores.agregarError("El apellido del afiliado no puede ser nulo");
             if (textBox_NumDoc.TextLength == 0) errores.agregarError("El número de documento del afiliado no puede ser nulo");
-            if (PlanMedAfi.SelectedItem == "") errores.agregarError("El plan médico del afiliado no puede ser nulo");
-
-            if (errores.huboError()) MessageBox.Show("Debe solucionar los siguientes errores:\n" + errores.stringErrores(), "Clinica-FRBA: ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            if (PlanMedAfi.SelectedItem==null) errores.agregarError("El plan médico del afiliado no puede ser nulo");
+            SqlCommand cuantosHayConDNI = new SqlCommand("ELIMINAR_CAR.verificar_doc_afiliado", DBConnector.ObtenerConexion());
+            int cantDNI = 0;
+            cuantosHayConDNI.CommandType = CommandType.StoredProcedure;
+            cuantosHayConDNI.Parameters.AddWithValue("@tipo", (int) comboBox_TipoDoc.SelectedItem);
+            cuantosHayConDNI.Parameters.AddWithValue("@dni", Int64.Parse(textBox_NumDoc.Text));
+            cuantosHayConDNI.Parameters.AddWithValue("@resultado", cantDNI);
+            cuantosHayConDNI.Parameters["@resultado"].Direction = ParameterDirection.Output;
+            cuantosHayConDNI.ExecuteNonQuery();
+            cantDNI = (int)cuantosHayConDNI.Parameters["@resultado"].Value;
+            if (cantDNI > 0) errores.agregarError("El tipo y numero de documento ingresado ya existe.");
+            if (errores.huboError()) MessageBox.Show(errores.stringErrores(), "Clinica-FRBA: ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
             else //Coportamiento si esta todo ok
             {

@@ -1,6 +1,7 @@
 USE [GD2C2016]
 GO
 
+DROP PROCEDURE ELIMINAR_CAR.verificar_doc_afiliado;
 DROP FUNCTION ELIMINAR_CAR.SumarHoras;
 DROP FUNCTION ELIMINAR_CAR.horas_prof;
 DROP PROCEDURE ELIMINAR_CAR.especialidades_con_mas_bonos;

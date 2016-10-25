@@ -44,6 +44,11 @@ namespace ClinicaFrba.Abm_Afiliado
 
         private void ABMAfiliado_Load(object sender, EventArgs e)
         {
+            if (id_rol != 2)
+            {
+                MessageBox.Show("El rol con el que ha ingresado no puede tener acceso al ABM por motivos de seguridad.", "Clinica-FRBA", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.Close();
+            }
             ABMAfi.DataSource = this.crearABM();
         }
                 
