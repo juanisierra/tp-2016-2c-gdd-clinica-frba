@@ -7,6 +7,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -73,12 +74,15 @@ namespace ClinicaFrba.Pedir_Turno
                    }
                    label_nombre_profesional.Text = "Turnos disponibles con el Dr./Dra. " + profesionalElegido.apellido + ", " + profesionalElegido.nombre;
                    label_especialidad.Text = "Especialidad: " + especialidadElegida.descripcion;
-                   cb_dia.DataSource = null;
                    CalcularDiasRango();
-                   cb_dia.DataSource = diasRango;
+                   actualizarAnios();
+                   actualizarDias();
+                   actualizarMeses();
+                   
+                   
                    agenda = Agenda_Diaria.getAgendaProfesional(profesionalElegido.matricula, especialidadElegida.id_especialidad);
                    horarios = new List<TimeSpan>();
-                   if (cb_dia.SelectedItem != null)
+                   if (cb_anio.SelectedItem != null &&cb_mes.SelectedItem!=null && cb_dia_mes.SelectedItem != null)
                    {
                        CalcularHorarios();
                    }
@@ -107,37 +111,57 @@ namespace ClinicaFrba.Pedir_Turno
             diasRango.RemoveAll(elem => diasCancelados.Contains(elem));
             diasRango = diasRango.Distinct().OrderBy(d => d.Year).ThenBy(d => d.Month).ThenBy(d => d.Day).ToList<DateTime>();
         }
+        public void actualizarAnios()
+        {
+            List<int> anios = new List<int>();
+            anios.AddRange(diasRango.Select(dia => dia.Year).Distinct());
+            cb_anio.DataSource = anios;
+        }
+        public void actualizarMeses()
+        {
+            if (cb_anio.SelectedItem != null)
+            {
+                List<meses> mesesConEnum = new List<meses>();
+                diasRango.FindAll(elem => elem.Year == (int)cb_anio.SelectedItem).GroupBy(elem => elem.Month).Select(e => e.First()).ToList<DateTime>().ForEach(elem => mesesConEnum.Add((meses)elem.Month-1));
+                cb_mes.DataSource = mesesConEnum;
+            }
+            else cb_mes.DataSource = null;
+        }
+        public void actualizarDias()
+        {
+            if (cb_mes.SelectedItem != null)
+            {
+                List<DateTime> dias = new List<DateTime>();
+                diasRango.FindAll(elem => elem.Year == (int)cb_anio.SelectedItem && elem.Month == (int)cb_mes.SelectedItem+1).ForEach(fecha => dias.Add(fecha));
+                cb_dia_mes.DataSource = dias;
+            }
+            else cb_dia_mes.DataSource = null;
+        }
         public void CalcularHorarios()
         {
             cb_hora.DataSource = null;
             Agenda_Diaria dia = null;
-            if(cb_dia.SelectedItem!=null && agenda!=null)  dia = agenda.Find(elem => elem.dia == (((DateTime)cb_dia.SelectedItem).DayOfWeek));
+            if (cb_anio.SelectedItem != null && cb_mes.SelectedItem != null && cb_dia_mes.SelectedItem != null && agenda != null) dia = agenda.Find(elem => elem.dia == (((DateTime) cb_dia_mes.SelectedItem).DayOfWeek));
             if (dia != null)
             {
                 horarios = dia.generarHorarios(); //Genera todos los horarios del dia
-                if (((DateTime)cb_dia.SelectedItem).Date == DateTime.Today.Date) //Son turnos para hoy, filtrar horarios que pasaron
+                if (((DateTime)cb_dia_mes.SelectedItem).Date == DateTime.Today.Date) //Son turnos para hoy, filtrar horarios que pasaron
                 {
                     horarios.RemoveAll(horario => (horario < DateTime.Now.TimeOfDay));
                 }
             }
             List<Turno> turnos = Turno.turnosFuturosPorProfesionalYEspecialidad(profesionalElegido.matricula, especialidadElegida.id_especialidad);
-            List<TimeSpan> horariosOcupados = turnos.FindAll(t => t.activo && t.fecha_estipulada.Date == ((DateTime)cb_dia.SelectedItem).Date).Select(t => t.fecha_estipulada.TimeOfDay).ToList<TimeSpan>();
+            List<TimeSpan> horariosOcupados = turnos.FindAll(t => t.activo && t.fecha_estipulada.Date == ((DateTime)cb_dia_mes.SelectedItem).Date).Select(t => t.fecha_estipulada.TimeOfDay).ToList<TimeSpan>();
            // tantes.Text = horarios.Count().ToString();
             //tacancelar.Text = horariosOcupados.Count().ToString();
             if(horarios!=null) horarios.RemoveAll(horario => horariosOcupados.Contains(horario));
             //tdespues.Text = horarios.Count().ToString();
             cb_hora.DataSource = horarios;
         }
-
-        private void cb_dia_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            CalcularHorarios();
-        }
-
         private void btn_aceptar_Click(object sender, EventArgs e)
         {
             Errores errores = new Errores();
-            if (cb_dia.SelectedItem == null) errores.agregarError("El campo dia no puede ser nulo.");
+            if (cb_dia_mes.SelectedItem == null) errores.agregarError("El campo dia no puede ser nulo.");
             if (cb_hora.SelectedItem == null) errores.agregarError("El campo hora no puede ser nulo.");
             if (errores.huboError())
             {
@@ -156,7 +180,7 @@ namespace ClinicaFrba.Pedir_Turno
         {
             SqlCommand insertarTurno = new SqlCommand("ELIMINAR_CAR.insertarNuevoTurno", DBConnector.ObtenerConexion());
             insertarTurno.CommandType = CommandType.StoredProcedure;
-            insertarTurno.Parameters.Add(new SqlParameter("@fecha",SqlDbType.DateTime)).Value = ((DateTime) cb_dia.SelectedItem).Add(((TimeSpan) cb_hora.SelectedItem));
+            insertarTurno.Parameters.Add(new SqlParameter("@fecha", SqlDbType.DateTime)).Value = ((DateTime)cb_dia_mes.SelectedItem).Add(((TimeSpan)cb_hora.SelectedItem));
             insertarTurno.Parameters.Add(new SqlParameter("@matricula", SqlDbType.BigInt)).Value = profesionalElegido.matricula;
             insertarTurno.Parameters.Add(new SqlParameter("@id_afiliado", SqlDbType.BigInt)).Value = afiliado.idAfiliado;
             insertarTurno.Parameters.Add(new SqlParameter("@id_especialidad", SqlDbType.Int)).Value = especialidadElegida.id_especialidad;
@@ -168,6 +192,21 @@ namespace ClinicaFrba.Pedir_Turno
         private void btn_cancelar_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void cb_anio_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            actualizarMeses();
+        }
+
+        private void cb_dia_mes_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            CalcularHorarios();
+        }
+
+        private void cb_mes_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            actualizarDias();
         }
         
     }
