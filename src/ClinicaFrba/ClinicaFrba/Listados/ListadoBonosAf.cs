@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ClinicaFrba.Clases;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -58,39 +59,41 @@ namespace ClinicaFrba.Listados
 
         private void btn_aceptar_Click(object sender, EventArgs e)
         {
-            listaFun.DataSource = runStoredProcedure();
-//            listaFun.Columns[2].Width = 120;
-//            listaFun.Columns[3].Width = 200;
             listaFun.Columns.Cast<DataGridViewColumn>().ToList().ForEach(f => f.SortMode = DataGridViewColumnSortMode.NotSortable);
         }
 
-        private List<String> mesesAMostrar(int i)
+        private List<meses> mesesAMostrar(int semestre)
         {
-            List<String> primerosMeses = new List<String>();
-            if (i == 0)
+            List<meses> lista = new List<meses>();
+            if (cb_anio.SelectedIndex + 2015 == DateTime.Now.Year)
             {
-                primerosMeses.Add("Enero");
-                primerosMeses.Add("Febrero");
-                primerosMeses.Add("Marzo");
-                primerosMeses.Add("Abril");
-                primerosMeses.Add("Mayo");
-                primerosMeses.Add("Junio");
+                if (semestre == 0)
+                {
+                    if (DateTime.Now.Month <= 6) for (int j = 0; j < DateTime.Now.Month; j++) lista.Add((meses)j);
+                    else for (int j = 0; j < 6; j++) lista.Add((meses)j);
+                }
+                else
+                {
+                    if (DateTime.Now.Month == 12) for (int j = 6; j < 12; j++) lista.Add((meses)j);
+                    else for (int j = 6; j < DateTime.Now.Month; j++) lista.Add((meses)j);
+                }
             }
-            else if (i == 1)
+            else
             {
-                primerosMeses.Add("Julio");
-                primerosMeses.Add("Agosto");
-                primerosMeses.Add("Septiembre");
-                primerosMeses.Add("Octubre");
-                primerosMeses.Add("Noviembre");
-                primerosMeses.Add("Diciembre");
+                if (semestre == 0) for (int j = 0; j < 6; j++) lista.Add((meses)j);
+                else for (int j = 6; j < 12; j++) lista.Add((meses)j);
             }
-            return primerosMeses;
+            return lista;
         }
 
         private void cb_semestre_SelectedIndexChanged(object sender, EventArgs e)
         {
             cb_mes.DataSource = mesesAMostrar(cb_semestre.SelectedIndex);
+        }
+
+        private void cb_anio_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            cb_semestre_SelectedIndexChanged(sender, e);
         }
     }
 }

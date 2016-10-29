@@ -35,9 +35,9 @@
             // cb_listado
             // 
             this.cb_listado.FormattingEnabled = true;
-            this.cb_listado.Location = new System.Drawing.Point(47, 33);
+            this.cb_listado.Location = new System.Drawing.Point(35, 32);
             this.cb_listado.Name = "cb_listado";
-            this.cb_listado.Size = new System.Drawing.Size(317, 24);
+            this.cb_listado.Size = new System.Drawing.Size(360, 24);
             this.cb_listado.TabIndex = 0;
             // 
             // btn_aceptar

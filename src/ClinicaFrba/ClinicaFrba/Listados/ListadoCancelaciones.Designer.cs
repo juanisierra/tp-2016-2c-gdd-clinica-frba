@@ -103,6 +103,7 @@
             this.cb_anio.Name = "cb_anio";
             this.cb_anio.Size = new System.Drawing.Size(121, 24);
             this.cb_anio.TabIndex = 9;
+            this.cb_anio.SelectedIndexChanged += new System.EventHandler(this.cb_anio_SelectedIndexChanged);
             // 
             // label2
             // 

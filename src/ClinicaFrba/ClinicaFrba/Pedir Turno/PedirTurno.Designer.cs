@@ -116,7 +116,7 @@
             // cb_mes
             // 
             this.cb_mes.FormattingEnabled = true;
-            this.cb_mes.Location = new System.Drawing.Point(283, 84);
+            this.cb_mes.Location = new System.Drawing.Point(278, 84);
             this.cb_mes.Name = "cb_mes";
             this.cb_mes.Size = new System.Drawing.Size(121, 24);
             this.cb_mes.TabIndex = 5;

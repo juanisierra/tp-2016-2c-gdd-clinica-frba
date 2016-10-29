@@ -238,9 +238,6 @@ INSERT INTO ELIMINAR_CAR.Funcionalidades_por_rol
 --Comprar bono
 INSERT INTO ELIMINAR_CAR.Funcionalidades_por_rol
 (id_rol,id_funcionalidad) values (2,8);
---Pedir turno
-INSERT INTO ELIMINAR_CAR.Funcionalidades_por_rol
-(id_rol,id_funcionalidad) values (2,9);
 --Registar Llegada
 INSERT INTO ELIMINAR_CAR.Funcionalidades_por_rol
 (id_rol,id_funcionalidad) values (2,10);
