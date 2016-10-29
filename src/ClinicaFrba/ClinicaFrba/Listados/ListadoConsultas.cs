@@ -54,17 +54,11 @@ namespace ClinicaFrba.Listados
             SqlCommand storedP = new SqlCommand("ELIMINAR_CAR.profesionales_mas_consultados", conexion);
             storedP.CommandType = CommandType.StoredProcedure;
             storedP.Parameters.AddWithValue("@id_plan", ((Plan)cb_plan.SelectedItem).id_plan);
-            storedP.Parameters.AddWithValue("@fecha", new DateTime(Int32.Parse(cb_anio.SelectedItem.ToString()), mesSeleccionado(), 1).ToString());
+            storedP.Parameters.AddWithValue("@fecha", new DateTime(Int32.Parse(cb_anio.SelectedItem.ToString()), ((int)cb_mes.SelectedItem) + 1, 1).ToString());
             DataTable dt = new DataTable();
             SqlDataAdapter adapter = new SqlDataAdapter(storedP);
             adapter.Fill(dt);
             return dt;
-        }
-
-        private int mesSeleccionado()
-        {
-            if (cb_semestre.SelectedIndex == 0) return cb_mes.SelectedIndex + 1;
-            else return cb_mes.SelectedIndex + 7;
         }
 
         private void btn_aceptar_Click(object sender, EventArgs e)
@@ -91,7 +85,7 @@ namespace ClinicaFrba.Listados
                     else for (int j = 6; j < DateTime.Now.Month; j++) lista.Add((meses)j);
                 }
             }
-            else
+            else if (cb_anio.SelectedIndex + 2015 < DateTime.Now.Year)
             {
                 if (semestre == 0) for (int j = 0; j < 6; j++) lista.Add((meses)j);
                 else for (int j = 6; j < 12; j++) lista.Add((meses)j);
@@ -102,6 +96,8 @@ namespace ClinicaFrba.Listados
         private void cb_semestre_SelectedIndexChanged_1(object sender, EventArgs e)
         {
             cb_mes.DataSource = mesesAMostrar(cb_semestre.SelectedIndex);
+            if (cb_mes.Items.Count == 0) cb_mes.Enabled = false;
+            else cb_mes.Enabled = true;
         }
 
         private void cb_anio_SelectedIndexChanged(object sender, EventArgs e)
