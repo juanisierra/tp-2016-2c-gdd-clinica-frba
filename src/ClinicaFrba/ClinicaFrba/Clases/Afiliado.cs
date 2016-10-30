@@ -45,9 +45,12 @@ namespace ClinicaFrba.Clases
                 afiliado.nroDoc= reader.GetDecimal(2);
                 afiliado.nombre= reader.GetString(3);
                 afiliado.apellido= reader.GetString(4);
-                afiliado.direccion= reader.GetString(5);
-                afiliado.telefono= reader.GetInt64(6);
-                afiliado.mail= reader.GetString(7);
+                if (reader.IsDBNull(5)) afiliado.direccion = null;
+                else  afiliado.direccion= reader.GetString(5);
+                if (reader.IsDBNull(6)) ;
+                else afiliado.telefono = reader.GetInt64(6);
+                if (reader.IsDBNull(7)) afiliado.mail = null;
+                else  afiliado.mail= reader.GetString(7);
                 afiliado.fechaNac = reader.GetDateTime(8);
                 afiliado.estadoCivil= (estado_civil) reader.GetInt32(9);
                 if (reader.IsDBNull(10))
@@ -61,7 +64,8 @@ namespace ClinicaFrba.Clases
                 if (reader.IsDBNull(15)) ;
                 else   afiliado.fechaBaja = reader.GetDateTime(15);
                 afiliado.numConsultaActual= reader.GetInt64(16);
-                afiliado.usuario= reader.GetString(17);
+                if (reader.IsDBNull(17)) ;
+                else afiliado.usuario = reader.GetString(17);
 
                 lista.Add(afiliado);
             }
@@ -89,9 +93,12 @@ namespace ClinicaFrba.Clases
                 afiliado.nroDoc= reader.GetDecimal(2);
                 afiliado.nombre= reader.GetString(3);
                 afiliado.apellido= reader.GetString(4);
-                afiliado.direccion= reader.GetString(5);
-                afiliado.telefono= reader.GetInt64(6);
-                afiliado.mail= reader.GetString(7);
+                if (reader.IsDBNull(5)) afiliado.direccion = null;
+                else afiliado.direccion = reader.GetString(5);
+                if (reader.IsDBNull(6)) ;
+                else afiliado.telefono = reader.GetInt64(6);
+                if (reader.IsDBNull(7)) afiliado.mail = null;
+                else afiliado.mail = reader.GetString(7);
                 afiliado.fechaNac = reader.GetDateTime(8);
                 afiliado.estadoCivil= (estado_civil) reader.GetInt32(9);
                 if (reader.IsDBNull(10))
@@ -105,7 +112,8 @@ namespace ClinicaFrba.Clases
                 if (reader.IsDBNull(15)) ;
                 else   afiliado.fechaBaja = reader.GetDateTime(15);
                 afiliado.numConsultaActual= reader.GetInt64(16);
-                afiliado.usuario= reader.GetString(17);
+                 if (reader.IsDBNull(17)) ;
+                else afiliado.usuario = reader.GetString(17);
                 afiliado.descPlan = reader.GetString(18);
                 lista.Add(afiliado);
             }
@@ -150,9 +158,12 @@ namespace ClinicaFrba.Clases
                 afiliado.nroDoc= reader.GetDecimal(2);
                 afiliado.nombre= reader.GetString(3);
                 afiliado.apellido= reader.GetString(4);
-                afiliado.direccion= reader.GetString(5);
-                afiliado.telefono= reader.GetInt64(6);
-                afiliado.mail= reader.GetString(7);
+                if (reader.IsDBNull(5)) afiliado.direccion = null;
+                else afiliado.direccion = reader.GetString(5);
+                if (reader.IsDBNull(6)) ;
+                else afiliado.telefono = reader.GetInt64(6);
+                if (reader.IsDBNull(7)) afiliado.mail = null;
+                else afiliado.mail = reader.GetString(7);
                 afiliado.fechaNac = reader.GetDateTime(8);
                 afiliado.estadoCivil= (estado_civil) reader.GetInt32(9);
                 if (reader.IsDBNull(10))
@@ -166,7 +177,8 @@ namespace ClinicaFrba.Clases
                 if (reader.IsDBNull(15)) ;
                 else   afiliado.fechaBaja = reader.GetDateTime(15);
                 afiliado.numConsultaActual= reader.GetInt64(16);
-                afiliado.usuario= reader.GetString(17);
+               if (reader.IsDBNull(17)) ;
+                else afiliado.usuario = reader.GetString(17);
 
                 lista.Add(afiliado);
             }
@@ -191,8 +203,10 @@ namespace ClinicaFrba.Clases
                 afiliado.tipoDoc = (tipo_doc)reader.GetInt32(3);
                 afiliado.nroDoc = reader.GetDecimal(4);
                 afiliado.fechaNac = reader.GetDateTime(5);
-                afiliado.direccion = reader.GetString(6);
-                afiliado.telefono = reader.GetInt64(7);
+                if (reader.IsDBNull(6)) afiliado.direccion = null;
+                else   afiliado.direccion = reader.GetString(6);
+                if (reader.IsDBNull(7));
+                else afiliado.telefono = reader.GetInt64(7);
                 afiliado.descPlan = reader.GetString(8);
                 afiliado.idPlan = reader.GetInt32(9);
                 afiliado.numConsultaActual = reader.GetInt64(10);

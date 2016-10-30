@@ -12,23 +12,26 @@ using System.Windows.Forms;
 
 namespace ClinicaFrba.Listados
 {
-    public partial class ListadoCancelaciones : Form
+    public partial class ListadoHoras : Form
     {
         SqlConnection conexion { get; set; }
 
-        public ListadoCancelaciones()
+        public ListadoHoras()
         {
             InitializeComponent();
             this.conexion = DBConnector.ObtenerConexion();
         }
 
-        private void ListadoCancelaciones_Load(object sender, EventArgs e)
+        private void ListadoHoras_Load(object sender, EventArgs e)
         {
-            List<String> lista = new List<String>();
-            lista.Add("Todos");
-            lista.Add("Profesional");
-            lista.Add("Afiliado");
-            cb_cancelaciones.DataSource = lista;
+            Especialidad especialidad = new Especialidad();
+            especialidad.id_especialidad = -1;
+            especialidad.descripcion = "Todos";
+            List<Especialidad> lista = new List<Especialidad>();
+            lista.Add(especialidad);
+            lista.AddRange(Especialidad.todasLasEspecialidades());
+            cb_especialidad.DataSource = lista;
+            cb_especialidad.DisplayMember = "descripcion";
 
             List<String> lista1 = new List<String>();
             int anio = 2015;
@@ -44,27 +47,6 @@ namespace ClinicaFrba.Listados
             lista2.Add("Primero");
             lista2.Add("Segundo");
             cb_semestre.DataSource = lista2;
-        }
-
-        private DataTable runStoredProcedure(String SP)
-        {
-            SqlCommand storedP = new SqlCommand(SP, conexion);
-            storedP.CommandType = CommandType.StoredProcedure;
-            storedP.Parameters.AddWithValue("@fecha", new DateTime(Int32.Parse(cb_anio.SelectedItem.ToString()), ((int)cb_mes.SelectedItem) + 1, 1).ToString());
-            DataTable dt = new DataTable();
-            SqlDataAdapter adapter = new SqlDataAdapter(storedP);
-            adapter.Fill(dt);
-            return dt;
-        }
-
-        private void btn_aceptar_Click(object sender, EventArgs e)
-        {
-            if (cb_cancelaciones.SelectedIndex == 0) listaFun.DataSource = runStoredProcedure("ELIMINAR_CAR.cancelaciones_totales");
-            else if (cb_cancelaciones.SelectedIndex == 1) listaFun.DataSource = runStoredProcedure("ELIMINAR_CAR.cancelaciones_profesional");
-            else listaFun.DataSource = runStoredProcedure("ELIMINAR_CAR.cancelaciones_afiliado");
-            listaFun.Columns[0].Width = 200;
-            listaFun.Columns[1].Width = 110;
-            listaFun.Columns.Cast<DataGridViewColumn>().ToList().ForEach(f => f.SortMode = DataGridViewColumnSortMode.NotSortable);
         }
 
         private List<meses> mesesAMostrar(int semestre)
@@ -90,7 +72,7 @@ namespace ClinicaFrba.Listados
             }
             return lista;
         }
-        
+
         private void cb_semestre_SelectedIndexChanged(object sender, EventArgs e)
         {
             cb_mes.DataSource = mesesAMostrar(cb_semestre.SelectedIndex);
@@ -98,10 +80,27 @@ namespace ClinicaFrba.Listados
             else cb_mes.Enabled = true;
         }
 
+        private DataTable runStoredProcedure()
+        {
+            SqlCommand storedP = new SqlCommand("ELIMINAR_CAR.profesionales_con_menos_horas", conexion);
+            storedP.CommandType = CommandType.StoredProcedure;
+            storedP.Parameters.AddWithValue("@id_especialidad", ((Especialidad)cb_especialidad.SelectedItem).id_especialidad);
+            storedP.Parameters.AddWithValue("@fecha", new DateTime(Int32.Parse(cb_anio.SelectedItem.ToString()), ((int)cb_mes.SelectedItem) + 1, 1).ToString());
+            DataTable dt = new DataTable();
+            SqlDataAdapter adapter = new SqlDataAdapter(storedP);
+            adapter.Fill(dt);
+            return dt;
+        }
+
+        private void btn_aceptar_Click(object sender, EventArgs e)
+        {
+            listaFun.DataSource = runStoredProcedure();
+
+        }
+
         private void cb_anio_SelectedIndexChanged(object sender, EventArgs e)
         {
             cb_semestre_SelectedIndexChanged(sender, e);
         }
-
     }
 }

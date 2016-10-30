@@ -44,5 +44,11 @@ namespace ClinicaFrba.Abm_Profesional
             if (e.CloseReason == CloseReason.UserClosing) fueCerradoPorUsuario = true;
 
             }
+
+        private void btn_cancelar_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            this.fueCerradoPorUsuario = true;
+        }
     }
 }

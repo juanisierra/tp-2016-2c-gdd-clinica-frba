@@ -8,11 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace ClinicaFrba.Abm_Afiliado
+namespace ClinicaFrba.Utils
 {
-    public partial class AgregarFamiliar : Form
+    public partial class FormularioNoImplementado : Form
     {
-        public AgregarFamiliar()
+        public FormularioNoImplementado()
         {
             InitializeComponent();
         }

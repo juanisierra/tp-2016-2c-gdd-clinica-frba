@@ -15,11 +15,17 @@ namespace ClinicaFrba.Compra_Bono
     {
         public Boolean fueCerradoPorUsuario = false; //Dice si lo cerro el usuario o no
         List<Afiliado> listaAfiliados { set; get; }
+        public Boolean soloListar { set; get; } //lista afiliados
         public SeleccionarAfiliado()
         {
             InitializeComponent();
+            soloListar = false;
         }
-
+        public SeleccionarAfiliado(int listar)
+        {
+            InitializeComponent();
+            soloListar = true;
+        }
         private void SeleccionarAfiliado_Load(object sender, EventArgs e)
         {
             listaAfiliados = Afiliado.listarAfiliadosConFiltro("", "", -1, -1, -1, -1);
@@ -41,6 +47,11 @@ namespace ClinicaFrba.Compra_Bono
             txt_apellido.KeyPress += controlLetras;
             this.FormClosing += closing;
             fueCerradoPorUsuario = false;
+            if (soloListar == true)
+            {
+                btn_seleccionar.Hide();
+                btn_cancelar.Hide();
+            }
         }
 
         private void btn_filtrar_Click(object sender, EventArgs e)
@@ -112,6 +123,12 @@ namespace ClinicaFrba.Compra_Bono
             txt_nDoc.Text = "";
             txt_nombre.Text = "";
             ActualizarFiltro();
+        }
+
+        private void btn_cancelar_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            this.fueCerradoPorUsuario = true;
         }
     }
 }

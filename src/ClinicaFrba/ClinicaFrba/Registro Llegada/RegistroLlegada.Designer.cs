@@ -30,16 +30,17 @@
         {
             this.components = new System.ComponentModel.Container();
             this.dgv_turno = new System.Windows.Forms.DataGridView();
-            this.afiliado_nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.afiliado_apellido = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.desc_especialidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.idturnoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.fechaestipuladaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.afiliado_nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.afiliado_apellido = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.idafiliadoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.desc_especialidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.matriculaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.turnoBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.turnoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.btn_seleccionar = new System.Windows.Forms.Button();
+            this.btn_cancelar = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_turno)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.turnoBindingSource1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.turnoBindingSource)).BeginInit();
@@ -68,27 +69,6 @@
             this.dgv_turno.Size = new System.Drawing.Size(881, 280);
             this.dgv_turno.TabIndex = 0;
             // 
-            // afiliado_nombre
-            // 
-            this.afiliado_nombre.DataPropertyName = "afiliado_nombre";
-            this.afiliado_nombre.HeaderText = "afiliado_nombre";
-            this.afiliado_nombre.Name = "afiliado_nombre";
-            this.afiliado_nombre.ReadOnly = true;
-            // 
-            // afiliado_apellido
-            // 
-            this.afiliado_apellido.DataPropertyName = "afiliado_apellido";
-            this.afiliado_apellido.HeaderText = "afiliado_apellido";
-            this.afiliado_apellido.Name = "afiliado_apellido";
-            this.afiliado_apellido.ReadOnly = true;
-            // 
-            // desc_especialidad
-            // 
-            this.desc_especialidad.DataPropertyName = "desc_especialidad";
-            this.desc_especialidad.HeaderText = "desc_especialidad";
-            this.desc_especialidad.Name = "desc_especialidad";
-            this.desc_especialidad.ReadOnly = true;
-            // 
             // idturnoDataGridViewTextBoxColumn
             // 
             this.idturnoDataGridViewTextBoxColumn.DataPropertyName = "id_turno";
@@ -103,12 +83,33 @@
             this.fechaestipuladaDataGridViewTextBoxColumn.Name = "fechaestipuladaDataGridViewTextBoxColumn";
             this.fechaestipuladaDataGridViewTextBoxColumn.ReadOnly = true;
             // 
+            // afiliado_nombre
+            // 
+            this.afiliado_nombre.DataPropertyName = "afiliado_nombre";
+            this.afiliado_nombre.HeaderText = "afiliado_nombre";
+            this.afiliado_nombre.Name = "afiliado_nombre";
+            this.afiliado_nombre.ReadOnly = true;
+            // 
+            // afiliado_apellido
+            // 
+            this.afiliado_apellido.DataPropertyName = "afiliado_apellido";
+            this.afiliado_apellido.HeaderText = "afiliado_apellido";
+            this.afiliado_apellido.Name = "afiliado_apellido";
+            this.afiliado_apellido.ReadOnly = true;
+            // 
             // idafiliadoDataGridViewTextBoxColumn
             // 
             this.idafiliadoDataGridViewTextBoxColumn.DataPropertyName = "id_afiliado";
             this.idafiliadoDataGridViewTextBoxColumn.HeaderText = "id_afiliado";
             this.idafiliadoDataGridViewTextBoxColumn.Name = "idafiliadoDataGridViewTextBoxColumn";
             this.idafiliadoDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // desc_especialidad
+            // 
+            this.desc_especialidad.DataPropertyName = "desc_especialidad";
+            this.desc_especialidad.HeaderText = "desc_especialidad";
+            this.desc_especialidad.Name = "desc_especialidad";
+            this.desc_especialidad.ReadOnly = true;
             // 
             // matriculaDataGridViewTextBoxColumn
             // 
@@ -129,17 +130,28 @@
             // 
             this.btn_seleccionar.Location = new System.Drawing.Point(689, 374);
             this.btn_seleccionar.Name = "btn_seleccionar";
-            this.btn_seleccionar.Size = new System.Drawing.Size(114, 23);
+            this.btn_seleccionar.Size = new System.Drawing.Size(114, 28);
             this.btn_seleccionar.TabIndex = 1;
             this.btn_seleccionar.Text = "Seleccionar";
             this.btn_seleccionar.UseVisualStyleBackColor = true;
             this.btn_seleccionar.Click += new System.EventHandler(this.btn_seleccionar_Click);
+            // 
+            // btn_cancelar
+            // 
+            this.btn_cancelar.Location = new System.Drawing.Point(54, 374);
+            this.btn_cancelar.Name = "btn_cancelar";
+            this.btn_cancelar.Size = new System.Drawing.Size(114, 28);
+            this.btn_cancelar.TabIndex = 1;
+            this.btn_cancelar.Text = "Cancelar";
+            this.btn_cancelar.UseVisualStyleBackColor = true;
+            this.btn_cancelar.Click += new System.EventHandler(this.btn_cancelar_Click);
             // 
             // RegistroLlegada
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(915, 443);
+            this.Controls.Add(this.btn_cancelar);
             this.Controls.Add(this.btn_seleccionar);
             this.Controls.Add(this.dgv_turno);
             this.Name = "RegistroLlegada";
@@ -165,5 +177,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn matriculaDataGridViewTextBoxColumn;
         private System.Windows.Forms.BindingSource turnoBindingSource1;
         private System.Windows.Forms.Button btn_seleccionar;
+        private System.Windows.Forms.Button btn_cancelar;
     }
 }

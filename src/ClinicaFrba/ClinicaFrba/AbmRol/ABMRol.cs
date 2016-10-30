@@ -16,6 +16,7 @@ namespace ClinicaFrba.AbmRol
     {
         public String id_usuario { get; set; }
         SqlConnection conexion { get; set; }
+        public List<Rol> todosLosRoles { set; get; }
         public ABMRol(String id_usuario)
         {
             InitializeComponent();
@@ -27,17 +28,25 @@ namespace ClinicaFrba.AbmRol
         {
             int j = 0;
             
-                List<Funcionalidad> funcionalidadesDelRol = Funcionalidad.funcionalidadesPorRol((int)listaRoles.SelectedRows[0].Cells[0].Value);
-                foreach (Funcionalidad f in funcionalidadesDelRol)
+            List<Funcionalidad> funcionalidadesDelRol = Funcionalidad.funcionalidadesPorRol((int)listaRoles.SelectedRows[0].Cells[0].Value);
+            foreach (Funcionalidad f in funcionalidadesDelRol)
+            {
+
+                for (j = 0; j < listaFun.RowCount; j++)
                 {
-
-                    for (j = 0; j < listaFun.RowCount; j++)
-                    {
-                        DataGridViewCheckBoxCell cell = listaFun.Rows[j].Cells[0] as DataGridViewCheckBoxCell;
-                        if (f.id_funcionalidad == (int)listaFun.Rows[j].Cells[1].Value) cell.Value = cell.TrueValue;
-                    }
-
+                    DataGridViewCheckBoxCell cell = listaFun.Rows[j].Cells[0] as DataGridViewCheckBoxCell;
+                    if (f.id_funcionalidad == (int)listaFun.Rows[j].Cells[1].Value) cell.Value = cell.TrueValue;
                 }
+
+            }
+            if (btn_modif.Checked && estaHabilitadoRol(Int16.Parse(listaRoles.SelectedRows[0].Cells[0].Value.ToString())))
+            {
+                cb_habilitar.Visible = false;
+            }
+            else if(btn_modif.Checked)
+            {
+                cb_habilitar.Visible = true;
+            }
             
         }
 
@@ -87,16 +96,22 @@ namespace ClinicaFrba.AbmRol
 
         private void modificarTablaRol()
         {
-            int habilitar = 0;
-            if (cb_habilitar.Checked) habilitar = 1;
             SqlCommand agregarRol = new SqlCommand();
             if (btn_crear.Checked)
             {
-                agregarRol = new SqlCommand(string.Format("insert into eliminar_car.rol (nombre_rol, habilitado) values (@nombre,@habilitado)"), conexion);
+                agregarRol = new SqlCommand(string.Format("insert into eliminar_car.rol (nombre_rol, habilitado) values (@nombre,1)"), conexion);
                 agregarRol.Parameters.AddWithValue("@nombre", tb_nombre.Text);
-                agregarRol.Parameters.AddWithValue("@habilitado", habilitar);
             }
-            if (btn_modif.Checked) agregarRol = new SqlCommand(string.Format("UPDATE ELIMINAR_CAR.rol SET nombre_rol='{0}', habilitado='{2}' WHERE id_rol='{1}'", tb_nombre.Text, (int)listaRoles.SelectedRows[0].Cells[0].Value, habilitar), conexion);
+            if (btn_modif.Checked)
+            {
+                if (cb_habilitar.Visible)
+                {
+                    int habilitar = 0;
+                    if (cb_habilitar.Checked) habilitar = 1;
+                    agregarRol = new SqlCommand(string.Format("UPDATE ELIMINAR_CAR.rol SET nombre_rol='{0}', habilitado='{2}' WHERE id_rol='{1}'", tb_nombre.Text, (int)listaRoles.SelectedRows[0].Cells[0].Value, habilitar), conexion);
+                }
+                else agregarRol = new SqlCommand(string.Format("UPDATE ELIMINAR_CAR.rol SET nombre_rol='{0}' WHERE id_rol='{1}'", tb_nombre.Text, (int)listaRoles.SelectedRows[0].Cells[0].Value), conexion);
+            }
             if (btn_quitar.Checked) agregarRol = new SqlCommand(string.Format("UPDATE ELIMINAR_CAR.rol SET habilitado=0 WHERE id_rol='{0}'", (int)listaRoles.SelectedRows[0].Cells[0].Value), conexion);
             agregarRol.ExecuteNonQuery();
         }
@@ -166,24 +181,27 @@ namespace ClinicaFrba.AbmRol
 
         private void ABMRol_Load(object sender, EventArgs e)
         {
-            List<Rol> roles = Rol.rolesTotales();
-            listaRoles.DataSource = roles;
+           todosLosRoles = Rol.rolesTotales();
+            listaRoles.DataSource = todosLosRoles;
             listaRoles.Columns[0].Visible = false;
             listaRoles.Columns[2].HeaderText = "Habilitado";
-            listaRoles.Columns[1].Width = 150;
+            //listaRoles.Columns[1].Width = 150;
             listaFun.DataSource = Funcionalidad.todasLasFuncionalidades();
             listaFun.Columns[1].Visible = false;
             listaFun.Columns[2].Width = 250;
             listaFun.Columns[2].HeaderText = "Descripción";
             tb_nombre.Enabled = false;
             listaFun.ReadOnly = true;
-            cb_habilitar.Enabled = false;
             btn_limpiar.Enabled = false;
             btn_crear_CheckedChanged(sender, e); //Por defecto esta apretado crear
+            cb_habilitar.Visible = false;
         }
 
         private void btn_modif_CheckedChanged(object sender, EventArgs e)
         {
+            listaRoles.DataSource = todosLosRoles;
+            listaRoles.Columns[0].Visible = false;
+            if(btn_modif.Checked) cb_habilitar.Visible = true;
             listaFun.Enabled = true;
             listaFun.ForeColor = Color.Black;
             listaRoles.Enabled = true;
@@ -193,17 +211,18 @@ namespace ClinicaFrba.AbmRol
             tb_nombre.ReadOnly = false;
             listaFun.ReadOnly = false;
             listaFun.Columns[2].ReadOnly = true;
-            cb_habilitar.Enabled = true;
             tb_nombre.Enabled = true;
-            tb_nombre.Text = listaRoles.SelectedRows[0].Cells[1].Value.ToString();
+            if(listaRoles.SelectedRows.Count!=0) tb_nombre.Text = listaRoles.SelectedRows[0].Cells[1].Value.ToString();
             destildarTodasFun();
             tildarFuncionalidadesDelRol();
-            cb_habilitar.Checked = false;
-            if (estaHabilitadoRol(Int16.Parse(listaRoles.SelectedRows[0].Cells[0].Value.ToString()))) cb_habilitar.Checked = true;
+            
         }
 
         private void btn_crear_CheckedChanged(object sender, EventArgs e)
         {
+            listaRoles.DataSource = todosLosRoles;
+            listaRoles.Columns[0].Visible = false;
+            cb_habilitar.Visible = false;
             listaFun.Enabled = true;
             listaFun.ForeColor = Color.Black;
             btn_limpiar.Enabled = true;
@@ -213,8 +232,6 @@ namespace ClinicaFrba.AbmRol
             listaRoles.ForeColor = Color.Gray;
             listaFun.ReadOnly = false;
             listaFun.Columns[2].ReadOnly = true;
-            cb_habilitar.Enabled = true;
-            cb_habilitar.Checked = true;
             tb_nombre.Enabled = true;
             tb_nombre.Clear();
             this.destildarTodasFun();
@@ -222,26 +239,36 @@ namespace ClinicaFrba.AbmRol
 
         private void btn_quitar_CheckedChanged(object sender, EventArgs e)
         {
-            
-            btn_modif_CheckedChanged(sender, e);
-            listaRoles.Enabled = true;
-            listaRoles.ForeColor = Color.Black;
-            tb_nombre.Text = listaRoles.SelectedRows[0].Cells[1].Value.ToString();
-            tb_nombre.ReadOnly = true;
-            listaFun.ReadOnly = true;
-            cb_habilitar.Enabled = false;
-            btn_limpiar.Enabled = false;
-            destildarTodasFun();
-            listaFun.ClearSelection();
-            listaFun.Enabled = false;
-            listaFun.ForeColor = Color.Gray;
-           
+            if (btn_quitar.Checked)
+            {
+                cb_habilitar.Visible = false;
+                listaRoles.Enabled = true;
+                listaRoles.ForeColor = Color.Black;
+                tb_nombre.ReadOnly = true;
+                listaFun.ReadOnly = true;
+                btn_limpiar.Enabled = false;
+                destildarTodasFun();
+                listaFun.ClearSelection();
+                listaFun.Enabled = false;
+                listaFun.ForeColor = Color.Gray;
+                List<Rol> rolesHabilitados = todosLosRoles.FindAll(rol => rol.habilitado);
+                listaRoles.DataSource = null;
+                listaRoles.DataSource = rolesHabilitados;
+                listaRoles.Columns[0].Visible = false;
+                if (listaRoles.SelectedRows.Count!=0) tb_nombre.Text = listaRoles.SelectedRows[0].Cells[1].Value.ToString();
+            }
         }
 
         private void listaRoles_SelectionChanged(object sender, EventArgs e)
         {
-            if (btn_modif.Checked) this.btn_modif_CheckedChanged(sender, e);
-            if (btn_quitar.Checked) this.btn_quitar_CheckedChanged(sender, e);
+            if (btn_modif.Checked)
+            {
+                destildarTodasFun();
+               if(listaRoles.SelectedRows.Count!=0) tildarFuncionalidadesDelRol();
+               if (listaRoles.SelectedRows.Count != 0) tb_nombre.Text = listaRoles.SelectedRows[0].Cells[1].Value.ToString();
+            
+            }
+            if (btn_quitar.Checked) if (listaRoles.SelectedRows.Count != 0) tb_nombre.Text = listaRoles.SelectedRows[0].Cells[1].Value.ToString(); ;
         }
 
         private void btn_limpiar_Click(object sender, EventArgs e)
@@ -261,9 +288,14 @@ namespace ClinicaFrba.AbmRol
         {
             String cadenaErrores = "";
             Boolean error = false;
-            if (tb_nombre.Text == "")
+            if (tb_nombre.Text == "" && btn_quitar.Checked==false)
             {
                 cadenaErrores = cadenaErrores + "- Introduzca un nombre de rol\n";
+                error = true;
+            }
+            if (btn_quitar.Checked && listaRoles.SelectedRows.Count == 0)
+            {
+                cadenaErrores = cadenaErrores + "- No hay roles para quitar\n";
                 error = true;
             }
             if (btn_crear.Checked)
@@ -297,5 +329,12 @@ namespace ClinicaFrba.AbmRol
                 if (resultado == DialogResult.OK) this.Close();
             }
         }
+
+        private void btn_cancelar_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+
     }
 }

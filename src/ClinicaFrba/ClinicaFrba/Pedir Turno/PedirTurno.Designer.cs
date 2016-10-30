@@ -28,23 +28,17 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.cb_dia = new System.Windows.Forms.ComboBox();
             this.cb_hora = new System.Windows.Forms.ComboBox();
             this.label_nombre_profesional = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.btn_aceptar = new System.Windows.Forms.Button();
             this.label_especialidad = new System.Windows.Forms.Label();
+            this.btn_cancelar = new System.Windows.Forms.Button();
+            this.cb_anio = new System.Windows.Forms.ComboBox();
+            this.cb_mes = new System.Windows.Forms.ComboBox();
+            this.cb_dia_mes = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
-            // 
-            // cb_dia
-            // 
-            this.cb_dia.FormattingEnabled = true;
-            this.cb_dia.Location = new System.Drawing.Point(142, 81);
-            this.cb_dia.Name = "cb_dia";
-            this.cb_dia.Size = new System.Drawing.Size(404, 24);
-            this.cb_dia.TabIndex = 0;
-            this.cb_dia.SelectedIndexChanged += new System.EventHandler(this.cb_dia_SelectedIndexChanged);
             // 
             // cb_hora
             // 
@@ -83,7 +77,7 @@
             // 
             // btn_aceptar
             // 
-            this.btn_aceptar.Location = new System.Drawing.Point(259, 189);
+            this.btn_aceptar.Location = new System.Drawing.Point(370, 188);
             this.btn_aceptar.Name = "btn_aceptar";
             this.btn_aceptar.Size = new System.Drawing.Size(165, 23);
             this.btn_aceptar.TabIndex = 3;
@@ -100,18 +94,59 @@
             this.label_especialidad.TabIndex = 4;
             this.label_especialidad.Text = "Especialidad: ";
             // 
+            // btn_cancelar
+            // 
+            this.btn_cancelar.Location = new System.Drawing.Point(154, 188);
+            this.btn_cancelar.Name = "btn_cancelar";
+            this.btn_cancelar.Size = new System.Drawing.Size(165, 23);
+            this.btn_cancelar.TabIndex = 3;
+            this.btn_cancelar.Text = "Cancelar";
+            this.btn_cancelar.UseVisualStyleBackColor = true;
+            this.btn_cancelar.Click += new System.EventHandler(this.btn_cancelar_Click);
+            // 
+            // cb_anio
+            // 
+            this.cb_anio.FormattingEnabled = true;
+            this.cb_anio.Location = new System.Drawing.Point(142, 84);
+            this.cb_anio.Name = "cb_anio";
+            this.cb_anio.Size = new System.Drawing.Size(121, 24);
+            this.cb_anio.TabIndex = 5;
+            this.cb_anio.SelectedIndexChanged += new System.EventHandler(this.cb_anio_SelectedIndexChanged);
+            // 
+            // cb_mes
+            // 
+            this.cb_mes.FormattingEnabled = true;
+            this.cb_mes.Location = new System.Drawing.Point(278, 84);
+            this.cb_mes.Name = "cb_mes";
+            this.cb_mes.Size = new System.Drawing.Size(121, 24);
+            this.cb_mes.TabIndex = 5;
+            this.cb_mes.SelectedIndexChanged += new System.EventHandler(this.cb_mes_SelectedIndexChanged);
+            // 
+            // cb_dia_mes
+            // 
+            this.cb_dia_mes.DisplayMember = "Day";
+            this.cb_dia_mes.FormattingEnabled = true;
+            this.cb_dia_mes.Location = new System.Drawing.Point(425, 84);
+            this.cb_dia_mes.Name = "cb_dia_mes";
+            this.cb_dia_mes.Size = new System.Drawing.Size(121, 24);
+            this.cb_dia_mes.TabIndex = 5;
+            this.cb_dia_mes.SelectedIndexChanged += new System.EventHandler(this.cb_dia_mes_SelectedIndexChanged);
+            // 
             // PedirTurno
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(672, 264);
+            this.Controls.Add(this.cb_dia_mes);
+            this.Controls.Add(this.cb_mes);
+            this.Controls.Add(this.cb_anio);
             this.Controls.Add(this.label_especialidad);
+            this.Controls.Add(this.btn_cancelar);
             this.Controls.Add(this.btn_aceptar);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.label_nombre_profesional);
             this.Controls.Add(this.cb_hora);
-            this.Controls.Add(this.cb_dia);
             this.Name = "PedirTurno";
             this.Text = "Pedido de Turno";
             this.Load += new System.EventHandler(this.PedirTurno_Load);
@@ -122,12 +157,15 @@
 
         #endregion
 
-        private System.Windows.Forms.ComboBox cb_dia;
         private System.Windows.Forms.ComboBox cb_hora;
         private System.Windows.Forms.Label label_nombre_profesional;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button btn_aceptar;
         private System.Windows.Forms.Label label_especialidad;
+        private System.Windows.Forms.Button btn_cancelar;
+        private System.Windows.Forms.ComboBox cb_anio;
+        private System.Windows.Forms.ComboBox cb_mes;
+        private System.Windows.Forms.ComboBox cb_dia_mes;
     }
 }

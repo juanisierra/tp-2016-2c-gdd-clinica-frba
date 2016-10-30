@@ -102,6 +102,7 @@
             this.agendaDiariaBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.especialidadBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.especialidadBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
+            this.btn_cancelar = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.l_desde_h)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.l_desde_m)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.l_hasta_m)).BeginInit();
@@ -133,9 +134,9 @@
             // 
             // btn_aceptar
             // 
-            this.btn_aceptar.Location = new System.Drawing.Point(596, 354);
+            this.btn_aceptar.Location = new System.Drawing.Point(588, 354);
             this.btn_aceptar.Name = "btn_aceptar";
-            this.btn_aceptar.Size = new System.Drawing.Size(75, 23);
+            this.btn_aceptar.Size = new System.Drawing.Size(83, 34);
             this.btn_aceptar.TabIndex = 1;
             this.btn_aceptar.Text = "Aceptar";
             this.btn_aceptar.UseVisualStyleBackColor = true;
@@ -1088,6 +1089,16 @@
             // 
             this.especialidadBindingSource1.DataSource = typeof(ClinicaFrba.Clases.Especialidad);
             // 
+            // btn_cancelar
+            // 
+            this.btn_cancelar.Location = new System.Drawing.Point(58, 354);
+            this.btn_cancelar.Name = "btn_cancelar";
+            this.btn_cancelar.Size = new System.Drawing.Size(86, 34);
+            this.btn_cancelar.TabIndex = 1;
+            this.btn_cancelar.Text = "Cancelar";
+            this.btn_cancelar.UseVisualStyleBackColor = true;
+            this.btn_cancelar.Click += new System.EventHandler(this.btn_cancelar_Click);
+            // 
             // AltaAgenda
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -1101,6 +1112,7 @@
             this.Controls.Add(this.franja_inicio);
             this.Controls.Add(this.label30);
             this.Controls.Add(this.label25);
+            this.Controls.Add(this.btn_cancelar);
             this.Controls.Add(this.btn_aceptar);
             this.Controls.Add(this.label_agenda);
             this.Controls.Add(this.s_especialidad);
@@ -1273,5 +1285,6 @@
         private System.Windows.Forms.Label label28;
         private System.Windows.Forms.Label label29;
         private System.Windows.Forms.Label label30;
+        private System.Windows.Forms.Button btn_cancelar;
     }
 }

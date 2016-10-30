@@ -356,6 +356,11 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
              insertarRango.Parameters.Add("@fecha_hasta", SqlDbType.DateTime).Value = rango.fecha_hasta;
              insertarRango.ExecuteNonQuery();
          }
+
+        private void btn_cancelar_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
   
         
 

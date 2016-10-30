@@ -38,6 +38,7 @@
             this.profesionalBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.label2 = new System.Windows.Forms.Label();
             this.seleccionarProfesionalBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.btn_cancelar = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_profesional)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.especialidadesBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.profesionalBindingSource)).BeginInit();
@@ -119,6 +120,16 @@
             // 
             this.seleccionarProfesionalBindingSource.DataSource = typeof(ClinicaFrba.Abm_Profesional.SeleccionarProfesional);
             // 
+            // btn_cancelar
+            // 
+            this.btn_cancelar.Location = new System.Drawing.Point(56, 365);
+            this.btn_cancelar.Name = "btn_cancelar";
+            this.btn_cancelar.Size = new System.Drawing.Size(176, 36);
+            this.btn_cancelar.TabIndex = 2;
+            this.btn_cancelar.Text = "Cancelar";
+            this.btn_cancelar.UseVisualStyleBackColor = true;
+            this.btn_cancelar.Click += new System.EventHandler(this.btn_cancelar_Click);
+            // 
             // SeleccionarProfesionalPorEspecialidad
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -127,6 +138,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.cb_especialidad);
             this.Controls.Add(this.label1);
+            this.Controls.Add(this.btn_cancelar);
             this.Controls.Add(this.btn_aceptar);
             this.Controls.Add(this.dgv_profesional);
             this.Controls.Add(this.flowLayoutPanel1);
@@ -153,5 +165,6 @@
         private System.Windows.Forms.ComboBox cb_especialidad;
         private System.Windows.Forms.BindingSource especialidadesBindingSource;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button btn_cancelar;
     }
 }

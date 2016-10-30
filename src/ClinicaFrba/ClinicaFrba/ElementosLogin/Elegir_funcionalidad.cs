@@ -33,6 +33,8 @@ namespace ClinicaFrba.ElementosLogin
             this.Visible = false;
             formularioAAbrir.ShowDialog();
             this.Visible = true;
+            List<Funcionalidad> funcionalidadesDisponibles = Funcionalidad.funcionalidadesPorRol(id_rol);
+            cb_funcionalidad.DataSource = funcionalidadesDisponibles;
         }
 
         private void cb_funcionalidad_SelectedIndexChanged(object sender, EventArgs e)

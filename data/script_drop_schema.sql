@@ -1,6 +1,12 @@
 USE [GD2C2016]
 GO
 
+DROP PROCEDURE ELIMINAR_CAR.verificar_doc_afiliado;
+DROP FUNCTION ELIMINAR_CAR.SumarHoras;
+DROP FUNCTION ELIMINAR_CAR.horas_prof;
+DROP PROCEDURE ELIMINAR_CAR.especialidades_con_mas_bonos;
+DROP PROCEDURE ELIMINAR_CAR.afiliados_con_mas_bonos;
+DROP PROCEDURE ELIMINAR_CAR.profesionales_con_menos_horas;
 DROP PROCEDURE ELIMINAR_CAR.cancelaciones_afiliado;
 DROP PROCEDURE ELIMINAR_CAR.cancelaciones_totales;
 DROP PROCEDURE ELIMINAR_CAR.cancelaciones_profesional;
@@ -19,7 +25,13 @@ DROP PROCEDURE ELIMINAR_CAR.insertarNuevoTurno;
 DROP PROCEDURE ELIMINAR_CAR.matricula_por_usuario;
 DROP PROCEDURE ELIMINAR_CAR.afiliado_por_usuario;
 DROP PROCEDURE ELIMINAR_CAR.proximoIdTurno;
-DROP PROCEDURE ELIMINAR_CAR.Migrar_Bonos;
+DROP PROCEDURE ELIMINAR_CAR.insertarAfiliadoRaiz;
+DROP PROCEDURE ELIMINAR_CAR.insertarConyuge;
+DROP PROCEDURE ELIMINAR_CAR.insertarDependiente;
+DROP PROCEDURE ELIMINAR_CAR.modificarAfiliado;
+DROP PROCEDURE ELIMINAR_CAR.eliminarAfiliadoRaiz;
+DROP PROCEDURE ELIMINAR_CAR.eliminarAfiliadoNoRaiz;
+DROP FUNCTION ELIMINAR_CAR.proximoIdAfiliado;
 DROP TABLE ELIMINAR_CAR.Funcionalidades_por_rol;
 DROP TABLE ELIMINAR_CAR.Roles_por_usuarios;
 DROP TABLE ELIMINAR_CAR.Especialidad_por_profesional;

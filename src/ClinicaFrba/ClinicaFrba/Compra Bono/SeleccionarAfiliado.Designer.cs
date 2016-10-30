@@ -58,6 +58,7 @@
             this.afiliadoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.btn_seleccionar = new System.Windows.Forms.Button();
             this.btn_borrar = new System.Windows.Forms.Button();
+            this.btn_cancelar = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_afiliado)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.afiliadoBindingSource)).BeginInit();
             this.SuspendLayout();
@@ -173,6 +174,8 @@
             // 
             // dgv_afiliado
             // 
+            this.dgv_afiliado.AllowUserToAddRows = false;
+            this.dgv_afiliado.AllowUserToDeleteRows = false;
             this.dgv_afiliado.AutoGenerateColumns = false;
             this.dgv_afiliado.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgv_afiliado.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -190,6 +193,7 @@
             this.descPlanDataGridViewTextBoxColumn});
             this.dgv_afiliado.DataSource = this.afiliadoBindingSource;
             this.dgv_afiliado.Location = new System.Drawing.Point(28, 171);
+            this.dgv_afiliado.MultiSelect = false;
             this.dgv_afiliado.Name = "dgv_afiliado";
             this.dgv_afiliado.ReadOnly = true;
             this.dgv_afiliado.RowTemplate.Height = 24;
@@ -287,7 +291,7 @@
             // 
             // btn_seleccionar
             // 
-            this.btn_seleccionar.Location = new System.Drawing.Point(405, 414);
+            this.btn_seleccionar.Location = new System.Drawing.Point(502, 414);
             this.btn_seleccionar.Name = "btn_seleccionar";
             this.btn_seleccionar.Size = new System.Drawing.Size(127, 31);
             this.btn_seleccionar.TabIndex = 3;
@@ -305,12 +309,23 @@
             this.btn_borrar.UseVisualStyleBackColor = true;
             this.btn_borrar.Click += new System.EventHandler(this.btn_borrar_Click);
             // 
+            // btn_cancelar
+            // 
+            this.btn_cancelar.Location = new System.Drawing.Point(362, 414);
+            this.btn_cancelar.Name = "btn_cancelar";
+            this.btn_cancelar.Size = new System.Drawing.Size(127, 31);
+            this.btn_cancelar.TabIndex = 3;
+            this.btn_cancelar.Text = "Cancelar";
+            this.btn_cancelar.UseVisualStyleBackColor = true;
+            this.btn_cancelar.Click += new System.EventHandler(this.btn_cancelar_Click);
+            // 
             // SeleccionarAfiliado
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(992, 457);
             this.Controls.Add(this.dgv_afiliado);
+            this.Controls.Add(this.btn_cancelar);
             this.Controls.Add(this.btn_seleccionar);
             this.Controls.Add(this.btn_borrar);
             this.Controls.Add(this.btn_filtrar);
@@ -367,5 +382,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn sexoDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn descPlanDataGridViewTextBoxColumn;
         private System.Windows.Forms.Button btn_borrar;
+        private System.Windows.Forms.Button btn_cancelar;
     }
 }

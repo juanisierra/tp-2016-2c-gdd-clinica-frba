@@ -122,7 +122,7 @@ WHERE m2.Medico_DNI is NULL
 WHERE m.Bono_Consulta_Numero is not null AND m.Medico_Dni IS NOT NULL and m.Compra_Bono_Fecha is   null
 )
 EXEC ELIMINAR_CAR.Migrar_Bonos
-
+DROP PROCEDURE ELIMINAR_CAR.Migrar_Bonos;
 --Compras bonos
 INSERT INTO ELIMINAR_CAR.Compra_Bonos --Suponemos que las compras en un mismo dia son la misma
 (id_afiliado_comprador,precio_total,fecha_compra,cantidad_bonos)
@@ -184,9 +184,8 @@ WHEN MATCHED THEN
 INSERT INTO ELIMINAR_CAR.Rol (nombre_rol,habilitado) VALUES ('Afiliado',1)
 INSERT INTO ELIMINAR_CAR.Rol (nombre_rol,habilitado) VALUES ('Administrativo',1)
 INSERT INTO ELIMINAR_CAR.Rol (nombre_rol,habilitado) VALUES ('Profesional',1)
-INSERT INTO ELIMINAR_CAR.Rol (nombre_rol,habilitado) VALUES ('Administrador',1)
---Le damos a admin rol de administrador
-INSERT INTO ELIMINAR_CAR.Roles_por_usuarios(id_rol,id_usuario) VALUES (4,'admin')
+--Le damos a admin rol de administrativo
+INSERT INTO ELIMINAR_CAR.Roles_por_usuarios(id_rol,id_usuario) VALUES (2,'admin')
 
 --Dar a los usuarios de afiliados el rol de afiliado y a los profesionales de profesional
 INSERT INTO ELIMINAR_CAR.Roles_por_Usuarios
@@ -212,36 +211,50 @@ INSERT INTO ELIMINAR_CAR.Funcionalidad (descripcion) VALUES ('Registrar Resultad
 INSERT INTO ELIMINAR_CAR.Funcionalidad (descripcion) VALUES ('Cancelar Atencion')
 INSERT INTO ELIMINAR_CAR.Funcionalidad (descripcion) VALUES ('Ver Listados Estadisticos')
 
-
---Darle todas las funcionalidades al administrador
-INSERT INTO ELIMINAR_CAR.Funcionalidades_por_rol
-(id_rol,id_funcionalidad)
-SELECT 4,id_funcionalidad
-FROM ELIMINAR_CAR.Funcionalidad
-
---Darle Alta Agenda a profesional
-INSERT INTO ELIMINAR_CAR.Funcionalidades_por_rol
-(id_rol,id_funcionalidad)
-Values (3,7);
---Registro diagnostico a profesional
-INSERT INTO ELIMINAR_CAR.Funcionalidades_por_rol
-(id_rol,id_funcionalidad)
-Values (3,11);
---Cancelacion a profesional
-INSERT INTO ELIMINAR_CAR.Funcionalidades_por_rol
-(id_rol,id_funcionalidad)
-Values (3,12);
---Darle Pedir Turno a afiliado
-INSERT INTO ELIMINAR_CAR.Funcionalidades_por_rol
-(id_rol,id_funcionalidad)
-Values (1,9);
---Darle Cancelar Atencion a afiliado
-INSERT INTO ELIMINAR_CAR.Funcionalidades_por_rol
-(id_rol,id_funcionalidad)
-Values (1,12);
---Darle Comprar Bonos a afiliado
+--Darle funcionalidades al afiliado
+--Darle Comprar Bonos
 INSERT INTO ELIMINAR_CAR.Funcionalidades_por_rol
 (id_rol,id_funcionalidad)
 Values (1,8);
+--Darle Pedir Turno
+INSERT INTO ELIMINAR_CAR.Funcionalidades_por_rol
+(id_rol,id_funcionalidad)
+Values (1,9);
+--Darle Cancelar Atencion
+INSERT INTO ELIMINAR_CAR.Funcionalidades_por_rol
+(id_rol,id_funcionalidad)
+Values (1,12);
 
---TODO darle funcionalidades a los otros roles
+--Darle funcionalidades al Administrativo
+--ABM ROL
+INSERT INTO ELIMINAR_CAR.Funcionalidades_por_rol
+(id_rol,id_funcionalidad) values (2,1);
+--ABM Afiliado
+INSERT INTO ELIMINAR_CAR.Funcionalidades_por_rol
+(id_rol,id_funcionalidad) values (2,3);
+--Registar Agenda
+INSERT INTO ELIMINAR_CAR.Funcionalidades_por_rol
+(id_rol,id_funcionalidad) values (2,7);
+--Comprar bono
+INSERT INTO ELIMINAR_CAR.Funcionalidades_por_rol
+(id_rol,id_funcionalidad) values (2,8);
+--Registar Llegada
+INSERT INTO ELIMINAR_CAR.Funcionalidades_por_rol
+(id_rol,id_funcionalidad) values (2,10);
+--Listado Estadistico
+INSERT INTO ELIMINAR_CAR.Funcionalidades_por_rol
+(id_rol,id_funcionalidad) values (2,13);
+
+--Darle Funcionalidades a Profesional
+--Registrar Agenda
+INSERT INTO ELIMINAR_CAR.Funcionalidades_por_rol
+(id_rol,id_funcionalidad)
+Values (3,7);
+--Registro diagnostico
+INSERT INTO ELIMINAR_CAR.Funcionalidades_por_rol
+(id_rol,id_funcionalidad)
+Values (3,11);
+--Cancelacion
+INSERT INTO ELIMINAR_CAR.Funcionalidades_por_rol
+(id_rol,id_funcionalidad)
+Values (3,12);
