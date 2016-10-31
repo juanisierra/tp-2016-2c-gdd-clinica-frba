@@ -146,7 +146,7 @@
             this.cb_especialidad.FormattingEnabled = true;
             this.cb_especialidad.Location = new System.Drawing.Point(117, 22);
             this.cb_especialidad.Name = "cb_especialidad";
-            this.cb_especialidad.Size = new System.Drawing.Size(182, 24);
+            this.cb_especialidad.Size = new System.Drawing.Size(357, 24);
             this.cb_especialidad.TabIndex = 29;
             // 
             // ListadoHoras

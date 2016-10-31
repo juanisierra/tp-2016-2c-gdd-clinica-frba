@@ -32,7 +32,6 @@ namespace ClinicaFrba.Listados
                 anio++;
                 lista1.Add(anio.ToString());
             }
-            lista1.Add("2017");
             cb_anio.DataSource = lista1;
 
             List<String> lista2 = new List<String>();
@@ -83,11 +82,16 @@ namespace ClinicaFrba.Listados
             return lista;
         }
 
+        private Boolean hayMesesDisponibles()
+        {
+            return cb_mes.Items.Count > 0;
+        }
+
         private void cb_semestre_SelectedIndexChanged(object sender, EventArgs e)
         {
             cb_mes.DataSource = mesesAMostrar(cb_semestre.SelectedIndex);
-            if (cb_mes.Items.Count == 0) cb_mes.Enabled = false;
-            else cb_mes.Enabled = true;
+            cb_mes.Enabled = hayMesesDisponibles();
+            btn_aceptar.Enabled = hayMesesDisponibles();
         }
 
         private void cb_anio_SelectedIndexChanged(object sender, EventArgs e)
