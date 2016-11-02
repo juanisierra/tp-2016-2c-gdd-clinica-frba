@@ -99,10 +99,10 @@
             this.label28 = new System.Windows.Forms.Label();
             this.label29 = new System.Windows.Forms.Label();
             this.label30 = new System.Windows.Forms.Label();
+            this.btn_cancelar = new System.Windows.Forms.Button();
             this.agendaDiariaBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.especialidadBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.especialidadBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
-            this.btn_cancelar = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.l_desde_h)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.l_desde_m)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.l_hasta_m)).BeginInit();
@@ -245,7 +245,7 @@
             this.l_hasta_h.Enabled = false;
             this.l_hasta_h.Location = new System.Drawing.Point(555, 70);
             this.l_hasta_h.Maximum = new decimal(new int[] {
-            19,
+            20,
             0,
             0,
             0});
@@ -351,7 +351,7 @@
             this.m_hasta_h.Enabled = false;
             this.m_hasta_h.Location = new System.Drawing.Point(555, 100);
             this.m_hasta_h.Maximum = new decimal(new int[] {
-            19,
+            20,
             0,
             0,
             0});
@@ -494,7 +494,7 @@
             this.x_hasta_h.Enabled = false;
             this.x_hasta_h.Location = new System.Drawing.Point(555, 130);
             this.x_hasta_h.Maximum = new decimal(new int[] {
-            19,
+            20,
             0,
             0,
             0});
@@ -637,7 +637,7 @@
             this.j_hasta_h.Enabled = false;
             this.j_hasta_h.Location = new System.Drawing.Point(555, 160);
             this.j_hasta_h.Maximum = new decimal(new int[] {
-            19,
+            20,
             0,
             0,
             0});
@@ -780,7 +780,7 @@
             this.v_hasta_h.Enabled = false;
             this.v_hasta_h.Location = new System.Drawing.Point(555, 190);
             this.v_hasta_h.Maximum = new decimal(new int[] {
-            19,
+            20,
             0,
             0,
             0});
@@ -923,7 +923,7 @@
             this.s_hasta_h.Enabled = false;
             this.s_hasta_h.Location = new System.Drawing.Point(555, 220);
             this.s_hasta_h.Maximum = new decimal(new int[] {
-            14,
+            15,
             0,
             0,
             0});
@@ -1077,6 +1077,16 @@
             this.label30.TabIndex = 13;
             this.label30.Text = "Hasta: ";
             // 
+            // btn_cancelar
+            // 
+            this.btn_cancelar.Location = new System.Drawing.Point(58, 354);
+            this.btn_cancelar.Name = "btn_cancelar";
+            this.btn_cancelar.Size = new System.Drawing.Size(86, 34);
+            this.btn_cancelar.TabIndex = 1;
+            this.btn_cancelar.Text = "Cancelar";
+            this.btn_cancelar.UseVisualStyleBackColor = true;
+            this.btn_cancelar.Click += new System.EventHandler(this.btn_cancelar_Click);
+            // 
             // agendaDiariaBindingSource
             // 
             this.agendaDiariaBindingSource.DataSource = typeof(ClinicaFrba.Clases.Agenda_Diaria);
@@ -1088,16 +1098,6 @@
             // especialidadBindingSource1
             // 
             this.especialidadBindingSource1.DataSource = typeof(ClinicaFrba.Clases.Especialidad);
-            // 
-            // btn_cancelar
-            // 
-            this.btn_cancelar.Location = new System.Drawing.Point(58, 354);
-            this.btn_cancelar.Name = "btn_cancelar";
-            this.btn_cancelar.Size = new System.Drawing.Size(86, 34);
-            this.btn_cancelar.TabIndex = 1;
-            this.btn_cancelar.Text = "Cancelar";
-            this.btn_cancelar.UseVisualStyleBackColor = true;
-            this.btn_cancelar.Click += new System.EventHandler(this.btn_cancelar_Click);
             // 
             // AltaAgenda
             // 
