@@ -245,7 +245,7 @@
             this.l_hasta_h.Enabled = false;
             this.l_hasta_h.Location = new System.Drawing.Point(555, 70);
             this.l_hasta_h.Maximum = new decimal(new int[] {
-            20,
+            19,
             0,
             0,
             0});
@@ -351,7 +351,7 @@
             this.m_hasta_h.Enabled = false;
             this.m_hasta_h.Location = new System.Drawing.Point(555, 100);
             this.m_hasta_h.Maximum = new decimal(new int[] {
-            20,
+            19,
             0,
             0,
             0});
@@ -494,7 +494,7 @@
             this.x_hasta_h.Enabled = false;
             this.x_hasta_h.Location = new System.Drawing.Point(555, 130);
             this.x_hasta_h.Maximum = new decimal(new int[] {
-            20,
+            19,
             0,
             0,
             0});
@@ -637,7 +637,7 @@
             this.j_hasta_h.Enabled = false;
             this.j_hasta_h.Location = new System.Drawing.Point(555, 160);
             this.j_hasta_h.Maximum = new decimal(new int[] {
-            20,
+            19,
             0,
             0,
             0});
@@ -780,7 +780,7 @@
             this.v_hasta_h.Enabled = false;
             this.v_hasta_h.Location = new System.Drawing.Point(555, 190);
             this.v_hasta_h.Maximum = new decimal(new int[] {
-            20,
+            19,
             0,
             0,
             0});
@@ -923,7 +923,7 @@
             this.s_hasta_h.Enabled = false;
             this.s_hasta_h.Location = new System.Drawing.Point(555, 220);
             this.s_hasta_h.Maximum = new decimal(new int[] {
-            15,
+            14,
             0,
             0,
             0});

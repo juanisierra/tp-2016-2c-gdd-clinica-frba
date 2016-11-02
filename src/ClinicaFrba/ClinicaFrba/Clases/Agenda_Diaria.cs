@@ -58,7 +58,7 @@ namespace ClinicaFrba.Clases
         {
             List<TimeSpan> lista = new List<TimeSpan>();
             TimeSpan tiempo = hora_desde;
-            while (tiempo <= hora_hasta)
+            while (tiempo + new TimeSpan(0, 30, 0) <= hora_hasta)
             {
                 lista.Add(tiempo);
                 tiempo += new TimeSpan(0, 30, 0);
