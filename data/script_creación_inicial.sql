@@ -621,8 +621,12 @@ CREATE FUNCTION ELIMINAR_CAR.proximoIdAfiliado(@id_familia BIGINT) RETURNS BIGIN
 AS
 BEGIN
 DECLARE @id BIGINT
-SELECT @id=n_familiares_a_cargo+3 FROM ELIMINAR_CAR.Familia WHERE id_familia=@id_familia
-RETURN @id_familia*100 + @id
+SELECT @id=MAX(id_afiliado)+1 FROM ELIMINAR_CAR.Afiliado WHERE id_familia=@id_familia
+IF @id<=@id_familia*100 + 2
+BEGIN
+SET @id=@id_familia*100+3
+END
+RETURN @id
 END
 GO
 
