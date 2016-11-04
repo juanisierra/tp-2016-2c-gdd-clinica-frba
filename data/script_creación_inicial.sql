@@ -351,11 +351,6 @@ UNION
 SELECT distinct REPLACE(apellido+Left(nombre,1)+Right(numero_doc,5), ' ', ''),HASHBYTES('SHA2_256',CONVERT(varchar(10), numero_doc)),0,1
 FROM ELIMINAR_CAR.Profesional;
 
---Inserta user default
-INSERT INTO ELIMINAR_CAR.Usuario (id_usuario,contrasenia,intentos_fallidos,habilitado) VALUES
-('admin',HASHBYTES('SHA2_256','w23e'),0,1);
-
-
 
 --Pone los id de usuario en afiliados
 MERGE INTO ELIMINAR_CAR.Afiliado a
@@ -376,8 +371,7 @@ WHEN MATCHED THEN
 INSERT INTO ELIMINAR_CAR.Rol (nombre_rol,habilitado) VALUES ('Afiliado',1)
 INSERT INTO ELIMINAR_CAR.Rol (nombre_rol,habilitado) VALUES ('Administrativo',1)
 INSERT INTO ELIMINAR_CAR.Rol (nombre_rol,habilitado) VALUES ('Profesional',1)
---Le damos a admin rol de administrativo
-INSERT INTO ELIMINAR_CAR.Roles_por_usuarios(id_rol,id_usuario) VALUES (2,'admin')
+
 
 --Dar a los usuarios de afiliados el rol de afiliado y a los profesionales de profesional
 INSERT INTO ELIMINAR_CAR.Roles_por_Usuarios
@@ -807,3 +801,22 @@ CREATE PROCEDURE ELIMINAR_CAR.verificar_doc_afiliado(@tipo INT,@dni BIGINT,@resu
 AS
 	SELECT @resultado=count(*) FROM ELIMINAR_CAR.Afiliado where tipo_doc=@tipo AND numero_doc=@dni 
 GO
+
+
+--Inserta user default
+INSERT INTO ELIMINAR_CAR.Usuario (id_usuario,contrasenia,intentos_fallidos,habilitado) VALUES
+('admin',HASHBYTES('SHA2_256','w23e'),0,1);
+INSERT INTO ELIMINAR_CAR.Profesional (matricula,tipo_doc,numero_doc,nombre,apellido,direccion,telefono,mail,fecha_nac,usuario)
+VALUES	((SELECT MAX(matricula)+1 FROM ELIMINAR_CAR.Profesional),1,(SELECT MAX(matricula)+1 FROM ELIMINAR_CAR.Profesional),'Administrador','ApellidoAdministrador','DireccionAdministrador',45001122,'admin@sistema.com','2016-10-10','admin');
+INSERT INTO ELIMINAR_CAR.Especialidad_por_profesional (id_especialidad,matricula)
+VALUES ((SELECT MIN(id_especialidad) FROM ELIMINAR_CAR.Especialidad),(SELECT matricula FROM ELIMINAR_CAR.Profesional where usuario='admin'))
+DECLARE @doc DECIMAL(8,0),@plan INT;
+SELECT @doc=numero_doc FROM ELIMINAR_CAR.Profesional where usuario='admin'
+SELECT @plan=MAX(id_plan) FROM ELIMINAR_CAR.Planes
+EXEC ELIMINAR_CAR.insertarAfiliadoRaiz 1,@doc,'Administrador','ApellidoAdministrador','DireccionAdministrador',45001122,'admin@sistema.com',
+'2016-10-10',0,0,@plan,0,null,null;
+UPDATE ELIMINAR_CAR.Afiliado SET usuario='admin' where numero_doc=@doc
+--Le damos a admin los 3 roles
+INSERT INTO ELIMINAR_CAR.Roles_por_usuarios(id_rol,id_usuario) VALUES (1,'admin')
+INSERT INTO ELIMINAR_CAR.Roles_por_usuarios(id_rol,id_usuario) VALUES (2,'admin')
+INSERT INTO ELIMINAR_CAR.Roles_por_usuarios(id_rol,id_usuario) VALUES (3,'admin')
