@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using System.Data.SqlClient;
 using System.Data;
 
-
 namespace ClinicaFrba
 {
     class DBConnector
@@ -16,7 +15,7 @@ namespace ClinicaFrba
         {
             if (_conexion.State == ConnectionState.Closed)
             {
-                _conexion.ConnectionString = "Data source=.\\SQLSERVER2012; Initial Catalog=GD2C2016;User Id=gd; Password=gd2016";
+                _conexion.ConnectionString = "Data source=" + System.Configuration.ConfigurationManager.AppSettings["DBSource"] + "; Initial Catalog=" + System.Configuration.ConfigurationManager.AppSettings["DBInitialCatalog"] + ";User Id=" + System.Configuration.ConfigurationManager.AppSettings["DBUser"] + "; Password=" + System.Configuration.ConfigurationManager.AppSettings["DBPassword"];
                 _conexion.Open();
             }
             return _conexion;
