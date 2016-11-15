@@ -73,15 +73,6 @@ PRIMARY KEY(id_especialidad,matricula),
 FOREIGN KEY (matricula) REFERENCES ELIMINAR_CAR.Profesional(matricula),
 FOREIGN KEY (id_especialidad) REFERENCES ELIMINAR_CAR.Especialidad(id_especialidad));
 
-CREATE TABLE ELIMINAR_CAR.Agenda_Diaria (
-id_agenda BIGINT IDENTITY(1,1) PRIMARY KEY,
-dia INT, --0 domingo...
-matricula BIGINT,
-hora_desde TIME,
-hora_hasta TIME,
-id_especialidad INT,
-FOREIGN KEY (matricula) REFERENCES ELIMINAR_CAR.Profesional(matricula),
-FOREIGN KEY (id_especialidad) REFERENCES ELIMINAR_CAR.Especialidad(id_especialidad));
 
 CREATE TABLE ELIMINAR_CAR.Afiliado (
 id_afiliado BIGINT PRIMARY KEY,
@@ -178,6 +169,18 @@ matricula BIGINT,
 fecha_desde DATE,
 fecha_hasta DATE,
 FOREIGN KEY (matricula) REFERENCES ELIMINAR_CAR.Profesional(matricula));
+
+CREATE TABLE ELIMINAR_CAR.Agenda_Diaria (
+id_agenda BIGINT IDENTITY(1,1) PRIMARY KEY,
+dia INT, --0 domingo...
+matricula BIGINT,
+id_rango BIGINT NOT NULL,
+hora_desde TIME,
+hora_hasta TIME,
+id_especialidad INT,
+FOREIGN KEY (matricula) REFERENCES ELIMINAR_CAR.Profesional(matricula),
+FOREIGN KEY (id_rango) REFERENCES ELIMINAR_CAR.Rango_Atencion(id_rango),
+FOREIGN KEY (id_especialidad) REFERENCES ELIMINAR_CAR.Especialidad(id_especialidad));
 
 CREATE TABLE ELIMINAR_CAR.Cambio_de_Plan (
 id_cambio_plan BIGINT PRIMARY KEY IDENTITY(1,1),
@@ -447,6 +450,11 @@ Values (3,12);
 GO
 
 --Stored procedures
+CREATE PROCEDURE ELIMINAR_CAR.Registrar_Rango(@matricula BIGINT,@fecha_desde DATE,@fecha_hasta DATE,@id_rango BIGINT OUTPUT)
+AS
+INSERT INTO ELIMINAR_CAR.Rango_Atencion (matricula,fecha_desde,fecha_hasta) VALUES (@matricula,@fecha_desde,@fecha_hasta)
+SELECT @id_rango=MAX(id_rango) FROM ELIMINAR_CAR.Rango_Atencion where matricula=@matricula
+GO
 
 CREATE PROCEDURE ELIMINAR_CAR.matricula_por_usuario(@usuario varchar(20),@matricula BIGINT OUTPUT)
 AS  

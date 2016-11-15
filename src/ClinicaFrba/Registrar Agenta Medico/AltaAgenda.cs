@@ -36,11 +36,6 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
                     MessageBox.Show("Error, el usuario con el que se ingresó tiene rol de Profesional pero no tiene matricula","ERROR",MessageBoxButtons.OK,MessageBoxIcon.Error);
                     this.Close();
                 }
-                if(Profesional.tieneAgenda(profesional.matricula))
-                {
-                    MessageBox.Show("Ya ha ingresado una agenda. Solo puede ingresarse una vez", "Clinica-FRBA: ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    this.Close();
-                }
             }
             else if (id_rol == 2 || id_rol == 4)
             {
@@ -49,13 +44,7 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
                 Boolean cerradoPorusuario = false;
                 profesional = (Profesional)((DataGridView)formulario.Controls["dgv_profesional"]).CurrentRow.DataBoundItem;
                 if (formulario.fueCerradoPorUsuario == true) cerradoPorusuario = true;
-                while (Profesional.tieneAgenda(profesional.matricula) && cerradoPorusuario == false)
-                {
-                    MessageBox.Show("El profesional seleccionado ya tiene una agenda.", "Clinica-FRBA: ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    formulario.ShowDialog();
-                    profesional = (Profesional)((DataGridView)formulario.Controls["dgv_profesional"]).CurrentRow.DataBoundItem;
-                    if (formulario.fueCerradoPorUsuario == true) cerradoPorusuario = true;
-                }
+  
                 if (formulario.fueCerradoPorUsuario == true) this.Close();
             }
             else
@@ -77,8 +66,8 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
             List<Agenda_Diaria> agenda = crearAgenda();
             Rango_Atencion rango = new Rango_Atencion();
             rango.matricula = profesional.matricula;
-            rango.fecha_desde = franja_inicio.Value;
-            rango.fecha_hasta = franja_fin.Value;
+            rango.fecha_desde = franja_inicio.Value.Date;
+            rango.fecha_hasta = franja_fin.Value.Date;
             Errores errores = new Errores();
             if(!rango.esValido())
             {
@@ -103,6 +92,10 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
             if(!check_lunes.Checked && !check_martes.Checked && !check_miercoles.Checked && !check_jueves.Checked && !check_viernes.Checked && !check_sabados.Checked)
             {
                 errores.agregarError("Debe seleccionar por lo menos un dia de la semana.");
+            }
+            if (Rango_Atencion.SeSolapan(profesional.matricula, rango))
+            {
+                errores.agregarError("El rango seleccionado no puede solaparse con un rango ya registrado.");
             }
             if(errores.huboError())
             {
@@ -339,22 +332,34 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
             return disponibilidades;
         }
         private void insert(List<Agenda_Diaria> agenda,Rango_Atencion rango)
-         {   
+        {
+            /*SqlCommand insertarRango = new SqlCommand("INSERT INTO ELIMINAR_CAR.Rango_Atencion (matricula,fecha_desde,fecha_hasta) VALUES (@matricula,@fecha_desde,@fecha_hasta)", DBConnector.ObtenerConexion());
+            insertarRango.Parameters.Add("@matricula", SqlDbType.BigInt).Value = rango.matricula;
+            insertarRango.Parameters.Add("@fecha_desde", SqlDbType.DateTime).Value = rango.fecha_desde;
+            insertarRango.Parameters.Add("@fecha_hasta", SqlDbType.DateTime).Value = rango.fecha_hasta;*/
+            SqlCommand insertarRango = new SqlCommand("ELIMINAR_CAR.Registrar_Rango", DBConnector.ObtenerConexion());
+            insertarRango.CommandType = CommandType.StoredProcedure;
+            insertarRango.Parameters.Add(new SqlParameter("@matricula", rango.matricula));
+            insertarRango.Parameters.Add(new SqlParameter("@fecha_desde", rango.fecha_desde));
+            insertarRango.Parameters.Add(new SqlParameter("@fecha_hasta", rango.fecha_hasta));
+            Int64 id_rango = -1;
+            insertarRango.Parameters.Add(new SqlParameter("@id_rango", id_rango));
+            insertarRango.Parameters["@id_rango"].Direction = ParameterDirection.Output;
+            
+            insertarRango.ExecuteNonQuery();
+            id_rango = (Int64)insertarRango.Parameters["@id_rango"].Value;
              agenda.ForEach(elem => {
-               SqlCommand insertar = new SqlCommand("INSERT INTO ELIMINAR_CAR.Agenda_Diaria (dia,matricula,hora_desde,hora_hasta,id_especialidad) VALUES (@dia,@matricula,@hora_desde,@hora_hasta,@id_especialidad)",DBConnector.ObtenerConexion());
+               SqlCommand insertar = new SqlCommand("INSERT INTO ELIMINAR_CAR.Agenda_Diaria (dia,matricula,hora_desde,hora_hasta,id_especialidad,id_rango) VALUES (@dia,@matricula,@hora_desde,@hora_hasta,@id_especialidad,@id_rango)",DBConnector.ObtenerConexion());
                insertar.Parameters.Add("@dia", SqlDbType.Int).Value = (int) elem.dia;
                insertar.Parameters.Add("@matricula", SqlDbType.BigInt).Value = elem.matricula;
                //string format = "yyyy-MM-dd HH:MM:ss";
                insertar.Parameters.Add("@hora_desde", SqlDbType.Time).Value = elem.hora_desde;
                insertar.Parameters.Add("@hora_hasta", SqlDbType.Time).Value = elem.hora_hasta;
                insertar.Parameters.Add("@id_especialidad", SqlDbType.Int).Value = elem.id_especialidad;
+               insertar.Parameters.Add("@id_rango", SqlDbType.Int).Value = id_rango;
                insertar.ExecuteNonQuery();
              });
-             SqlCommand insertarRango = new SqlCommand("INSERT INTO ELIMINAR_CAR.Rango_Atencion (matricula,fecha_desde,fecha_hasta) VALUES (@matricula,@fecha_desde,@fecha_hasta)", DBConnector.ObtenerConexion());
-             insertarRango.Parameters.Add("@matricula", SqlDbType.BigInt).Value = rango.matricula;
-             insertarRango.Parameters.Add("@fecha_desde", SqlDbType.DateTime).Value = rango.fecha_desde;
-             insertarRango.Parameters.Add("@fecha_hasta", SqlDbType.DateTime).Value = rango.fecha_hasta;
-             insertarRango.ExecuteNonQuery();
+             
          }
 
         private void btn_cancelar_Click(object sender, EventArgs e)
