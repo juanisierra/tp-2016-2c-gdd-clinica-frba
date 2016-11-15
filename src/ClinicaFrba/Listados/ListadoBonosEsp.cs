@@ -15,36 +15,48 @@ namespace ClinicaFrba.Listados
     public partial class ListadoBonosEsp : Form
     {
         SqlConnection conexion { get; set; }
+        DateTime fechaParametro { get; set; }
 
-        public ListadoBonosEsp()
+        public ListadoBonosEsp(DateTime fechaP)
         {
             InitializeComponent();
             conexion = DBConnector.ObtenerConexion();
+            this.fechaParametro = fechaP;
         }
 
         private void ListadoBonosEsp_Load(object sender, EventArgs e)
         {
-            List<String> lista1 = new List<String>();
-            int anio = 2015;
-            lista1.Add(anio.ToString());
-            while (anio < DateTime.Now.Year)
+            if (this.fechaParametro.Year < 2015)
             {
-                anio++;
-                lista1.Add(anio.ToString());
+                cb_anio.Enabled = false;
+                cb_mes.Enabled = false;
+                cb_semestre.Enabled = false;
+                btn_aceptar.Enabled = false;
             }
-            cb_anio.DataSource = lista1;
+            else
+            {
+                List<int> lista1 = new List<int>();
+                int anio = 2015;
+                lista1.Add(anio);
+                while (anio < this.fechaParametro.Year)
+                {
+                    anio++;
+                    lista1.Add(anio);
+                }
+                cb_anio.DataSource = lista1;
 
-            List<String> lista2 = new List<String>();
-            lista2.Add("Primero");
-            lista2.Add("Segundo");
-            cb_semestre.DataSource = lista2;
+                List<String> lista2 = new List<String>();
+                lista2.Add("Primero");
+                lista2.Add("Segundo");
+                cb_semestre.DataSource = lista2;
+            }
         }
 
         private DataTable runStoredProcedure()
         {
             SqlCommand storedP = new SqlCommand("ELIMINAR_CAR.especialidades_con_mas_bonos", conexion);
             storedP.CommandType = CommandType.StoredProcedure;
-            storedP.Parameters.AddWithValue("@fecha", new DateTime(Int32.Parse(cb_anio.SelectedItem.ToString()), ((int)cb_mes.SelectedItem)+1, 1).ToString());
+            storedP.Parameters.AddWithValue("@fecha", new DateTime((int)cb_anio.SelectedItem, ((int)cb_mes.SelectedItem)+1, 1).ToString());
             DataTable dt = new DataTable();
             SqlDataAdapter adapter = new SqlDataAdapter(storedP);
             adapter.Fill(dt);
@@ -61,20 +73,20 @@ namespace ClinicaFrba.Listados
         private List<meses> mesesAMostrar(int semestre)
         {
             List<meses> lista = new List<meses>();
-            if (cb_anio.SelectedIndex+2015 == DateTime.Now.Year)
+            if (cb_anio.SelectedIndex + 2015 == this.fechaParametro.Year)
             {
                 if (semestre == 0)
                 {
-                    if (DateTime.Now.Month <= 6) for (int j = 0; j < DateTime.Now.Month; j++) lista.Add((meses)j);
+                    if (this.fechaParametro.Month <= 6) for (int j = 0; j < this.fechaParametro.Month; j++) lista.Add((meses)j);
                     else for (int j = 0; j < 6; j++) lista.Add((meses)j);
                 }
                 else
                 {
-                    if (DateTime.Now.Month == 12) for (int j = 6; j < 12; j++) lista.Add((meses)j);
-                    else for (int j = 6; j < DateTime.Now.Month; j++) lista.Add((meses)j);
+                    if (this.fechaParametro.Month == 12) for (int j = 6; j < 12; j++) lista.Add((meses)j);
+                    else for (int j = 6; j < this.fechaParametro.Month; j++) lista.Add((meses)j);
                 }
             }
-            else if(cb_anio.SelectedIndex+2015 < DateTime.Now.Year)
+            else if (cb_anio.SelectedIndex + 2015 < this.fechaParametro.Year)
             {
                 if (semestre == 0) for (int j = 0; j < 6; j++) lista.Add((meses)j);
                 else for (int j = 6; j < 12; j++) lista.Add((meses)j);
