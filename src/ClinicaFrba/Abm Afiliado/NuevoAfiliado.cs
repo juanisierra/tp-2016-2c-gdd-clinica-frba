@@ -35,7 +35,7 @@ namespace ClinicaFrba.Abm_Afiliado
             textBox_NumDoc.KeyPress += Validaciones.controlNumeros;
            textBox_TelAfi.KeyPress += Validaciones.controlNumeros;
            textBox_CantFami.KeyPress += Validaciones.controlNumeros;
-            dtp_fecha_nac.MaxDate = DateTime.Now;
+            dtp_fecha_nac.MaxDate = ClinicaFrba.Utils.Fechas.getCurrentDateTime();
             PlanMedAfi.DataSource = Plan.traerPlanes();
             comboBox_EstadoCivilAfi.DataSource = Enum.GetValues(typeof(estado_civil));
             comboBox_SexoAfi.DataSource = Enum.GetValues(typeof(sexo));

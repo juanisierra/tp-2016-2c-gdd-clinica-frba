@@ -45,7 +45,7 @@ namespace ClinicaFrba.Cancelar_Atencion
             {
                 List<Rango_Atencion> rangos = Rango_Atencion.rangosPorProfesional(matricula);
                 rangos.ForEach(rango => dias.AddRange(Rango_Atencion.generarDiasRango(rango)));
-                dias.RemoveAll(dia => dia.Date <= DateTime.Today);
+                dias.RemoveAll(dia => dia.Date <= ClinicaFrba.Utils.Fechas.getCurrentDateTime().Date);
                 actualizarDias();
                 if (dias.Count==0)
                 {

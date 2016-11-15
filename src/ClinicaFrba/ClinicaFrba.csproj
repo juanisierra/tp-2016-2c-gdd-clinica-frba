@@ -141,6 +141,7 @@
     <Compile Include="Listados\ListadoBonosEsp.Designer.cs">
       <DependentUpon>ListadoBonosEsp.cs</DependentUpon>
     </Compile>
+    <Compile Include="Utils\Fechas.cs" />
     <Compile Include="Utils\FormularioNoImplementado.cs">
       <SubType>Form</SubType>
     </Compile>

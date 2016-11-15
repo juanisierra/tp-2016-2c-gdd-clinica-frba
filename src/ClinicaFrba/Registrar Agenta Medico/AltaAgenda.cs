@@ -73,7 +73,7 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
             {
                 errores.agregarError("La fecha de inicio de la franja debe ser anterior a la de fin.");
             }
-            if(rango.fecha_desde< DateTime.Today || rango.fecha_hasta<DateTime.Today)
+            if(rango.fecha_desde< ClinicaFrba.Utils.Fechas.getCurrentDateTime().Date || rango.fecha_hasta<ClinicaFrba.Utils.Fechas.getCurrentDateTime().Date)
             {
                 errores.agregarError("Las fechas de inicio y fin de la franja deben ser posteriores o iguales al dia de hoy.");
             }

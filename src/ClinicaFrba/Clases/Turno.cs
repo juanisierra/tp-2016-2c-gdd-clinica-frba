@@ -32,7 +32,7 @@ namespace ClinicaFrba.Clases
             traerTurnos.Connection = DBConnector.ObtenerConexion();
             traerTurnos.Parameters.Add("@matricula",SqlDbType.BigInt).Value = matricula;
             traerTurnos.Parameters.Add("@id_especialidad",SqlDbType.Int).Value = id_especialidad;
-            traerTurnos.Parameters.Add("@fecha_actual", SqlDbType.Date).Value = DateTime.Today;
+            traerTurnos.Parameters.Add("@fecha_actual", SqlDbType.Date).Value = ClinicaFrba.Utils.Fechas.getCurrentDateTime().Date;
             SqlDataReader reader = traerTurnos.ExecuteReader();
             while (reader.Read())
             {
@@ -122,7 +122,7 @@ namespace ClinicaFrba.Clases
             SqlCommand traerTurnos = new SqlCommand("ELIMINAR_CAR.turnosCancelablesAfiliado", DBConnector.ObtenerConexion());
             traerTurnos.CommandType = CommandType.StoredProcedure;
             traerTurnos.Parameters.Add("@id_afiliado", SqlDbType.BigInt).Value = id_afiliado;
-            traerTurnos.Parameters.Add("@fecha", DateTime.Today);
+            traerTurnos.Parameters.Add("@fecha", ClinicaFrba.Utils.Fechas.getCurrentDateTime().Date);
             List<Turno> turnos = new List<Turno>();
             SqlDataReader reader = traerTurnos.ExecuteReader();
             while (reader.Read())

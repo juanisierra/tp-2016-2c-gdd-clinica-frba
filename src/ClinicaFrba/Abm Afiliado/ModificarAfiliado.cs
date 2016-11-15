@@ -137,7 +137,7 @@ namespace ClinicaFrba.Abm_Afiliado
                         this.Visible = false;
                         motivo.ShowDialog();
                         this.Visible = true;
-                        modificarAfi.Parameters.AddWithValue("@fecha_cambio", DateTime.Today);
+                        modificarAfi.Parameters.AddWithValue("@fecha_cambio", ClinicaFrba.Utils.Fechas.getCurrentDateTime().Date);
                         if (motivo.fueCerradoPorusuario) modificarAfi.Parameters.AddWithValue("@motivo_cambio_plan", "No especificado");
                         else modificarAfi.Parameters.AddWithValue("@motivo_cambio_plan", ((RichTextBox)motivo.Controls["tb_motivo"]).Text);
                     }

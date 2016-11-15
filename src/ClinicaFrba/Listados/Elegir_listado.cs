@@ -32,19 +32,19 @@ namespace ClinicaFrba.Listados
             switch (cb_listado.SelectedIndex)
             {
                 case 0:
-                    new ListadoCancelaciones(DateTime.Now).ShowDialog();
+                    new ListadoCancelaciones(ClinicaFrba.Utils.Fechas.getCurrentDateTime()).ShowDialog();
                     break;
                 case 1:
-                    new ListadoConsultas(DateTime.Now).ShowDialog();
+                    new ListadoConsultas(ClinicaFrba.Utils.Fechas.getCurrentDateTime()).ShowDialog();
                     break;
                 case 2:
-                    new ListadoHoras(DateTime.Now).ShowDialog();
+                    new ListadoHoras(ClinicaFrba.Utils.Fechas.getCurrentDateTime()).ShowDialog();
                     break;
                 case 3:
-                    new ListadoBonosAf(DateTime.Now).ShowDialog();
+                    new ListadoBonosAf(ClinicaFrba.Utils.Fechas.getCurrentDateTime()).ShowDialog();
                     break;
                 case 4:
-                    new ListadoBonosEsp(DateTime.Now).ShowDialog();
+                    new ListadoBonosEsp(ClinicaFrba.Utils.Fechas.getCurrentDateTime()).ShowDialog();
                     break;
             }
             this.Visible = true;

@@ -55,7 +55,7 @@ namespace ClinicaFrba.Cancelar_Atencion
         public void actualizarTurnos()
         {
             dgv_turno.DataSource = null;
-            turnos = Turno.traerTurnosCancelablesAfiliado(id_afiliado, DateTime.Now);
+            turnos = Turno.traerTurnosCancelablesAfiliado(id_afiliado, ClinicaFrba.Utils.Fechas.getCurrentDateTime());
             dgv_turno.DataSource = turnos;
         }
 

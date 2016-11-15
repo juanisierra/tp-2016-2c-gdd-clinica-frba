@@ -91,7 +91,7 @@ namespace ClinicaFrba.Abm_Afiliado
                         eliminar.CommandType = CommandType.StoredProcedure;
                         eliminar.Parameters.Add(new SqlParameter("@id_afiliado",(Int64) afiliadoSeleccionado.idAfiliado));
                         eliminar.Parameters.Add(new SqlParameter("@id_familia", (Int64)afiliadoSeleccionado.idFamilia));
-                        eliminar.Parameters.Add(new SqlParameter("@fecha_baja", DateTime.Today));
+                        eliminar.Parameters.Add(new SqlParameter("@fecha_baja", ClinicaFrba.Utils.Fechas.getCurrentDateTime().Date));
                         
                         eliminar.ExecuteNonQuery();
                         MessageBox.Show("El afiliado fue eliminado correctamente", "Clinica-FRBA", MessageBoxButtons.OK, MessageBoxIcon.Information);

@@ -146,9 +146,9 @@ namespace ClinicaFrba.Pedir_Turno
             if (dia != null)
             {
                 horarios = dia.generarHorarios(); //Genera todos los horarios del dia
-                if (((DateTime)cb_dia_mes.SelectedItem).Date == DateTime.Today.Date) //Son turnos para hoy, filtrar horarios que pasaron
+                if (((DateTime)cb_dia_mes.SelectedItem).Date == ClinicaFrba.Utils.Fechas.getCurrentDateTime().Date.Date) //Son turnos para hoy, filtrar horarios que pasaron
                 {
-                    horarios.RemoveAll(horario => (horario < DateTime.Now.TimeOfDay));
+                    horarios.RemoveAll(horario => (horario < ClinicaFrba.Utils.Fechas.getCurrentDateTime().TimeOfDay));
                 }
             }
             List<Turno> turnos = Turno.turnosFuturosPorProfesionalYEspecialidad(profesionalElegido.matricula, especialidadElegida.id_especialidad);

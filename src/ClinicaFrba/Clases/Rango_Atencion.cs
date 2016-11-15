@@ -42,7 +42,7 @@ namespace ClinicaFrba.Clases
         {
             List<DateTime> lista = new List<DateTime>();
             DateTime fecha = rango.fecha_desde;
-            if (DateTime.Today > fecha) fecha = DateTime.Today;
+            if (ClinicaFrba.Utils.Fechas.getCurrentDateTime().Date > fecha) fecha = ClinicaFrba.Utils.Fechas.getCurrentDateTime().Date;
             while (fecha <= rango.fecha_hasta)
             {   if(fecha.DayOfWeek!=DayOfWeek.Sunday) lista.Add(fecha);
                 fecha = fecha.AddDays(1);

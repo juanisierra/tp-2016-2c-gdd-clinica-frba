@@ -21,7 +21,7 @@ namespace ClinicaFrba.Registro_Resultado
         {
             InitializeComponent();
             matricula = Profesional.matriculaPorUsuario(id_usuario);
-            dt_dia.MinDate = DateTime.Today.Subtract(new TimeSpan(24,0,0));
+            dt_dia.MinDate = ClinicaFrba.Utils.Fechas.getCurrentDateTime().Date.Subtract(new TimeSpan(24,0,0));
             ActualizarHora();
         }
 
@@ -34,7 +34,7 @@ namespace ClinicaFrba.Registro_Resultado
             }
             else
             {
-                turnos = Turno.turnosDiagnosticablesPorProfesional(matricula, DateTime.Today);
+                turnos = Turno.turnosDiagnosticablesPorProfesional(matricula, ClinicaFrba.Utils.Fechas.getCurrentDateTime().Date);
                 dgv_turno.DataSource = turnos;
             }
             ActualizarCampos();
@@ -102,7 +102,7 @@ namespace ClinicaFrba.Registro_Resultado
         private void ActualizarTurnos()
         {
             dgv_turno.DataSource = null;
-            turnos = Turno.turnosDiagnosticablesPorProfesional(matricula, DateTime.Today);
+            turnos = Turno.turnosDiagnosticablesPorProfesional(matricula, ClinicaFrba.Utils.Fechas.getCurrentDateTime().Date);
             dgv_turno.DataSource = turnos;
         }
 

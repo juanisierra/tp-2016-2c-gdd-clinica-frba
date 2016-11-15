@@ -99,7 +99,7 @@ namespace ClinicaFrba.Compra_Bono
                 insertarBonos.CommandType = CommandType.StoredProcedure;
                 insertarBonos.Parameters.Add(new SqlParameter("@id_afiliado", id_afiliado));
                 insertarBonos.Parameters.Add(new SqlParameter("@cant_bonos",cantidadComprada));
-                insertarBonos.Parameters.Add(new SqlParameter("@fecha_compra", DateTime.Now));
+                insertarBonos.Parameters.Add(new SqlParameter("@fecha_compra", ClinicaFrba.Utils.Fechas.getCurrentDateTime()));
                 insertarBonos.ExecuteNonQuery();
                 MessageBox.Show("Compra de Bonos Realizada","Clinica-FRBA", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 txtCantCompra.Text = "";

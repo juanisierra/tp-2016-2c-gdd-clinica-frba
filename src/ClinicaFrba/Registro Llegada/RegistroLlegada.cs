@@ -41,7 +41,7 @@ namespace ClinicaFrba.Registro_Llegada
                 {
                     profesionalElegido = (Profesional)((DataGridView)formulario.Controls["dgv_profesional"]).CurrentRow.DataBoundItem;
                     List<Turno> turnosProfesional;
-                    turnosProfesional = Turno.turnosDelDiaPorProfesional(profesionalElegido.matricula, DateTime.Today);
+                    turnosProfesional = Turno.turnosDelDiaPorProfesional(profesionalElegido.matricula, ClinicaFrba.Utils.Fechas.getCurrentDateTime().Date);
                     if (((Especialidad)((ComboBox)formulario.Controls["cb_especialidad"]).SelectedItem).id_especialidad != -1) //Se selecciono una especialidad
                     {
                         turnosProfesional.RemoveAll(turno => turno.id_especialidad != ((Especialidad)((ComboBox)formulario.Controls["cb_especialidad"]).SelectedItem).id_especialidad); //Sacamos los turnos de otras especialidades
@@ -65,7 +65,7 @@ namespace ClinicaFrba.Registro_Llegada
                 insertar.Parameters.Add("@id_afiliado", SqlDbType.BigInt).Value = turnoElegido.id_afiliado;
                 insertar.Parameters.Add("@id_bono", SqlDbType.BigInt).Value = (Int64)((ComboBox)form.Controls["cb_id_bono"]).SelectedItem;
                 insertar.Parameters.Add("@id_turno", SqlDbType.BigInt).Value = turnoElegido.id_turno;
-                insertar.Parameters.Add("@fecha_llegada", SqlDbType.DateTime).Value = DateTime.Now;
+                insertar.Parameters.Add("@fecha_llegada", SqlDbType.DateTime).Value = ClinicaFrba.Utils.Fechas.getCurrentDateTime();
                 insertar.ExecuteNonQuery();
                 MessageBox.Show("Se registro correctamente la llegada", "Clinica-FRBA", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.Close();
