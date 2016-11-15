@@ -18,26 +18,6 @@ namespace ClinicaFrba.Clases
         {
             return fecha_desde.Date <= fecha_hasta.Date;
         }
-        //ABAJO BIEN 
-        public static Rango_Atencion rangoPorProfesional(Int64 matricula)
-        {
-            SqlCommand comando = new SqlCommand();
-            comando.Connection = DBConnector.ObtenerConexion();
-            comando.CommandText = "SELECT TOP 1 id_rango,matricula,fecha_desde,fecha_hasta FROM ELIMINAR_CAR.Rango_Atencion WHERE matricula=@matricula";
-            comando.Parameters.Add("@matricula", SqlDbType.BigInt).Value = matricula;
-            SqlDataReader reader = comando.ExecuteReader();
-            Rango_Atencion rango = null;
-            if (reader.Read())
-            {
-                rango = new Rango_Atencion();
-                rango.id_rango = reader.GetInt64(0);
-                rango.matricula = reader.GetInt64(1);
-                rango.fecha_desde = reader.GetDateTime(2);
-                rango.fecha_hasta = reader.GetDateTime(3);
-            }
-            reader.Close();
-            return rango;
-        }
         public static List<Rango_Atencion> rangosPorProfesional(Int64 matricula)
         {
             SqlCommand comando = new SqlCommand();
