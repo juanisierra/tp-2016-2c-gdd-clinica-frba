@@ -150,6 +150,7 @@
             // 
             // cb_dia_desde
             // 
+            this.cb_dia_desde.DisplayMember = "Day";
             this.cb_dia_desde.FormattingEnabled = true;
             this.cb_dia_desde.Location = new System.Drawing.Point(273, 78);
             this.cb_dia_desde.Name = "cb_dia_desde";
@@ -204,6 +205,7 @@
             // 
             // cb_dia_hasta
             // 
+            this.cb_dia_hasta.DisplayMember = "Day";
             this.cb_dia_hasta.FormattingEnabled = true;
             this.cb_dia_hasta.Location = new System.Drawing.Point(278, 158);
             this.cb_dia_hasta.Name = "cb_dia_hasta";
