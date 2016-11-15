@@ -79,8 +79,6 @@ namespace ClinicaFrba.Pedir_Turno
                    actualizarAnios();
                    actualizarDias();
                    actualizarMeses();
-                   actualizarAgenda();
-                   
                    
                   horarios = new List<TimeSpan>();
                    if (cb_anio.SelectedItem != null &&cb_mes.SelectedItem!=null && cb_dia_mes.SelectedItem != null)

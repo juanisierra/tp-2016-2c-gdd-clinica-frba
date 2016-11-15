@@ -32,6 +32,7 @@ namespace ClinicaFrba.Clases
             traerTurnos.Connection = DBConnector.ObtenerConexion();
             traerTurnos.Parameters.Add("@matricula",SqlDbType.BigInt).Value = matricula;
             traerTurnos.Parameters.Add("@id_especialidad",SqlDbType.Int).Value = id_especialidad;
+            traerTurnos.Parameters.Add("@fecha_actual", SqlDbType.Date).Value = DateTime.Today;
             SqlDataReader reader = traerTurnos.ExecuteReader();
             while (reader.Read())
             {

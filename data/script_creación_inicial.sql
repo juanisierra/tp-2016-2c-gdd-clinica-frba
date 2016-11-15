@@ -482,9 +482,9 @@ EXEC @prox_id = ELIMINAR_CAR.proximoIdTurno
 VALUES(@prox_id,@fecha,@matricula,@id_afiliado,@id_especialidad,1)
 GO
 
-CREATE PROCEDURE ELIMINAR_CAR.turnosFuturosPorProfesionalYEspecialidad (@matricula BIGINT,@id_especialidad INT)
+CREATE PROCEDURE ELIMINAR_CAR.turnosFuturosPorProfesionalYEspecialidad (@matricula BIGINT,@id_especialidad INT,@fecha_actual DATE)
 AS
-SELECT id_turno,fecha_estipulada,matricula,t.id_afiliado,id_bono,momento_llegada,t.id_especialidad,t.activo,e.desc_especialidad,a.nombre,a.apellido FROM ELIMINAR_CAR.Turno t JOIN ELIMINAR_CAR.Afiliado a ON(a.id_afiliado=t.id_afiliado) JOIN ELIMINAR_CAR.Especialidad e ON (t.id_especialidad=e.id_especialidad) WHERE fecha_estipulada>=GETDATE() AND matricula=@matricula  AND t.id_especialidad=@id_especialidad
+SELECT id_turno,fecha_estipulada,matricula,t.id_afiliado,id_bono,momento_llegada,t.id_especialidad,t.activo,e.desc_especialidad,a.nombre,a.apellido FROM ELIMINAR_CAR.Turno t JOIN ELIMINAR_CAR.Afiliado a ON(a.id_afiliado=t.id_afiliado) JOIN ELIMINAR_CAR.Especialidad e ON (t.id_especialidad=e.id_especialidad) WHERE fecha_estipulada>=@fecha_actual AND matricula=@matricula  AND t.id_especialidad=@id_especialidad
 GO
 
 CREATE PROCEDURE ELIMINAR_CAR.turnosDelDiaPorProfesional (@matricula BIGINT,@fecha DATETIME)
@@ -714,7 +714,7 @@ CREATE PROCEDURE ELIMINAR_CAR.eliminarAfiliadoRaiz(@id_afiliado BIGINT,@id_famil
 AS
 BEGIN --Si es el raiz damos de baja a toda la familia
 UPDATE ELIMINAR_CAR.Afiliado SET activo=0,fecha_baja=@fecha_baja WHERE id_familia=@id_familia;
-UPDATE ELIMINAR_CAR.TURNO SET activo=0 WHERE id_afiliado IN (SELECT id_afiliado FROM ELIMINAR_CAR.Afiliado WHERE id_familia=@id_familia) AND fecha_estipulada>=GETDATE()
+UPDATE ELIMINAR_CAR.TURNO SET activo=0 WHERE id_afiliado IN (SELECT id_afiliado FROM ELIMINAR_CAR.Afiliado WHERE id_familia=@id_familia) AND fecha_estipulada>@fecha_baja
 UPDATE ELIMINAR_CAR.Familia SET n_familiares_a_cargo=0 WHERE id_familia=@id_familia;
 END
 GO
@@ -723,7 +723,7 @@ CREATE PROCEDURE ELIMINAR_CAR.eliminarAfiliadoNoRaiz(@id_afiliado BIGINT,@id_fam
 AS
 BEGIN
 UPDATE ELIMINAR_CAR.Afiliado SET activo=0,fecha_baja=@fecha_baja WHERE id_afiliado=@id_afiliado;
-UPDATE ELIMINAR_CAR.TURNO SET activo=0 WHERE id_afiliado=@id_afiliado AND fecha_estipulada>=GETDATE();
+UPDATE ELIMINAR_CAR.TURNO SET activo=0 WHERE id_afiliado=@id_afiliado AND fecha_estipulada>=@fecha_baja;
 if @id_afiliado NOT LIKE '%02' --Si no es el conyuge original
 BEGIN
  UPDATE ELIMINAR_CAR.Familia SET n_familiares_a_cargo=n_familiares_a_cargo-1 WHERE id_familia=@id_familia;
