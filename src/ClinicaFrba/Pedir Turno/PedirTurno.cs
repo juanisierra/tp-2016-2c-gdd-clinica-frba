@@ -32,6 +32,7 @@ namespace ClinicaFrba.Pedir_Turno
             this.id_rol = id_rol;
             this.id_usuario = id_usuario;
             this.cerrar = false;
+            this.diasRango = new List<DateTime>();
         }
 
         private void PedirTurno_Load(object sender, EventArgs e)
@@ -78,10 +79,10 @@ namespace ClinicaFrba.Pedir_Turno
                    actualizarAnios();
                    actualizarDias();
                    actualizarMeses();
+                   actualizarAgenda();
                    
                    
-                   agenda = Agenda_Diaria.getAgendaProfesional(profesionalElegido.matricula, especialidadElegida.id_especialidad);
-                   horarios = new List<TimeSpan>();
+                  horarios = new List<TimeSpan>();
                    if (cb_anio.SelectedItem != null &&cb_mes.SelectedItem!=null && cb_dia_mes.SelectedItem != null)
                    {
                        CalcularHorarios();
@@ -93,18 +94,15 @@ namespace ClinicaFrba.Pedir_Turno
             }
         public void CalcularDiasRango()
         {
-            Rango_Atencion rango = Rango_Atencion.rangoPorProfesional(profesionalElegido.matricula);
-            List<DayOfWeek> diasQueTrabaja = profesionalElegido.diasQueTrabajaNormalmente(especialidadElegida.id_especialidad);
-            
-            if (rango != null)
-            {
-                diasRango = Rango_Atencion.generarDiasRango(rango);
+            List<Rango_Atencion> rangos = Rango_Atencion.rangosPorProfesional(profesionalElegido.matricula);
+            if (rangos.Count > 0)
+            {   
+                    rangos.ForEach(r => diasRango.AddRange(Rango_Atencion.generarDiasQueTrabajaRango(profesionalElegido,especialidadElegida.id_especialidad,r)));
             }
             else
             {
                 diasRango = new List<DateTime>();
             }
-            diasRango.RemoveAll(dia => !diasQueTrabaja.Contains(dia.DayOfWeek)); //Remuevo los dias que no trabaja
             List<Cancelacion_Profesional> cancelaciones = Cancelacion_Profesional.cancelacionesPorProfesional(profesionalElegido.matricula);
             List<DateTime> diasCancelados = new List<DateTime>();
             cancelaciones.ForEach(c => diasCancelados.AddRange(c.diasCancelados())); //Agrego los dias que se cancelan
@@ -137,8 +135,13 @@ namespace ClinicaFrba.Pedir_Turno
             }
             else cb_dia_mes.DataSource = null;
         }
+        public void actualizarAgenda()
+        {
+            agenda = Agenda_Diaria.getAgendaProfesional(profesionalElegido.matricula, especialidadElegida.id_especialidad, Rango_Atencion.rangoPorDia(profesionalElegido.matricula, especialidadElegida.id_especialidad, (DateTime)cb_dia_mes.SelectedItem));
+        }
         public void CalcularHorarios()
         {
+            actualizarAgenda();
             cb_hora.DataSource = null;
             Agenda_Diaria dia = null;
             if (cb_anio.SelectedItem != null && cb_mes.SelectedItem != null && cb_dia_mes.SelectedItem != null && agenda != null) dia = agenda.Find(elem => elem.dia == (((DateTime) cb_dia_mes.SelectedItem).DayOfWeek));

@@ -15,6 +15,7 @@ namespace ClinicaFrba.Clases
         public TimeSpan hora_desde { set; get; }
         public TimeSpan hora_hasta { set; get; }
         public int id_especialidad { set; get; }
+        public long id_rango { set; get; }
         public Boolean esValida()
         {
             return hora_desde < hora_hasta;
@@ -32,13 +33,14 @@ namespace ClinicaFrba.Clases
         {
             return (hora_hasta - hora_desde).TotalHours;
         }
-        public static  List<Agenda_Diaria> getAgendaProfesional(Int64 matricula,int id_especialidad)
+        public static  List<Agenda_Diaria> getAgendaProfesional(Int64 matricula,int id_especialidad,Int64 id_rango)
         {   
             SqlCommand traerAgendas = new SqlCommand();
             traerAgendas.Connection = DBConnector.ObtenerConexion();
-            traerAgendas.CommandText = "SELECT matricula,dia,hora_desde,hora_hasta,id_especialidad FROM ELIMINAR_CAR.Agenda_Diaria WHERE matricula=@matricula AND id_especialidad=@id_especialidad";
+            traerAgendas.CommandText = "SELECT matricula,dia,hora_desde,hora_hasta,id_especialidad,id_rango FROM ELIMINAR_CAR.Agenda_Diaria WHERE matricula=@matricula AND id_especialidad=@id_especialidad AND id_rango=@id_rango";
             traerAgendas.Parameters.Add("@matricula", SqlDbType.BigInt).Value = matricula;
             traerAgendas.Parameters.Add("@id_especialidad", SqlDbType.Int).Value = id_especialidad;
+            traerAgendas.Parameters.Add("@id_rango", SqlDbType.BigInt).Value = id_rango;
             SqlDataReader reader = traerAgendas.ExecuteReader();
             List<Agenda_Diaria> lista = new List<Agenda_Diaria>();
             while (reader.Read())
@@ -49,6 +51,7 @@ namespace ClinicaFrba.Clases
                 a.hora_desde = reader.GetTimeSpan(2);
                 a.hora_hasta = reader.GetTimeSpan(3);
                 a.id_especialidad = reader.GetInt32(4);
+                a.id_rango = reader.GetInt64(5);
                 lista.Add(a);
             }
             reader.Close();

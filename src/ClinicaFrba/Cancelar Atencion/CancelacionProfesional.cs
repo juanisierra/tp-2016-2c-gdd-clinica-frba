@@ -124,14 +124,14 @@ namespace ClinicaFrba.Cancelar_Atencion
         private void cb_anio_hasta_SelectedIndexChanged(object sender, EventArgs e)
         {
             List<meses> mesesConEnum = new List<meses>();
-            dias.FindAll(elem => elem.Year == (int)cb_anio_hasta.SelectedItem && elem.Month>=(int) cb_mes_desde.SelectedItem+1).GroupBy(elem => elem.Month).Select(it => it.First()).ToList<DateTime>().ForEach(elem => mesesConEnum.Add((meses)elem.Month - 1));
+            dias.FindAll(elem => elem.Year == (int)cb_anio_hasta.SelectedItem && ((int)cb_anio_desde.SelectedItem < (int)cb_anio_hasta.SelectedItem || elem.Month >= (int)cb_mes_desde.SelectedItem + 1)).GroupBy(elem => elem.Month).Select(it => it.First()).ToList<DateTime>().ForEach(elem => mesesConEnum.Add((meses)elem.Month - 1));
             cb_mes_hasta.DataSource = mesesConEnum;
         }
 
         private void cb_mes_hasta_SelectedIndexChanged(object sender, EventArgs e)
         {
             List<DateTime> diasHasta = new List<DateTime>();
-            dias.FindAll(elem => elem.Year == (int)cb_anio_hasta.SelectedItem && elem.Month == (int)cb_mes_hasta.SelectedItem + 1 && elem >= (DateTime)cb_dia_desde.SelectedItem).ForEach(fecha => diasHasta.Add(fecha));
+            dias.FindAll(elem => elem.Year == (int)cb_anio_hasta.SelectedItem && elem.Month == (int)cb_mes_hasta.SelectedItem + 1 && ((int)cb_anio_desde.SelectedItem < (int)cb_anio_hasta.SelectedItem || (int)cb_mes_desde.SelectedItem < (int)cb_mes_hasta.SelectedItem || elem >= (DateTime)cb_dia_desde.SelectedItem)).ForEach(fecha => diasHasta.Add(fecha));
             cb_dia_hasta.DataSource = diasHasta;
         }
 

@@ -77,5 +77,18 @@ namespace ClinicaFrba.Clases
             List<DateTime> diasRangoNuevo = Rango_Atencion.generarDiasRango(rango);
             return diasRangoNuevo.Any(dia => diasRangosActuales.Select(d => d.Date).Contains(dia.Date));
         }
+
+        internal static List<DateTime> generarDiasQueTrabajaRango(Profesional prof,int id_especialidad,Rango_Atencion r)
+        {
+            List<DateTime> dias = Rango_Atencion.generarDiasRango(r);
+            List<DayOfWeek> diasQueTrabaja = prof.diasQueTrabajaNormalmente(id_especialidad,r);
+            dias.RemoveAll(dia => !diasQueTrabaja.Contains(dia.DayOfWeek));
+            return dias;
+        }
+        public static Int64 rangoPorDia(Int64 matricula, int id_especialidad, DateTime dia)
+        {
+            List<Rango_Atencion> rangos = Rango_Atencion.rangosPorProfesional(matricula);
+            return rangos.Find(rango => Rango_Atencion.generarDiasRango(rango).Contains(dia)).id_rango;
+        }
     }
 }
