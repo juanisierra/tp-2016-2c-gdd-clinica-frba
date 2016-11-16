@@ -731,12 +731,20 @@ BEGIN
 END
 GO
 
-CREATE FUNCTION ELIMINAR_CAR.SumarHoras(@MATRICULA BIGINT, @DIA INT) RETURNS DECIMAL(6,2)
+CREATE FUNCTION ELIMINAR_CAR.SumarHorasRango(@MATRICULA BIGINT, @DIA INT,@id_rango BIGINT,@id_especialidad INT) RETURNS DECIMAL(6,2)
 AS
 BEGIN
 	DECLARE @TIEMPO_TRABAJADO DECIMAL(6,2), @HORA_DESDE TIME, @HORA_HASTA TIME
-	SELECT @HORA_DESDE=A.hora_desde, @HORA_HASTA = A.hora_hasta FROM ELIMINAR_CAR.Agenda_Diaria A WHERE matricula=@MATRICULA and dia = @DIA
-	IF @@ROWCOUNT>0
+	--SI hay una sola especialidad la filtra y toma esos datos, sino busca el total del dia
+	SELECT @HORA_DESDE=MIN(A.hora_desde), @HORA_HASTA = MAX(A.hora_hasta) FROM ELIMINAR_CAR.Agenda_Diaria A WHERE matricula=@MATRICULA and dia = @DIA AND @id_rango=id_rango and id_especialidad= case @id_especialidad
+																																																		when -1 then id_especialidad
+																																																		else @id_especialidad
+																																																		end
+	--sINO NO ANDA POR EL MIN Y MAX
+	IF exists( SELECT * FROM ELIMINAR_CAR.Agenda_Diaria A WHERE matricula=@MATRICULA and dia = @DIA AND @id_rango=id_rango and id_especialidad= case @id_especialidad
+																																																		when -1 then id_especialidad
+																																																		else @id_especialidad
+																																																		end)
 		BEGIN
 		SET @TIEMPO_TRABAJADO = (convert(DECIMAL(6,2),datediff(minute, @HORA_DESDE, @HORA_HASTA))/60.00)
 		END
@@ -749,34 +757,62 @@ BEGIN
 END
 GO
 
-CREATE FUNCTION ELIMINAR_CAR.horas_prof (@matricula BIGINT, @id_especialidad INT, @fecha DATETIME) RETURNS DECIMAL(6,2)
+
+
+
+--Suma las horas del profesional en un rango determinado, si el mes esta mal no va a sumarlas
+CREATE FUNCTION ELIMINAR_CAR.horas_profRango (@matricula BIGINT, @id_especialidad INT, @fecha DATETIME,@rango BIGINT) RETURNS DECIMAL(6,2)
 AS
 BEGIN
 	DECLARE @desde DATETIME, @hasta DATETIME, @horas DECIMAL(6,2)
 	SET @horas=0
-	SET @desde = @fecha
-	SELECT DISTINCT @hasta = fecha_hasta FROM ELIMINAR_CAR.Agenda_Diaria a JOIN ELIMINAR_CAR.Rango_Atencion r ON (r.matricula = a.matricula) WHERE @matricula = a.matricula 
-	and a.id_especialidad =
-		CASE @id_especialidad
-			WHEN -1 THEN a.id_especialidad
-			ELSE @id_especialidad
-		END
-	WHILE (@desde <= @hasta and MONTH(@fecha) = MONTH(@desde))
+
+
+	
+	SELECT TOP 1 @hasta =fecha_hasta,@desde=fecha_desde FROM  ELIMINAR_CAR.Rango_Atencion r WHERE @matricula = r.matricula and r.id_rango=@rango
+	--SE FIJA SI LA FECHA EN LA QUE EMPEZAMOS ES ANTES O NO DEL COMIENZO DEL RANGO
+
+	IF @fecha>@desde 
+	BEGIN
+	SET @desde=@fecha
+	END
+
+	WHILE (@desde <= @hasta and MONTH(@fecha) = MONTH(@desde) and YEAR(@fecha)>= YEAR(@desde) AND Year(@fecha)<=YEAR(@HASTA) )
 	BEGIN
 		SET @horas =
 		CASE datepart(weekday, @desde)
-			WHEN 1 THEN @horas + ELIMINAR_CAR.SumarHoras(@matricula, 1)
-			WHEN 2 THEN @horas + ELIMINAR_CAR.SumarHoras(@matricula, 2)
-			WHEN 3 THEN @horas + ELIMINAR_CAR.SumarHoras(@matricula, 3)
-			WHEN 4 THEN @horas + ELIMINAR_CAR.SumarHoras(@matricula, 4)
-			WHEN 5 THEN @horas + ELIMINAR_CAR.SumarHoras(@matricula, 5)
-			WHEN 6 THEN @horas + ELIMINAR_CAR.SumarHoras(@matricula, 6)
+			WHEN 1 THEN @horas + ELIMINAR_CAR.SumarHorasRango(@matricula, 1,@rango,@id_especialidad)
+			WHEN 2 THEN @horas + ELIMINAR_CAR.SumarHorasRango(@matricula, 2,@rango,@id_especialidad)
+			WHEN 3 THEN @horas + ELIMINAR_CAR.SumarHorasRango(@matricula, 3,@rango,@id_especialidad)
+			WHEN 4 THEN @horas + ELIMINAR_CAR.SumarHorasRango(@matricula, 4,@rango,@id_especialidad)
+			WHEN 5 THEN @horas + ELIMINAR_CAR.SumarHorasRango(@matricula, 5,@rango,@id_especialidad)
+			WHEN 6 THEN @horas + ELIMINAR_CAR.SumarHorasRango(@matricula, 6,@rango,@id_especialidad)
 			ELSE @horas
 		END
 		SELECT @desde = DATEADD(day, 1, @desde)
 	END
 
 	RETURN @horas
+END
+GO
+
+--Suma las horas del profesional de todos sus rangos
+CREATE FUNCTION ELIMINAR_CAR.horas_prof (@matricula BIGINT, @id_especialidad INT, @fecha DATETIME) RETURNS DECIMAL(6,2)
+AS
+BEGIN
+DECLARE @horas DECIMAL(6,2)
+SELECT @horas=SUM(ELIMINAR_CAR.horas_profRango(@matricula,@id_especialidad,@fecha,id_rango))
+	from ELIMINAR_CAR.Rango_Atencion
+	where @matricula=matricula
+
+if not exists (SELECT * 
+				from ELIMINAR_CAR.Rango_Atencion
+				where @matricula=matricula)
+begin
+set @horas=0
+end
+
+RETURN @horas
 END
 GO
 
