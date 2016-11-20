@@ -94,13 +94,14 @@ namespace ClinicaFrba.Pedir_Turno
         {
             List<Rango_Atencion> rangos = Rango_Atencion.rangosPorProfesional(profesionalElegido.matricula);
             if (rangos.Count > 0)
-            {   
+            {       
                     rangos.ForEach(r => diasRango.AddRange(Rango_Atencion.generarDiasQueTrabajaRango(profesionalElegido,especialidadElegida.id_especialidad,r)));
             }
             else
             {
                 diasRango = new List<DateTime>();
             }
+            diasRango.RemoveAll(dia => dia.Year<2016); //Saca los dias anteriores a 2016 para que no se pueda pedir turno ahi.
             List<Cancelacion_Profesional> cancelaciones = Cancelacion_Profesional.cancelacionesPorProfesional(profesionalElegido.matricula);
             List<DateTime> diasCancelados = new List<DateTime>();
             cancelaciones.ForEach(c => diasCancelados.AddRange(c.diasCancelados())); //Agrego los dias que se cancelan

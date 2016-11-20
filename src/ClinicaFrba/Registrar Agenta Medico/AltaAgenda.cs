@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using ClinicaFrba.Abm_Profesional;
 using ClinicaFrba.Clases;
 using System.Data.SqlClient;
+using ClinicaFrba.Utils;
 namespace ClinicaFrba.Registrar_Agenta_Medico
 {
     public partial class AltaAgenda : Form
@@ -26,6 +27,8 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
         
         public void AltaAgenda_Load(object sender, EventArgs e)
         {
+            franja_inicio.Value = Fechas.getCurrentDateTime().Date;
+            franja_fin.Value = Fechas.getCurrentDateTime().Date;
             if (id_rol == 3) ///Es profesional
             {      Int64 matricula = Profesional.matriculaPorUsuario(id_usuario);
                  if(matricula!=-1)   {
@@ -69,6 +72,10 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
             rango.fecha_desde = franja_inicio.Value.Date;
             rango.fecha_hasta = franja_fin.Value.Date;
             Errores errores = new Errores();
+            if (rango.fecha_desde.Year < 2016 || rango.fecha_hasta.Year < 2016)
+            {
+                errores.agregarError("No se permiten registrar agendas anteriores a 2016");
+            }
             if(!rango.esValido())
             {
                 errores.agregarError("La fecha de inicio de la franja debe ser anterior a la de fin.");

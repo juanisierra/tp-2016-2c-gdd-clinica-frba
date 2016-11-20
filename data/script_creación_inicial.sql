@@ -449,6 +449,20 @@ INSERT INTO ELIMINAR_CAR.Funcionalidades_por_rol
 Values (3,12);
 GO
 
+--Migracion de Agendas
+INSERT INTO ELIMINAR_CAR.Rango_Atencion (matricula,fecha_desde,fecha_hasta) --Insertamos todo el rango donde trabaja
+SELECT Medico_Dni,min(turno_fecha),max(turno_fecha) FROM gd_esquema.Maestra
+where medico_dni is not null
+group by Medico_Dni
+GO
+--Insertar Agendas diarias por rango y especialidad
+INSERT INTO ELIMINAR_CAR.Agenda_Diaria (matricula,id_especialidad,dia,hora_hasta,hora_desde,id_rango)
+SELECT Medico_Dni medico,Especialidad_Codigo esp,DATEPART(weekday,Turno_Fecha) dia,Max(CAST(Turno_Fecha as TIME)),Min(CAST(Turno_Fecha as TIME)),(SELECT TOP 1 id_rango from ELIMINAR_CAR.Rango_Atencion where matricula=m.Medico_Dni)
+FROM gd_esquema.Maestra m
+where Medico_Dni is not null
+group by Medico_Dni,Especialidad_Codigo,DATEPART(weekday,Turno_Fecha) 
+GO
+
 --Stored procedures
 CREATE PROCEDURE ELIMINAR_CAR.Registrar_Rango(@matricula BIGINT,@fecha_desde DATE,@fecha_hasta DATE,@id_rango BIGINT OUTPUT)
 AS
