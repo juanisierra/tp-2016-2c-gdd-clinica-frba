@@ -781,8 +781,6 @@ BEGIN
 	DECLARE @desde DATETIME, @hasta DATETIME, @horas DECIMAL(6,2)
 	SET @horas=0
 
-
-	
 	SELECT TOP 1 @hasta =fecha_hasta,@desde=fecha_desde FROM  ELIMINAR_CAR.Rango_Atencion r WHERE @matricula = r.matricula and r.id_rango=@rango
 	--SE FIJA SI LA FECHA EN LA QUE EMPEZAMOS ES ANTES O NO DEL COMIENZO DEL RANGO
 
@@ -815,8 +813,8 @@ CREATE FUNCTION ELIMINAR_CAR.horas_prof (@matricula BIGINT, @id_especialidad INT
 AS
 BEGIN
 DECLARE @horas DECIMAL(6,2)
-SELECT @horas=SUM(ELIMINAR_CAR.horas_profRango(@matricula,@id_especialidad,@fecha,id_rango))
-	from ELIMINAR_CAR.Rango_Atencion
+SELECT @horas=SUM(ELIMINAR_CAR.horas_profRango(@matricula,@id_especialidad,@fecha,r.id_rango))
+	from ELIMINAR_CAR.Rango_Atencion r
 	where @matricula=matricula
 
 if not exists (SELECT * 

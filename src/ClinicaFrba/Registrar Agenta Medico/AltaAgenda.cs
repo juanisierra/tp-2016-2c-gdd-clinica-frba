@@ -226,6 +226,10 @@ namespace ClinicaFrba.Registrar_Agenta_Medico
                 {
                     error.agregarError("No puede elegir rangos que se superpongan en el mismo dia.");
                 }
+                if (agendas.Any(elem => elem.dia == nueva.dia && elem.id_especialidad == nueva.id_especialidad))
+                {
+                    error.agregarError("No se puede trabajar dos veces con la misma especialidad en el mismo dia.");
+                }
             }
             if (!error.huboError()) 
             {
