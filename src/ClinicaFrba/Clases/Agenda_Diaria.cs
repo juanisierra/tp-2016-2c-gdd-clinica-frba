@@ -16,6 +16,9 @@ namespace ClinicaFrba.Clases
         public TimeSpan hora_hasta { set; get; }
         public int id_especialidad { set; get; }
         public long id_rango { set; get; }
+        public String diaPropio { set; get; }
+        public String nombreEspecialidad { set; get; }
+
         public Boolean esValida()
         {
             return hora_desde < hora_hasta;
@@ -27,11 +30,17 @@ namespace ClinicaFrba.Clases
             this.hora_desde = new TimeSpan(h_desde,m_desde,0);
             this.hora_hasta = new TimeSpan(h_hasta, m_hasta, 0);
             this.id_especialidad = id_especialidad;
+            this.diaPropio = Dia.generarDia(dia).nombre;
+            this.nombreEspecialidad = Especialidad.especialidadesPorProfesional(matricula).Find(esp => esp.id_especialidad == id_especialidad).descripcion;
         }
         public Agenda_Diaria() {}
         public double horasDiarias()
         {
             return (hora_hasta - hora_desde).TotalHours;
+        }
+        public Dia generarDia()
+        {
+            return Dia.generarDia((int) dia);
         }
         public static  List<Agenda_Diaria> getAgendaProfesional(Int64 matricula,int id_especialidad,Int64 id_rango)
         {   
@@ -69,7 +78,13 @@ namespace ClinicaFrba.Clases
             return lista;
         }
 
-
+        public static Boolean seSuperponen(List<Agenda_Diaria> agendas, Agenda_Diaria nueva)
+        {
+            List<Agenda_Diaria> agendasDelDia = agendas.FindAll(a => a.dia == nueva.dia);
+            List<TimeSpan> horarios = new List<TimeSpan>();
+            agendasDelDia.ForEach(a => horarios.AddRange(a.generarHorarios()));
+            return nueva.generarHorarios().Any(horario => horarios.Contains(horario));
+        }
 
     }
 }

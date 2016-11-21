@@ -126,6 +126,7 @@
     <Compile Include="Clases\Agenda_Diaria.cs" />
     <Compile Include="Clases\Bono.cs" />
     <Compile Include="Clases\Cancelacion_Profesional.cs" />
+    <Compile Include="Clases\Dia.cs" />
     <Compile Include="Clases\Enums.cs" />
     <Compile Include="Clases\Plan.cs" />
     <Compile Include="Clases\Turno.cs" />
