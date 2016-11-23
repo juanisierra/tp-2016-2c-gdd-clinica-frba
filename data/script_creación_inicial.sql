@@ -457,7 +457,7 @@ group by Medico_Dni
 GO
 --Insertar Agendas diarias por rango y especialidad
 INSERT INTO ELIMINAR_CAR.Agenda_Diaria (matricula,id_especialidad,dia,hora_hasta,hora_desde,id_rango)
-SELECT Medico_Dni medico,Especialidad_Codigo esp,DATEPART(weekday,Turno_Fecha) dia,Max(CAST(Turno_Fecha as TIME)),Min(CAST(Turno_Fecha as TIME)),(SELECT TOP 1 id_rango from ELIMINAR_CAR.Rango_Atencion where matricula=m.Medico_Dni)
+SELECT Medico_Dni medico,Especialidad_Codigo esp,DATEPART(weekday,Turno_Fecha) dia,DATEADD(minute,30,Max(CAST(Turno_Fecha as TIME))),Min(CAST(Turno_Fecha as TIME)),(SELECT TOP 1 id_rango from ELIMINAR_CAR.Rango_Atencion where matricula=m.Medico_Dni)
 FROM gd_esquema.Maestra m
 where Medico_Dni is not null
 group by Medico_Dni,Especialidad_Codigo,DATEPART(weekday,Turno_Fecha) 
@@ -745,24 +745,27 @@ BEGIN
 END
 GO
 
+CREATE FUNCTION ELIMINAR_CAR.horasEntre(@hora_desde TIME,@hora_hasta TIME) RETURNS DECIMAL(6,2)
+AS
+BEGIN
+return (convert(DECIMAL(6,2),datediff(minute, @HORA_DESDE, @HORA_HASTA))/60.00)
+END
+GO
 CREATE FUNCTION ELIMINAR_CAR.SumarHorasRango(@MATRICULA BIGINT, @DIA INT,@id_rango BIGINT,@id_especialidad INT) RETURNS DECIMAL(6,2)
 AS
 BEGIN
-	DECLARE @TIEMPO_TRABAJADO DECIMAL(6,2), @HORA_DESDE TIME, @HORA_HASTA TIME
+	DECLARE @TIEMPO_TRABAJADO DECIMAL(6,2)
+
 	--SI hay una sola especialidad la filtra y toma esos datos, sino busca el total del dia
-	SELECT @HORA_DESDE=MIN(A.hora_desde), @HORA_HASTA = MAX(A.hora_hasta) FROM ELIMINAR_CAR.Agenda_Diaria A WHERE matricula=@MATRICULA and dia = @DIA AND @id_rango=id_rango and id_especialidad= case @id_especialidad
-																																																		when -1 then id_especialidad
+	SELECT @TIEMPO_TRABAJADO=SUM(ELIMINAR_CAR.horasEntre(A.hora_desde,A.hora_hasta)) FROM ELIMINAR_CAR.Agenda_Diaria A WHERE matricula=@MATRICULA and dia = @DIA AND @id_rango=id_rango and id_especialidad= case @id_especialidad
+																																																	when -1 then id_especialidad
 																																																		else @id_especialidad
 																																																		end
 	--sINO NO ANDA POR EL MIN Y MAX
-	IF exists( SELECT * FROM ELIMINAR_CAR.Agenda_Diaria A WHERE matricula=@MATRICULA and dia = @DIA AND @id_rango=id_rango and id_especialidad= case @id_especialidad
+	IF not exists( SELECT * FROM ELIMINAR_CAR.Agenda_Diaria A WHERE matricula=@MATRICULA and dia = @DIA AND @id_rango=id_rango and id_especialidad= case @id_especialidad
 																																																		when -1 then id_especialidad
 																																																		else @id_especialidad
 																																																		end)
-		BEGIN
-		SET @TIEMPO_TRABAJADO = (convert(DECIMAL(6,2),datediff(minute, @HORA_DESDE, @HORA_HASTA))/60.00)
-		END
-	ELSE
 		BEGIN
 		SET @TIEMPO_TRABAJADO = 0
 		END
@@ -770,9 +773,6 @@ BEGIN
 		RETURN @TIEMPO_TRABAJADO
 END
 GO
-
-
-
 
 --Suma las horas del profesional en un rango determinado, si el mes esta mal no va a sumarlas
 CREATE FUNCTION ELIMINAR_CAR.horas_profRango (@matricula BIGINT, @id_especialidad INT, @fecha DATETIME,@rango BIGINT) RETURNS DECIMAL(6,2)
