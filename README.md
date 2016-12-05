@@ -5,3 +5,5 @@ DER: https://drive.google.com/file/d/0B5aIe8RCretvWE5sczlHa3B0MlU/view?usp=shari
 DER v2: https://drive.google.com/file/d/0B5aIe8RCretvbXhNY0RDS0g1TUk/view?usp=sharing
 
 Estrategia: https://docs.google.com/document/d/1xv4AGHu0iBTqa_xtTLduxfv6lXv9BqztSoQQFCp5s_8/edit?usp=sharing
+
+Enunciado: https://drive.google.com/open?id=0B_t8j3nOHeJcMnVfeXZTSEdqNGM
